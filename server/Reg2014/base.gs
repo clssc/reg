@@ -5,16 +5,16 @@
 
 /**
  * Public folder to store shared reports.
- * @type {string}
+ * @const {string}
  */
-PUBLIC_FOLDER = 'Reports';
+var PUBLIC_FOLDER = 'Reports';
 
 
 /**
  * Paddings.
  * @const {string}
  */
-PADDINGS = '                                                            ';
+var PADDINGS = '                                                            ';
 
 
 /**
@@ -41,7 +41,7 @@ function lookupAndOpenFile(fileName) {
   var files = getFilesByType('spreadsheet');
   for (var i = 0; i < files.length; ++i) {
     if (files[i].getName() == fileName) {
-      return SpreadsheetApp.open(files[i])
+      return SpreadsheetApp.open(files[i]);
     }
   }
   return null;
