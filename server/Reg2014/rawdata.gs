@@ -149,7 +149,7 @@ RawData.prototype.validateStudents = function(data, consent) {
     student.dob = data[i].dob;
     student.gender = data[i].gender == 'F' ? 'F' : 'M';
     student.prev_class = '';
-    student.class = '';
+    student.currClass = '';
     student.speak_chinese = data[i].sch == 'Y' ? 'Y' : 'N';
     student.text_pref = data[i].pref;
     student.active = false;

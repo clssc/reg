@@ -44,7 +44,7 @@ Db = function(opt_dbName, opt_openById) {
     'Class': null,
     'Family': null,
     'Parent': null,
-    'Student': null,
+    'Student': null
   };
   
   /**
@@ -229,7 +229,7 @@ Db.prototype.clear = function() {
     'Class': null,
     'Family': null,
     'Parent': null,
-    'Student': null,
+    'Student': null
   };
   this.class_ = undefined;
   this.family_ = undefined;

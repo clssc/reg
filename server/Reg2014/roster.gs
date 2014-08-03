@@ -9,7 +9,7 @@
  * @type {string}
  * @const
  */
-ROSTER_NAME = 'Roster';
+var ROSTER_NAME = 'Roster';
 
 
 /**
@@ -17,14 +17,14 @@ ROSTER_NAME = 'Roster';
  * @type {string}
  * @const
  */
-PUBLIC_ROSTER_NAME = 'PublicRoster'; 
+var PUBLIC_ROSTER_NAME = 'PublicRoster'; 
 
 
 /**
  * Name of template to use.
  * @const {string}
  */
-PUBLIC_ROSTER_TEMPLATE = 'PublicRosterTemplate';
+var PUBLIC_ROSTER_TEMPLATE = 'PublicRosterTemplate';
 
 
 /**
@@ -32,21 +32,21 @@ PUBLIC_ROSTER_TEMPLATE = 'PublicRosterTemplate';
  * @type {string}
  * @const
  */
-CLASS_ROSTER_NAME = 'ClassRoster'; 
+var CLASS_ROSTER_NAME = 'ClassRoster'; 
 
 
 /**
  * Name of template to use.
  * @const {string}
  */
-CLASS_ROSTER_TEMPLATE = 'ClassRosterTemplate';
+var CLASS_ROSTER_TEMPLATE = 'ClassRosterTemplate';
 
 
 /**
  * Token for CR LF
  * @const {string}
  */
-CRLF = '<br/>';
+var CRLF = '<br/>';
 
 
 /**
@@ -96,7 +96,7 @@ function generateFullPublicRoster(opt_db, opt_output) {
       dataRow.push(student.last_name);
       dataRow.push(student.first_name);
       dataRow.push(student.chinese_name);
-      dataRow.push(student.class);
+      dataRow.push(student.currClass);
       sheet.appendRow(dataRow);
     }
   
@@ -170,7 +170,7 @@ function generateFullRoster(opt_db, opt_output) {
       }
     }
     sheet.appendRow([
-      student.class,
+      student.currClass,
       student.family_number,
       student.chinese_name,
       student.first_name,
@@ -205,15 +205,15 @@ function generatePublicRosterData(opt_db) {
   
   for (var i = 0; i < classes.length; ++i) {
     var datum = {};
-    var class = classes[i];
-    datum['class'] = class.name;
-    datum['room'] = class.location;
-    datum['teacher'] = class.teacher;
+    var classItem = classes[i];
+    datum['class'] = classItem.name;
+    datum['room'] = classItem.location;
+    datum['teacher'] = classItem.teacher;
     datum['rows'] = [];
     
     var classStudents = [];
     for (var j = 0; j < students.length; ++j) {
-      if (students[j].class.toUpperCase() == class.name.toUpperCase()) {
+      if (students[j].currClass.toUpperCase() == classItem.name.toUpperCase()) {
         classStudents.push(students[j]);
       }
     }
@@ -275,7 +275,7 @@ function scanTable(table, data) {
     PADDING_RIGHT: attr['PADDING_RIGHT'],
     PADDING_BOTTOM: attr['PADDING_BOTTOM'],
     PADDING_LEFT: attr['PADDING_LEFT'],
-    VERTICAL_ALIGNMENT: attr['VERTICAL_ALIGNMENT'],
+    VERTICAL_ALIGNMENT: attr['VERTICAL_ALIGNMENT']
   };
   for (var i = 0; i < data['rows'].length; ++i) {
     var row = table.appendTableRow();
@@ -345,18 +345,18 @@ function generateClassRosterData() {
   
   for (var i = 0; i < classes.length; ++i) {
     var datum = {};
-    var class = classes[i];
-    datum['class'] = class.name;
+    var classItem = classes[i];
+    datum['class'] = classItem.name;
     datum['yearrange'] = yearRange;
-    datum['tname'] = class.teacher;
-    datum['taname'] = class.ta;
-    datum['temail'] = class.teacher_email;
-    datum['taemail'] = class.ta_email;
+    datum['tname'] = classItem.teacher;
+    datum['taname'] = classItem.ta;
+    datum['temail'] = classItem.teacher_email;
+    datum['taemail'] = classItem.ta_email;
     datum['rows'] = [];
     
     var classStudents = [];
     for (var j = 0; j < students.length; ++j) {
-      if (students[j].class.toUpperCase() == class.name.toUpperCase()) {
+      if (students[j].currClass.toUpperCase() == classItem.name.toUpperCase()) {
         classStudents.push(students[j]);
       }
     }

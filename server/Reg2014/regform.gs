@@ -2,56 +2,56 @@
  * Early bird tuition per student.
  * @const {number}
  */
-EARLY_BIRD_TUITION = 600;
+var EARLY_BIRD_TUITION = 600;
 
 
 /**
  * Normal tuition per student.
  * @const {number}
  */
-NORMAL_TUITION = 700;
+var NORMAL_TUITION = 700;
 
 
 /**
  * Service points deposit per family.
  * @const {number}
  */
-SERVICE_DEPOSIT = 200;
+var SERVICE_DEPOSIT = 200;
 
 
 /**
  * Service fine per point.
  * @const {number}
  */
-SERVICE_FINE = 20;
+var SERVICE_FINE = 20;
 
 
 /**
  * Minimal service points requirements.
  * @const {number}
  */
-MIN_SERVICE_POINTS = 20;
+var MIN_SERVICE_POINTS = 20;
 
 
 /**
  * Name of template to use.
  * @const {string}
  */
-REG_FORM_TEMPLATE = 'RegFormTemplate';
+var REG_FORM_TEMPLATE = 'RegFormTemplate';
 
 
 /**
  * Blank RegForm Name.
  * @const {string}
  */
-BLANK_REG_FORM = 'BlankRegForm';
+var BLANK_REG_FORM = 'BlankRegForm';
 
 
 /**
  * Blank RegForm Name.
  * @const {string}
  */
-REG_FORM = 'RegForm';
+var REG_FORM = 'RegForm';
 
 
 
@@ -224,7 +224,7 @@ RegForm.prototype.getFormData_ = function(familyNumber) {
     data[fieldNames[3]] = Utilities.formatDate(s.dob, 'GMT', 'MM/dd/yy');
     data[fieldNames[4]] = s.gender;
     data[fieldNames[5]] = s.prev_class;
-    data[fieldNames[6]] = s.class;
+    data[fieldNames[6]] = s.currClass;
     data[fieldNames[7]] = s.speak_chinese ? 'Y' : 'N';
     data[fieldNames[8]] = s.text_pref;
   }

@@ -242,7 +242,7 @@ ParentItem.createTitleRow = function(sheet, item) {
     'work_phone',
     'cell_phone',
     'email',
-    'chinese_level',
+    'chinese_level'
   ]);
 };
 
@@ -263,6 +263,6 @@ ParentItem.serialize = function(sheet, item, opt_familyNumber) {
     item.work_phone,
     item.cell_phone,
     item.email,
-    item.chinese_level,
+    item.chinese_level
   ]);
 };

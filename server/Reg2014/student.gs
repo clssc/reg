@@ -152,7 +152,7 @@ StudentItem = function(values) {
   this.prev_class = values[6];
   
   /** @type {string} */
-  this.class = values[7];
+  this.currClass = values[7];
   
   /** @type {boolean} */
   this.speak_chinese = (values[8].toUpperCase() === 'Y');
@@ -188,7 +188,7 @@ function testStudent(target) {
   assertEquals(2007, student1.dob.getFullYear());
   assertEquals('M', student1.gender);
   assertEquals('PA', student1.prev_class);
-  assertEquals('1A1', student1.class);
+  assertEquals('1A1', student1.currClass);
   assertTrue(student1.speak_chinese);
   assertEquals('1', student1.text_pref);
   assertEquals(true, student1.active);
@@ -222,7 +222,7 @@ StudentItem.parse = function(values, i, warnings) {
   student.dob = new Date(values[i + 3]);
   student.gender = values[i + 4].substring(0, 1).toUpperCase();
   student.prev_class = values[i + 5];
-  student.class = values[i + 6];
+  student.currClass = values[i + 6];
   student.speak_chinese = (values[i + 7].substring(0, 1).toUpperCase() === 'Y');
   student.text_pref = values[i + 8].substring(0, 1);
   student.active = false;
@@ -289,7 +289,7 @@ StudentItem.serialize = function(sheet, item, opt_familyNumber) {
     item.dob,
     item.gender,
     item.prev_class,
-    item.class,
+    item.currClass,
     item.speak_chinese ? 'Y' : 'N',
     item.text_pref.toString(),
     item.active ? 'Y' : 'N',

@@ -8,7 +8,7 @@
  * @type {string}
  * @const
  */
-SERVICE_DB_NAME = 'ServiceDB';
+var SERVICE_DB_NAME = 'ServiceDB';
 
 
 
