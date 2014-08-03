@@ -5,7 +5,7 @@
 
 /**
  * Public folder to store shared reports.
- * @const {string}
+ * @type {string}
  */
 var PUBLIC_FOLDER = 'Reports';
 
@@ -34,6 +34,8 @@ function logSchoolYear() {
 
 /**
  * Search for the spreadsheet of given file name.
+ * WARNING: PERFORMANCE ISSUE IDENTIFIED
+ * It takes at least 3 second to open a file.
  * @param {string} fileName
  * @return {Spreadsheet}
  */

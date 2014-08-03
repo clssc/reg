@@ -3,12 +3,20 @@
  * @author arthurhsu@westsidechineseschool.org (Arthur Hsu)
  */
 
+
+/**
+ * REGDB2014
+ * @const {string}
+ */
+var DB_DOCID = '0AgvYC6nj697MdHJsNlJZNlBQOHZzX3RnV2hyZHBtV3c';
+
+
 /**
  * File name of the database.
  * @type {string}
  * @const
  */
-DB_NAME = 'RegDB';
+var DB_NAME = 'RegDB';
 
 
 /**
@@ -21,10 +29,11 @@ var DBInstances = {};
 
 /**
  * The registration database.
- * @param {string} opt_dbName Spreadsheet name to open as database.
+ * @param {string} opt_dbName Spreadsheet name or id to open as database.
+ * @param {boolean=} opt_openById The dbName given is a doc id.
  * @constructor
  */
-Db = function(opt_dbName) {
+Db = function(opt_dbName, opt_openById) {
   /**
    * Tables in the database. App script does not allow enum,
    * so we need to use fragile strings.
@@ -62,7 +71,7 @@ Db = function(opt_dbName) {
    */
   this.student_;
   
-  this.initialize_(opt_dbName);
+  this.initialize_(opt_dbName, opt_openById);
 };
 
 
@@ -135,14 +144,16 @@ Db.prototype.loadData_ = function(tableName) {
 /**
  * Initialize database.
  * @param {string} opt_dbName
+ * @param {boolean} opt_openById
  * @private_
  */
-Db.prototype.initialize_ = function(opt_dbName) {
+Db.prototype.initialize_ = function(opt_dbName, opt_openById) {
   this.clear();
   
   // Search and open the spread sheet
-  var dbName = opt_dbName || DB_NAME + getSchoolYear();
-  var spreadsheet = lookupAndOpenFile(dbName);
+  var dbName = opt_dbName || DB_DOCID;
+  var openById = opt_openById || (dbName == DB_DOCID);
+  var spreadsheet = openById ? SpreadsheetApp.openById(dbName) : lookupAndOpenFile(dbName);
   
   // Map all sheet objects
   if (spreadsheet) {
@@ -310,9 +321,9 @@ Db.prototype.nextAvailableFamilyNumber = function() {
  * @return {Db}
  */
 Db.getInstance = function(opt_dbName) {
-  var dbName = opt_dbName || DB_NAME + getSchoolYear();
+  var dbName = opt_dbName || DB_DOCID;
   if (!DBInstances.dbName) {
-    return new Db(dbName);
+    return new Db(dbName, true);
   }
   return DBInstances.dbName;
 }
@@ -329,4 +340,82 @@ function testNextAvailableFamilyNumber(db) {
 function getNextAvailableFamilyNumber() {
   var db = Db.getInstance();
   DebugLog(db.nextAvailableFamilyNumber());
+}
+
+
+/** Construct fast name lookup table */
+function buildNameLookup() {
+  var db = new Db();
+  var parents = db.getParent().getAll();
+  var students = db.getStudent().getAll();
+  var tuples = [];
+  for (var i = 0; i < parents.length; ++i) {
+    tuples.push([
+        parents[i].english_name,
+        parents[i].chinese_name,
+        parents[i].family_number]);
+  }
+
+  for (var j = 0; j < students.length; ++j) {
+    tuples.push([
+        students[j].first_name + ' ' + students[j].last_name,
+        students[j].chinese_name,
+        students[j].family_number]);
+  }
+
+  var outputFile = lookupAndOpenFile('NameLookup') ||
+      SpreadsheetApp.create(fileName);
+  shareFile(outputFile);
+  var sheet = outputFile.getActiveSheet();
+  sheet.clear();
+
+  // Output title row
+  sheet.appendRow([
+    'english_name',
+    'chinese_name',
+    'family_number'
+  ]);
+
+  for (var k = 0; k < tuples.length; ++k) {
+    sheet.appendRow(tuples[k]);
+  }
+}
+
+function autoMailer() {
+  var db = new Db();
+  var parents = db.getParent().getAll();
+  var targets = [1020];
+  var files = getFilesByType('document');
+
+  for (var i = 0; i < parents.length; ++i) {
+    var p = parents[i];
+    if (targets.indexOf(p.family_number) != -1) {
+      if (p.email.length) {
+        var docId = null;
+        docName = 'RegForm2014-' + p.family_number;
+        for (var j = 0; j < files.length; ++j) {
+          if (files[j].getName() == docName) {
+            docId = files[j].getId();
+            break;
+          }
+        }
+        if (docId == null) continue;
+
+        var pdf = DocumentApp.openById(docId).getAs('application/pdf');
+        Logger.log('mailing ' + docName + ' to ' + p.email);
+        MailApp.sendEmail({
+          to: p.email,
+          subject: 'Westside Chinese School Registration Form',
+          htmlBody: '<b>AUTO-GENERATED E-MAIL. DO NOT REPLY.</b><br/><br/>' +
+                    'Attached file is your registration form for school year 2014-2015. ' +
+                    'The deadline to receive the $100 early bird registration discount is 07-31-14. ' +
+                    'In order to be eligible, please mail in the attached form and check before deadline.' +
+                    '<br/><br/>' +
+                    'If you have questions about the form, please contact ' +
+                    '<a href="mailto:arthur@cchsu.com">arthur@cchsu.com</a>',
+          attachments: pdf
+        });
+      }
+    }
+  }
 }

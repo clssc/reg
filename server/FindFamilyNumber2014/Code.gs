@@ -54,14 +54,8 @@ function applyStyles(element, style) {
 }
 
 function getFamilyNumber(name) {
-  var db;
-
-  if (!db) {
-    db = Reg.Db.getInstance();
-  }
-  db.getParent();
-  db.getStudent();
-  return db.lookupFamilyNumber(name);
+  var fn = new Reg.FamilyNumberLookup();
+  return fn.lookup(name);
 }
       
 function onFind(eventInfo) {
@@ -84,4 +78,3 @@ function testFind() {
   Logger.log(getFamilyNumber('Rebecca Hsu'));
   Logger.log(getFamilyNumber('李小強'));
 }
-

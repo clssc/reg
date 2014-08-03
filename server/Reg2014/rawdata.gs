@@ -2,6 +2,12 @@
  * @fileoverview Convert web submitted JSON object to RawDB.
  * @author arthurhsu@westsidechineseschool.org (Arthur Hsu)
  */
+
+
+/** @const {string} */
+var RAWDATA_DOCID = '0AgvYC6nj697MdEYyeGVpeXJLNGlBMUJabEM4Y1JvbVE';
+
+
 /**
  * Generates fail string with reason.
  * @param {string} message 
@@ -160,8 +166,7 @@ RawData.prototype.validateStudents = function(data, consent) {
  * @param {Object} entry
  */
 function writeEntry(entry) {
-  var outputName = 'RawDB2014';
-  var outputFile = lookupAndOpenFile(outputName);
+  var outputFile = SpreadsheetApp.openById(RAWDATA_DOCID);
   
   var familyTable = outputFile.getSheetByName('Family');
   var parentTable = outputFile.getSheetByName('Parent');
@@ -184,25 +189,24 @@ function writeEntry(entry) {
  */
 RawData.prototype.generateFamilyNumber = function() {
   var familyNumber = -1;
-  var db = new Db();  // Open real DB.
+  var fn = new FamilyNumberLookup();
   var rawDb = new Db('RawDB2014');  // Open raw DB.
   for (var i = 0; i < this.entry.parents.length && familyNumber == -1; ++i) {
-    familyNumber = db.lookupFamilyNumber(this.entry.parents[i].english_name);
+    familyNumber = fn.lookup(this.entry.parents[i].english_name);
     familyNumber = rawDb.lookupFamilyNumber(this.entry.parents[i].english_name);
   }
   for (var i = 0; i < this.entry.students.length && familyNumber == -1; ++i) {
     var student = this.entry.students[i];
     var name = student.first_name + ' ' + student.last_name;
-    familyNumber = db.lookupFamilyNumber(name);
+    familyNumber = fn.lookup(name);
     familyNumber = rawDb.lookupFamilyNumber(name);
   }
   for (var i = 0; i < this.entry.parents.length && familyNumber == -1; ++i) {
-    familyNumber = db.lookupFamilyNumber(this.entry.parents[i].chinese_name);
+    familyNumber = fn.lookup(this.entry.parents[i].chinese_name);
   }
   if (familyNumber == -1) {
     familyNumber = rawDb.nextAvailableFamilyNumber();
   }
-  
   this.entry.family.family_number = familyNumber;
   for (var i = 0; i < this.entry.parents.length; ++i) {
     this.entry.parents[i].family_number = familyNumber;
