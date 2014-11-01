@@ -1,0 +1,372 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Westside Chinese School Registration 2014-2015</title>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" href="common.css" />
+</head>
+<body>
+<!-- @@start -->
+
+<div class="page" id="page3" style="visibility:none">
+  <div class="pagetitle">
+    <div data-name="title">Westside Chinese School Registration</div>
+  </div>
+  <div class="subtitle">
+    <div>4 of 7 -&nbsp;</div>
+    <div data-name="subtitle">Student Info</div>
+  </div>
+  <br />
+  <div>
+    <div data-name="desc">
+      In this page we will be inputing student information. Please input
+      <strong>ALL</strong> students in your family that are going to Chinese
+      School.
+    </div>
+	<br />
+  </div>
+  <div data-name="numofstudents">Please indicate how many students in your family will go to Chinese School:</div>
+  <select id="num_stu">
+    <option selected>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+  </select>
+  <hr />
+  <div id="stu1">
+    <table>
+      <tr>
+        <td id="s1tln">
+          <div data-name="enlastname" class="req">Last Name</div>
+        </td>
+        <td><input type="text" id="s1ln" maxlength="25"/></td>
+        <td id="s1tfn">
+          <div data-name="enfirstname" class="req">First Name</div>
+        </td>
+        <td><input type="text" id="s1fn" maxlength="25"/></td>
+      </tr>
+      <tr>
+        <td id="s1tcn">
+          <div data-name="chnname">Chinese Name</div>
+        </td>
+        <td><input type="text" id="s1chn" maxlength="5"/></td>
+        <td id="s1tbd">
+          <div data-name="birthdate" class="req">Date of Birth</div>
+        </td>
+        <td><input type="text" id="s1bd" /></td>
+      </tr>
+      <tr>
+        <td id="s1tg">
+          <div data-name="gender" class="req">Gender</div>
+        </td>
+        <td>
+          <input type="radio" name="s1g" value="M" id="s1gm" />
+          <div data-name="male">Male</div>
+          <input type="radio" name="s1g" value="F" id="s1gf" />
+          <div data-name="female">Female</div>
+        </td>
+        <td id="s1ts">
+          <div data-name="scah" class="req">Speak Chinese at Home</div>
+        </td>
+        <td>
+          <input type="radio" name="s1s" value="Y" id="s1sy" />Yes
+          <input type="radio" name="s1s" value="N" id="s1sn" />No
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div data-name="textpref" class="req">Text Language Preference</div>
+        </td>
+        <td>
+          <select id="s1pref">
+            <option value="1">1. Traditional Zhuyin 繁體注音</option>
+            <option value="2">2. Traditional Pinyin 繁體拼音</option>
+            <option value="3">3. Simplified 简体</option>
+          </select>
+        </td>
+        <td>
+          <div class="req">T-Shirt Size</div>
+        </td>
+        <td>
+          <select id="s1tshirt">
+            <option value="YS">Youth S</option>
+            <option value="YM">Youth M</option>
+            <option value="YL">Youth L</option>
+            <option value="AS">Adult S</option>
+            <option value="AM">Adult M</option>
+            <option value="AL">Adult L</option>
+            <option value="AXL">Adult XL</option>
+            <option value="AXXL">Adult XXL</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div data-name="learnedchn" class="req">Learned Chinese in School/Tutoring</div>
+        </td>
+        <td colspan=3>
+          <select id="s1learned">
+            <option value="0">No</option>
+            <option value="1">&lt;1 year</option>
+            <option value="2">1 - 2 years</option>
+            <option value="3">2+ years</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="stu2">
+    <table>
+      <tr>
+        <td id="s2tln">
+          <div data-name="enlastname" class="req">Last Name</div>
+        </td>
+        <td><input type="text" id="s2ln" maxlength="25"/></td>
+        <td id="s2tfn">
+          <div data-name="enfirstname" class="req">First Name</div>
+        </td>
+        <td><input type="text" id="s2fn" maxlength="25"/></td>
+      </tr>
+      <tr>
+        <td id="s2tcn">
+          <div data-name="chnname">Chinese Name</div>
+        </td>
+        <td><input type="text" id="s2chn" maxlength="5"/></td>
+        <td id="s2tbd">
+          <div data-name="birthdate" class="req">Date of Birth</div>
+        </td>
+        <td><input type="text" id="s2bd" /></td>
+      </tr>
+      <tr>
+        <td id="s2tg">
+          <div data-name="gender" class="req">Gender</div>
+        </td>
+        <td>
+          <input type="radio" name="s2g" id="s2gm" />
+          <div data-name="male">Male</div>
+          <input type="radio" name="s2g" id="s2gf" />
+          <div data-name="female">Female</div>
+        </td>
+        <td id="s2ts">
+          <div data-name="scah" class="req">Speak Chinese at Home</div>
+        </td>
+        <td>
+          <input type="radio" name="s2s" id="s2sy" />Yes
+          <input type="radio" name="s2s" id="s2sn" />No
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div data-name="textpref" class="req">Text Language Preference</div>
+        </td>
+        <td>
+          <select id="s2pref">
+            <option value="1">1. Traditional Zhuyin 繁體注音</option>
+            <option value="2">2. Traditional Pinyin 繁體拼音</option>
+            <option value="3">3. Simplified 简体</option>
+          </select>
+        </td>
+        <td>
+          <div class="req">T-Shirt Size</div>
+        </td>
+        <td>
+          <select id="s2tshirt">
+            <option value="YS">Youth S</option>
+            <option value="YM">Youth M</option>
+            <option value="YL">Youth L</option>
+            <option value="AS">Adult S</option>
+            <option value="AM">Adult M</option>
+            <option value="AL">Adult L</option>
+            <option value="AXL">Adult XL</option>
+            <option value="AXXL">Adult XXL</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div data-name="learnedchn" class="req">Learned Chinese in School/Tutoring</div>
+        </td>
+        <td colspan=3>
+          <select id="s2learned">
+            <option value="0">No</option>
+            <option value="1">&lt;1 year</option>
+            <option value="2">1 - 2 years</option>
+            <option value="3">2+ years</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="stu3">
+    <table>
+      <tr>
+        <td id="s3tln">
+          <div data-name="enlastname" class="req">Last Name</div>
+        </td>
+        <td><input type="text" id="s3ln" maxlength="25"/></td>
+        <td id="s3tfn">
+          <div data-name="enfirstname" class="req">First Name</div>
+        </td>
+        <td><input type="text" id="s3fn" maxlength="25"/></td>
+      </tr>
+      <tr>
+        <td id="s3tcn">
+          <div data-name="chnname">Chinese Name</div>
+        </td>
+        <td><input type="text" id="s3chn" maxlength="5"/></td>
+        <td id="s3tbd">
+          <div data-name="birthdate" class="req">Date of Birth</div>
+        </td>
+        <td><input type="text" id="s3bd" /></td>
+      </tr>
+      <tr>
+        <td id="s3tg">
+          <div data-name="gender" class="req">Gender</div>
+        </td>
+        <td>
+          <input type="radio" name="s3g" id="s3gm" />
+          <div data-name="male">Male</div>
+          <input type="radio" name="s3g" id="s3gf" />
+          <div data-name="female">Female</div>
+        </td>
+        <td id="s3ts">
+          <div data-name="scah" class="req">Speak Chinese at Home</div>
+        </td>
+        <td>
+          <input type="radio" name="s3s" id="s3sy" />Yes
+          <input type="radio" name="s3s" id="s3sn" />No
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div data-name="textpref" class="req">Text Language Preference</div>
+        </td>
+        <td>
+          <select id="s3pref">
+            <option value="1">1. Traditional Zhuyin 繁體注音</option>
+            <option value="2">2. Traditional Pinyin 繁體拼音</option>
+            <option value="3">3. Simplified 简体</option>
+          </select>
+        </td>
+        <td>
+          <div class="req">T-Shirt Size</div>
+        </td>
+        <td>
+          <select id="s3tshirt">
+            <option value="YS">Youth S</option>
+            <option value="YM">Youth M</option>
+            <option value="YL">Youth L</option>
+            <option value="AS">Adult S</option>
+            <option value="AM">Adult M</option>
+            <option value="AL">Adult L</option>
+            <option value="AXL">Adult XL</option>
+            <option value="AXXL">Adult XXL</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div data-name="learnedchn" class="req">Learned Chinese in School/Tutoring</div>
+        </td>
+        <td colspan=3>
+          <select id="s3learned">
+            <option value="0">No</option>
+            <option value="1">&lt;1 year</option>
+            <option value="2">1 - 2 years</option>
+            <option value="3">2+ years</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="stu4">
+    <table>
+      <tr>
+        <td id="s4tln">
+          <div data-name="enlastname" class="req">Last Name</div>
+        </td>
+        <td><input type="text" id="s4ln" maxlength="25"/></td>
+        <td id="s4tfn">
+          <div data-name="enfirstname" class="req">First Name</div>
+        </td>
+        <td><input type="text" id="s4fn" maxlength="25"/></td>
+      </tr>
+      <tr>
+        <td id="s4tcn">
+          <div data-name="chnname">Chinese Name</div>
+        </td>
+        <td><input type="text" id="s4chn" maxlength="5"/></td>
+        <td id="s4tbd">
+          <div data-name="birthdate" class="req">Date of Birth</div>
+        </td>
+        <td><input type="text" id="s4bd" /></td>
+      </tr>
+      <tr>
+        <td id="s4tg">
+          <div data-name="gender" class="req">Gender</div>
+        </td>
+        <td>
+          <input type="radio" name="s4g" id="s4gm" />
+          <div data-name="male">Male</div>
+          <input type="radio" name="s4g" id="s4gf" />
+          <div data-name="female">Female</div>
+        </td>
+        <td id="s4ts">
+          <div data-name="scah" class="req">Speak Chinese at Home</div>
+        </td>
+        <td>
+          <input type="radio" name="s4s" id="s4sy" />Yes
+          <input type="radio" name="s4s" id="s4sn" />No
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div data-name="textpref" class="req">Text Language Preference</div>
+        </td>
+        <td>
+          <select id="s4pref">
+            <option value="1">1. Traditional Zhuyin 繁體注音</option>
+            <option value="2">2. Traditional Pinyin 繁體拼音</option>
+            <option value="3">3. Simplified 简体</option>
+          </select>
+        </td>
+        <td>
+          <div class="req">T-Shirt Size</div>
+        </td>
+        <td>
+          <select id="s4tshirt">
+            <option value="YS">Youth S</option>
+            <option value="YM">Youth M</option>
+            <option value="YL">Youth L</option>
+            <option value="AS">Adult S</option>
+            <option value="AM">Adult M</option>
+            <option value="AL">Adult L</option>
+            <option value="AXL">Adult XL</option>
+            <option value="AXXL">Adult XXL</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div data-name="learnedchn" class="req">Learned Chinese in School/Tutoring</div>
+        </td>
+        <td colspan=3>
+          <select id="s4learned">
+            <option value="0">No</option>
+            <option value="1">&lt;1 year</option>
+            <option value="2">1 - 2 years</option>
+            <option value="3">2+ years</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br />
+  <input type="button" id="prev3" value="&lt;&lt; Previous" />
+  <input type="button" id="next3" value="Next &gt;&gt;" />
+</div>
+
+<!-- @@end -->
+</body>
+</html>

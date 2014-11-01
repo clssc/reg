@@ -1,0 +1,197 @@
+@@start{title}
+@@line{en} Westside Chinese School Registration
+@@line{tc} 西區中文學校網路註冊
+@@line{sc} 西区中文学校网络注册
+@@end{title}
+
+@@start{subtitle}
+@@line{en} Data Summary
+@@line{tc} 資料確認
+@@line{sc} 资料确认
+@@end{subtitle}
+
+@@start{familyinfo}
+@@line{en} Family Information
+@@line{tc} 家庭資料
+@@line{sc} 家庭资料
+@@end{familyinfo}
+
+@@start{p1t}
+@@line{en} Parent/Guardian 1
+@@line{tc} 家長/監護人1
+@@line{sc} 家长/监护人1
+@@end{p1t}
+
+@@start{p2t}
+@@line{en} Parent/Guardian 2
+@@line{tc} 家長/監護人2
+@@line{sc} 家长/监护人2
+@@end{p2t}
+
+@@start{pteng_name}
+@@line{en} English Name
+@@line{tc} 英文姓名
+@@line{sc} 英文姓名
+@@end{pteng_name}
+
+@@start{ptchn_name}
+@@line{en} Chinese Name
+@@line{tc} 中文姓名
+@@line{sc} 中文姓名
+@@end{ptchn_name}
+
+@@start{ptocu}
+@@line{en} Occupation/Specialty
+@@line{tc} 職業/專長
+@@line{sc} 职业/专长
+@@end{ptocu}
+
+@@start{ptcell}
+@@line{en} Primary Phone
+@@line{tc} 主要電話
+@@line{sc} 主要电话
+@@end{ptcell}
+
+@@start{ptworkph}
+@@line{en} Secondary Phone
+@@line{tc} 次要電話
+@@line{sc} 次要电话
+@@end{ptworkph}
+
+@@start{ptchnlv}
+@@line{en} Mandarin Proficiency
+@@line{tc} 中文程度
+@@line{sc} 中文水平
+@@end{ptchnlv}
+
+@@start{ptaddr}
+@@line{en} Street Address
+@@line{tc} 住家街道地址
+@@line{sc} 住家街道地址
+@@end{ptaddr}
+
+@@start{ptcity}
+@@line{en} City
+@@line{tc} 城市
+@@line{sc} 城市
+@@end{ptcity}
+
+@@start{ptstate}
+@@line{en} State
+@@line{tc} 州
+@@line{sc} 州
+@@end{ptstate}
+
+@@start{ptzip}
+@@line{en} Zip Code
+@@line{tc} 郵遞區號
+@@line{sc} 邮政编码
+@@end{ptzip}
+
+@@start{pthome_ph}
+@@line{en} Phone
+@@line{tc} 電話
+@@line{sc} 电话
+@@end{pthome_ph}
+
+@@start{ptdoc_name}
+@@line{en} Doctor Name
+@@line{tc} 醫生姓名
+@@line{sc} 医生姓名
+@@end{ptdoc_name}
+
+@@start{ptdoc_ph}
+@@line{en} Phone
+@@line{tc} 電話
+@@line{sc} 电话
+@@end{ptdoc_ph}
+
+@@start{ptemer_name}
+@@line{en} Emergency Contact Name
+@@line{tc} 緊急聯絡人姓名
+@@line{sc} 紧急联络人姓名
+@@end{ptemer_name}
+
+@@start{ptemer_ph}
+@@line{en} Phone
+@@line{tc} 電話
+@@line{sc} 电话
+@@end{ptemer_ph}
+
+@@start{stuinfo}
+@@line{en} Student Information
+@@line{tc} 學生資料
+@@line{sc} 学生资料
+@@end{stuinfo}
+
+@@start{enlastname}
+@@line{en} Last Name
+@@line{tc} 英文姓氏
+@@line{sc} 英文姓氏
+@@end{enlastname}
+
+@@start{enfirstname}
+@@line{en} First Name
+@@line{tc} 英文名字
+@@line{sc} 英文名字
+@@end{enfirstname}
+
+@@start{chnname}
+@@line{en} Chinese Name
+@@line{tc} 中文姓名
+@@line{sc} 中文姓名
+@@end{chnname}
+
+@@start{birthdate}
+@@line{en} Date of Birth
+@@line{tc} 生日
+@@line{sc} 生日
+@@end{birthdate}
+
+@@start{gender}
+@@line{en} Gender
+@@line{tc} 性別
+@@line{sc} 性別
+@@end{gender}
+
+@@start{scah}
+@@line{en} Speak Chinese at Home
+@@line{tc} 在家是否說中文
+@@line{sc} 在家是否说中文
+@@end{scah}
+
+@@start{textpref}
+@@line{en} Text Language Preference
+@@line{tc} 教材選擇
+@@line{sc} 教材选择
+@@end{textpref}
+
+@@start{learnedchn}
+@@line{en} Learned Chinese
+@@line{tc} 是否曾學過中文
+@@line{sc} 是否曾学过中文
+@@end{learnedchn}
+
+@@start{stu2info}
+@@line{en} Student 2 Information
+@@line{tc} 學生2 資料
+@@line{sc} 学生2 资料
+@@end{stu2info}
+
+@@start{stu3info}
+@@line{en} Student 3 Information
+@@line{tc} 學生3 資料
+@@line{sc} 学生3 资料
+@@end{stu3info}
+
+@@start{stu4info}
+@@line{en} Student 4 Information
+@@line{tc} 學生4 資料
+@@line{sc} 学生4 资料
+@@end{stu4info}
+
+@@start{doublecheck}
+@@line{en} Please verify your information above. Click "Previous" button to make changes. You will not be able to modify these data after clicking "Next". Click "Next" to continue.
+@@line{tc} 請確認上開資料的正確性, 按「上一頁」修改資料，按「下一頁」繼續，按下「下一頁」後, 您將無法對這些資料做任何的更動。
+@@line{sc} 请确认上开资料的正确性, 按「上一页」修改资料，按「下一页」继续，按下「下一页」後, 您将无法对这些资料做任何的更动。
+@@end{doublecheck}

@@ -1,0 +1,5 @@
+@@start{desc}
+@@line{en} Server error, please try to submit again.
+@@line{tc} 系統出現錯誤, 請試試看再次提交是否可行。
+@@line{sc} 系统出现错误, 请试试看再次提交是否可行。
+@@end{desc}

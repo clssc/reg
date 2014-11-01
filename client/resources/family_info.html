@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Westside Chinese School Registration 2014-2015</title>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" href="common.css" />
+</head>
+<body>
+<!-- @@start -->
+
+<div class="page" id="page2" style="visibility:none">
+  <div class="pagetitle">
+    <div data-name="title">Westside Chinese School Registration</div>
+  </div>
+  <div class="subtitle">
+    <div>3 of 7 -&nbsp;</div>
+    <div data-name="subtitle">Family Information</div>
+  </div>
+  <br />
+  <div data-name="desc">
+    We'll start with basic information of parents/guardians. Each family must have
+    at least one parent/guardian. For adult students, please fill in yourself as the parent
+    so that you will receive e-mail communications from the school.<br />
+    <b>To go back to a previous screen to make corrections, please click on the
+	"Previous" button and not the browser's back button.  Clicking the browser's
+	back button will clear the form and you will have to re-enter your information. </b><br />
+    Starred fields (<span class="req"></span>) are required.
+  </div>
+  <br /><hr />
+  <input type="checkbox" id="only1p">
+    <div data-name="oneguardian">There is only one parent/guardian in my family.</div>
+  </input>
+  <table id="parentTable">
+    <tr>
+      <td></td>
+      <td>
+        <div data-name="p1t" class="req">Primary Contacting Parent/Guardian</div>
+      </td>
+      <td id="p2t">
+        <div data-name="p2t" class="req">Parent/Guardian</div>
+      </td>
+    </tr>
+    <tr>
+      <td id="pteng_name">
+        <div data-name="pteng_name" class="req">English Name</div>
+      </td>
+      <td><input type="text" id="p1eng_name" maxlength="50"/></td>
+      <td><input type="text" id="p2eng_name" maxlength="50"/></td>
+    </tr>
+    <tr>
+      <td id="ptchn_name">
+        <div data-name="ptchn_name" class="req">Chinese Name</div>
+      </td>
+      <td><input type="text" id="p1chn_name" maxlength="5"/></td>
+      <td><input type="text" id="p2chn_name" maxlength="5"/></td>
+    </tr>
+    <tr>
+      <td>
+        <div data-name="ptocu">Occupation/Specialty</div>
+      </td>
+      <td><input type="text" id="p1spec" maxlength="35"/></td>
+      <td><input type="text" id="p2spec" maxlength="35"/></td>
+    </tr>
+    <tr>
+      <td id="ptcell">
+        <div data-name="ptcell" class="req">Primary Phone</div>
+      </td>
+      <td><input type="text" id="p1cell_ph" maxlength="13"/></td>
+      <td><input type="text" id="p2cell_ph" maxlength="13"/></td>
+    </tr>
+    <tr>
+      <td id="ptworkph">
+        <div data-name="ptworkph">Secondary Phone</div>
+      </td>
+      <td><input type="text" id="p1work_ph" maxlength="20"/></td>
+      <td><input type="text" id="p2work_ph" maxlength="20"/></td>
+    </tr>
+    <tr>
+      <td id="ptemail">
+        <div class="req">E-Mail</div>
+      </td>
+      <td><input type="text" id="p1email" maxlength="70"/></td>
+      <td><input type="text" id="p2email" maxlength="70"/></td>
+    </tr>
+    <tr>
+      <td id="ptchnlv">
+        <div data-name="ptchnlv" class="req">Mandarin Proficiency</div>
+      </td>
+      <td id="p1chnlv">
+        <input type="radio" name="p1clv" value="0" id="p1clv0" />
+        <div data-name="chnlv0">Non-speaker</div>
+        <input type="radio" name="p1clv" value="1" id="p1clv1" />
+        <div data-name="chnlv1">Listen/Speak Only</div>
+        <input type="radio" name="p1clv" value="2" id="p1clv2" />
+        <div data-name="chnlv2">Native Educated</div>
+      </td>
+      <td id="p2chnlv">
+        <input type="radio" name="p2clv" value="0" id="p2clv0" />
+        <div data-name="chnlv0">Non-speaker</div>
+        <input type="radio" name="p2clv" value="1" id="p2clv1" />
+        <div data-name="chnlv1">Listen/Speak Only</div>
+        <input type="radio" name="p2clv" value="2" id="p2clv2" />
+        <div data-name="chnlv2">Native Educated</div>
+      </td>
+    </tr>
+  </table>
+  <hr />
+  <div>
+    <div data-name="residence">Primary Residence:</div>
+  </div>
+  <table id="familyTable">
+    <tr>
+      <td id="ptaddr">
+        <div data-name="ptaddr" class="req">Street Address</div>
+      </td>
+      <td colspan=3><input type="text" id="addr" maxlength="95"/></td>
+    </tr>
+    <tr>
+       <td id="ptcity">
+         <div data-name="ptcity" class="req">City</div>
+       </td>
+       <td><input type="text" id="city" maxlength="35"/></td>
+       <td>
+         <div data-name="ptstate" class="req">State</div>
+       </td>
+       <td>
+         <select id="state">
+           <option value="CA" selected>CA</option>
+         </select>
+       </td>
+    </tr>
+    <tr>
+       <td id="ptzip">
+         <div data-name="ptzip" class="req">Zip Code</div>
+       </td>
+       <td><input type="text" id="zip" maxlength="5"/></td>
+       <td id="pthome_ph">
+        <div data-name="pthome_ph" class="req">Phone</div>
+      </td>
+      <td><input type="text" id="home_ph" maxlength="13"/></td>
+    </tr>
+  </table>
+  <hr />
+  <div>
+    <div data-name="emergency">In the event when emergency medical care is req, contact:</div>
+  </div>
+  <table>
+    <tr>
+      <td>
+        <div data-name="ptdoc_name">Doctor Name</div>
+      </td>
+      <td><input type="text" id="doc_name" maxlength="50"/></td>
+      <td id="ptdoc_ph">
+        <div data-name="ptdoc_ph">Phone</div>
+      </td>
+      <td><input type="text" id="doc_ph" maxlength="20"/></td>
+    </tr>
+  </table>
+  <div>
+    <div data-name="emercontact">Person who can provide temporary care in case you cannot be reached under an emergency situation:</div>
+  </div>
+  <table>
+    <tr>
+      <td>
+        <div data-name="ptemer_name">Emergency Contact Name</div>
+      </td>
+      <td><input type="text" id="emer_name" maxlength="50"/></td>
+      <td id="ptemer_ph">
+        <div data-name="ptemer_ph">Phone</div>
+      </td>
+      <td><input type="text" id="emer_ph" maxlength="20"/></td>
+    </tr>
+  </table>
+  <br />
+  <input type="button" id="next2" value="Next &gt;&gt;" />
+</div>
+
+<!-- @@end -->
+</body>
+</html>

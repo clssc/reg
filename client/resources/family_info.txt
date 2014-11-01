@@ -1,0 +1,185 @@
+@@start{title}
+@@line{en} Westside Chinese School Registration
+@@line{tc} 西區中文學校網路註冊
+@@line{sc} 西区中文学校网络注册
+@@end{title}
+
+@@start{subtitle}
+@@line{en} Family Information
+@@line{tc} 家庭資料
+@@line{sc} 家庭资料
+@@end{subtitle}
+
+@@start{desc}
+@@block{en}
+We'll start with basic information of parents/guardians. Each family must have
+at least one parent/guardian. For adult students, please fill in yourself as the parent
+so that you will receive e-mail communications from the school.<br />
+<b>To go back to a previous screen to make corrections, please click on the
+&quot;Previous&quot; button and not the browser&apos;s back button.  Clicking the browser&apos;s
+back button will clear the form and you will have to re-enter your information. </b><br />
+Starred fields (<div class="req"></div>) are required.
+@@endblock
+
+@@block{tc}
+我們將從填寫家長/監護人的資料開始。每個家庭至少需有一位家長/監護人。參加成人班的學生請在家長欄填入您個人的資料,
+以便學校能夠以電子郵件的形式與您聯絡。<br/>
+<b>由於系統設計上的限制, 若您需要回到上一頁去更正資料時,
+請按頁面上的「上一頁」而不是您的瀏覽器所提供的上一頁鈕。如果您按到了瀏覽器的上一頁鈕,
+您將被迫重新輸入全部的資料。</b><br />
+標示有星號 (<div class="req"></div>) 的欄位為必填資料。
+@@endblock
+
+@@block{sc}
+我们将从填写家长/监护人的资料开始。每个家庭至少需有一位家长/监护人。参加成人班的学生请在家长栏填入您个人的资料,
+以便学校能够以电子邮件的形式与您联系。<br/>
+<b>由於系统设计上的限制, 若您需要回到上一页去更正资料时,
+请按页面上的「上一页」而不是您的浏览器所提供的上一页钮。如果您按到了浏览器的上一页钮,
+您将被迫重新输入全部的资料。</b><br />
+标示有星号 (<div class="req"></div>) 的栏位为必填资料。
+@@endblock
+@@end{desc}
+
+@@start{oneguardian}
+@@line{en} There is only one parent/guardian in my family.
+@@line{tc} 我們家只有一位家長/監護人。
+@@line{sc} 我们家只有一位家长/监护人。
+@@end{oneguardian}
+
+@@start{p1t}
+@@line{en} Primary Contacting Parent/Guardian
+@@line{tc} 家長/監護人(主要聯絡人)
+@@line{sc} 家长/监护人(主要联络人)
+@@end{p1t}
+
+@@start{p2t}
+@@line{en} Parent/Guardian
+@@line{tc} 家長/監護人
+@@line{sc} 家长/监护人
+@@end{p2t}
+
+@@start{pteng_name}
+@@line{en} English Name
+@@line{tc} 英文姓名
+@@line{sc} 英文姓名
+@@end{pteng_name}
+
+@@start{ptchn_name}
+@@line{en} Chinese Name
+@@line{tc} 中文姓名
+@@line{sc} 中文姓名
+@@end{ptchn_name}
+
+@@start{ptocu}
+@@line{en} Occupation/Specialty
+@@line{tc} 職業/專長
+@@line{sc} 职业/专长
+@@end{ptocu}
+
+@@start{ptcell}
+@@line{en} Primary Phone
+@@line{tc} 主要電話
+@@line{sc} 主要电话
+@@end{ptcell}
+
+@@start{ptworkph}
+@@line{en} Secondary Phone
+@@line{tc} 次要電話
+@@line{sc} 次要电话
+@@end{ptworkph}
+
+@@start{ptchnlv}
+@@line{en} Mandarin Proficiency
+@@line{tc} 中文程度
+@@line{sc} 中文水平
+@@end{ptchnlv}
+
+@@start{chnlv0}
+@@line{en} Non-speaker
+@@line{tc} 無
+@@line{sc} 无
+@@end{chnlv0}
+
+@@start{chnlv1}
+@@line{en} Listen/Speak Only
+@@line{tc} 聽/說可通
+@@line{sc} 听/说可通
+@@end{chnlv1}
+
+@@start{chnlv2}
+@@line{en} Native Educated
+@@line{tc} 聽說讀寫流利
+@@line{sc} 听说读写流利
+@@end{chnlv2}
+
+@@start{residence}
+@@line{en} Primary Residence:
+@@line{tc} 住家資訊:
+@@line{sc} 住家资讯:
+@@end{residence}
+
+@@start{ptaddr}
+@@line{en} Street Address
+@@line{tc} 住家街道地址
+@@line{sc} 住家街道地址
+@@end{ptaddr}
+
+@@start{ptcity}
+@@line{en} City
+@@line{tc} 城市
+@@line{sc} 城市
+@@end{ptcity}
+
+@@start{ptstate}
+@@line{en} State
+@@line{tc} 州
+@@line{sc} 州
+@@end{ptstate}
+
+@@start{ptzip}
+@@line{en} Zip Code
+@@line{tc} 郵遞區號
+@@line{sc} 邮政编码
+@@end{ptzip}
+
+@@start{pthome_ph}
+@@line{en} Phone
+@@line{tc} 電話
+@@line{sc} 电话
+@@end{pthome_ph}
+
+@@start{emergency}
+@@line{en} In the event when emergency medical care is req, contact:
+@@line{tc} 若有緊急的醫療需求, 聯絡以下的醫生:
+@@line{sc} 若有紧急的医疗需求, 联系以下的医生:
+@@end{emergency}
+
+@@start{ptdoc_name}
+@@line{en} Doctor Name
+@@line{tc} 醫生姓名
+@@line{sc} 医生姓名
+@@end{ptdoc_name}
+
+@@start{ptdoc_ph}
+@@line{en} Phone
+@@line{tc} 電話
+@@line{sc} 电话
+@@end{ptdoc_ph}
+
+@@start{emercontact}
+@@line{en} Person who can provide temporary care in case you cannot be reached under an emergency situation:
+@@line{tc} 緊急狀況下若無法聯絡上您, 誰可提供貴子女暫時的照護?
+@@line{sc} 紧急状况下若无法联系上您, 谁可提供贵子女暂时的照护?
+@@end{emercontact}
+
+@@start{ptemer_name}
+@@line{en} Emergency Contact Name
+@@line{tc} 緊急聯絡人姓名
+@@line{sc} 紧急联络人姓名
+@@end{ptemer_name}
+
+@@start{ptemer_ph}
+@@line{en} Phone
+@@line{tc} 電話
+@@line{sc} 电话
+@@end{ptemer_ph}

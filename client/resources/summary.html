@@ -1,0 +1,351 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Westside Chinese School Registration 2014-2015</title>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" href="common.css" />
+</head>
+<body>
+
+<!-- @@start -->
+<div class="page" id="page4" style="visibility:none">
+  <div class="pagetitle">
+    <div data-name="title">Westside Chinese School Registration</div>
+  </div>
+  <div class="subtitle">
+    <div>5 of 7 -&nbsp;</div>
+    <div data-name="subtitle">Data Summary</div>
+  </div>
+  <br />
+  <table class="grid">
+    <tr>
+      <th colspan=4>
+        <div data-name="familyinfo">Family Information</div>
+      </th>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="fixed">
+        <div data-name="p1t">Parent/Guardian 1</div>
+      </td>
+      <td class="fixed">
+        <div data-name="p2t">Parent/Guardian 2</div>
+      </td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="pteng_name">English Name</div>
+      </td>
+      <td><span id="gp1eng_name" /></td>
+      <td><span id="gp2eng_name" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="ptchn_name">Chinese Name</div>
+      </td>
+      <td><span id="gp1chn_name" /></td>
+      <td><span id="gp2chn_name" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="ptocu">Occupation/Specialty</div>
+      </td>
+      <td><span id="gp1spec" /></td>
+      <td><span id="gp2spec" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="ptcell">Primary Phone</div>
+      </td>
+      <td><span id="gp1cell_ph" /></td>
+      <td><span id="gp2cell_ph" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="ptworkph">Work Phone</div>
+      </td>
+      <td><span id="gp1work_ph" /></td>
+      <td><span id="gp2work_ph" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div>E-Mail</div>
+      </td>
+      <td><span id="gp1email" /></td>
+      <td><span id="gp2email" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="ptchnlv">Mandarin Proficiency</div>
+      </td>
+      <td><span id="gp1chnlv" /></td>
+      <td><span id="gp2chnlv" /></td>
+    </tr>
+    <tr>
+       <td class="fixed">
+         <div data-name="ptaddr">Street Address</div>
+       </td>
+       <td colspan=3><span id="gaddr" /></td>
+    </tr>
+    <tr>
+       <td class="fixed">
+         <div data-name="ptcity">City</div>
+       </td>
+       <td><span id="gcity" /></td>
+       <td class="fixed">
+         <div data-name="ptstate">State</div>
+       </td>
+       <td><span id="gstate" /></td>
+    </tr>
+    <tr>
+       <td class="fixed">
+         <div data-name="ptzip">Zip</div>
+       </td>
+       <td><span id="gzip" /></td>
+       <td class="fixed">
+        <div data-name="pthome_ph">Phone</div>
+      </td>
+      <td><span id="ghome_ph" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="ptdoc_name">Doctor Name</div>
+      </td>
+      <td><span id="gdoc_name" /></td>
+      <td class="fixed">
+        <div data-name="ptdoc_ph">Phone</div>
+      </td>
+      <td><span id="gdoc_ph" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="ptemer_name">Emergency Contact Name</div>
+      </td>
+      <td><span id="gemer_name" /></td>
+      <td class="fixed">
+        <div data-name="ptemer_ph">Phone</div>
+      </td>
+      <td><span id="gemer_ph" /></td>
+    </tr>
+  </table>
+  <table class="grid" id="gs1">
+    <tr>
+      <th colspan="4">
+        <div data-name="stuinfo">Student Information</div>
+      </th>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="enlastname">Last Name</div>
+      </td>
+      <td><span id="gs1ln" /></td>
+      <td class="fixed">
+        <div data-name="enfirstname">First Name</div>
+      </td>
+      <td><span id="gs1fn" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="chnname">Chinese Name</div>
+      </td>
+      <td><span id="gs1chn" /></td>
+      <td class="fixed">
+        <div data-name="birthdate">Date of Birth</div>
+      </td>
+      <td><span id="gs1bd" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="gender">Gender</div>
+      </td>
+      <td><span id="gs1gender" /></td>
+      <td class="fixed">
+        <div data-name="scah">Speak Chinese at Home</div>
+      </td>
+      <td><span id="gs1s" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="textpref">Text Language Preference</div>
+      </td>
+      <td><span id="gs1pref" /></td>
+      <td class="fixed">
+        <div>T-Shirt Size</div>
+      </td>
+      <td><span id="gs1tshirt" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="learnedchn">Learned Chinese</div>
+      </td>
+      <td colspan="3"><span id="gs1learned" /></td>
+    </tr>
+  </table>
+  <table class="grid" id="gs2">
+    <tr>
+      <th colspan="4">
+        <div data-name="stu2info">Student 2 Information</div>
+      </th>
+	</tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="enlastname">Last Name</div>
+      </td>
+      <td><span id="gs2ln" /></td>
+      <td class="fixed">
+        <div data-name="enfirstname">First Name</div>
+      </td>
+      <td><span id="gs2fn" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="chnname">Chinese Name</div>
+      </td>
+      <td><span id="gs2chn" /></td>
+      <td class="fixed">
+        <div data-name="birthdate">Date of Birth</div>
+      </td>
+      <td><span id="gs2bd" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="gender">Gender</div>
+      </td>
+      <td><span id="gs2gender" /></td>
+      <td class="fixed">
+        <div data-name="scah">Speak Chinese at Home</div>
+      </td>
+      <td><span id="gs2s" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="textpref">Text Language Preference</div>
+      </td>
+      <td><span id="gs2pref" /></td>
+      <td class="fixed">
+        <div>T-Shirt Size</div>
+      </td>
+      <td><span id="gs2tshirt" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="learnedchn">Learned Chinese</div>
+      </td>
+      <td colspan="3"><span id="gs2learned" /></td>
+    </tr>
+  </table>
+  <table class="grid" id="gs3">
+    <tr>
+      <th colspan="4">
+        <div data-name="stu3info">Student 3 Information</div>
+      </th>
+	</tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="enlastname">Last Name</div>
+      </td>
+      <td><span id="gs3ln" /></td>
+      <td class="fixed">
+        <div data-name="enfirstname">First Name</div>
+      </td>
+      <td><span id="gs3fn" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="chnname">Chinese Name</div>
+      </td>
+      <td><span id="gs3chn" /></td>
+      <td class="fixed">
+        <div data-name="birthdate">Date of Birth</div>
+      </td>
+      <td><span id="gs3bd" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="gender">Gender</div>
+      </td>
+      <td><span id="gs3gender" /></td>
+      <td class="fixed">
+        <div data-name="scah">Speak Chinese at Home</div>
+      </td>
+      <td><span id="gs3s" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="textpref">Text Language Preference</div>
+      </td>
+      <td><span id="gs3pref" /></td>
+      <td class="fixed">
+        <div>T-Shirt Size</div>
+      </td>
+      <td><span id="gs3tshirt" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="learnedchn">Learned Chinese</div>
+      </td>
+      <td colspan="3"><span id="gs3learned" /></td>
+    </tr>
+  </table>
+  <table class="grid" id="gs4">
+    <tr>
+      <th colspan="4">
+        <div data-name="stu4info">Student 4 Information</div>
+      </th>
+	</tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="enlastname">Last Name</div>
+      </td>
+      <td><span id="gs4ln" /></td>
+      <td class="fixed">
+        <div data-name="enfirstname">First Name</div>
+      </td>
+      <td><span id="gs4fn" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="chnname">Chinese Name</div>
+      </td>
+      <td><span id="gs4chn" /></td>
+      <td class="fixed">
+        <div data-name="birthdate">Date of Birth</div>
+      </td>
+      <td><span id="gs4bd" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="gender">Gender</div>
+      </td>
+      <td><span id="gs4gender" /></td>
+      <td class="fixed">
+        <div data-name="scah">Speak Chinese at Home</div>
+      </td>
+      <td><span id="gs4s" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="textpref">Text Language Preference</div>
+      </td>
+      <td><span id="gs4pref" /></td>
+      <td class="fixed">
+        <div>T-Shirt Size</div>
+      </td>
+      <td><span id="gs4tshirt" /></td>
+    </tr>
+    <tr>
+      <td class="fixed">
+        <div data-name="learnedchn">Learned Chinese</div>
+      </td>
+      <td colspan="3"><span id="gs4learned" /></td>
+    </tr>
+  </table>
+  <div data-name="doublecheck">Please verify your information above. Click "Previous" button to make changes. You will not be able to modify these data after clicking "Next". Click "Next" to continue.</div>
+  <input type="button" id="prev4" value="&lt;&lt; Previous" />
+  <input type="button" id="next4" value="Next &gt;&gt;" />
+</div>
+
+<!-- @@end -->
+</body>
+</html>

@@ -1,0 +1,53 @@
+@@start{title}
+@@line{en} Westside Chinese School Registration
+@@line{tc} 西區中文學校網路註冊
+@@line{sc} 西区中文学校网络注册
+@@end{title}
+
+@@start{subtitle}
+@@line{en} Application Received
+@@line{tc} 申請完成
+@@line{sc} 申请完成
+@@end{subtitle}
+
+@@start{desc}
+@@block{en}
+We had received your application. The registration is NOT completed until the
+payment for tuition is fulfilled. Please make check payable to CLSSC.
+<br />
+<b>You MUST print out this page and mail it with your payment to
+P.O. Box 1280, Culver City, CA 90232 to complete the registration.</b>
+<br />
+To qualify for early bird discount, you MUST send your check to CLSSC,
+postmarked before July 31, 2014.
+@@endblock
+
+@@block{tc}
+系統已登錄您的申請表格, 您必須完成繳費的手續才算完成註冊, 支票抬頭為 CLSSC。
+<br />
+<b>您必須將此頁列印出來，連同您的支票一起郵寄到
+P.O. Box 1280, Culver City, CA 90232 以完成註冊手續。</b>
+<br />
+您必須在 2014 年 7 月 31 日前將支票寄出 (郵戳為憑) 才能享有提前註冊的折扣。
+@@endblock
+
+@@block{sc}
+系统已登录您的申请表格, 您必须完成缴费的手续才算完成注册, 支票抬头为 CLSSC。
+<br />
+<b>您必须将此页打印出来，连同您的支票一起邮寄到
+P.O. Box 1280, Culver City, CA 90232 以完成注册手续。</b><br />
+您必须在 2014 年 7 月 31 日前将支票寄出 (邮戳为凭) 才能享有提前注册的折扣。
+@@endblock
+@@end{desc}
+
+@@start{tuitiontitle}
+@@line{en} Tuition and Fees
+@@line{tc} 學費與雜費
+@@line{sc} 学费与杂费
+@@end{tuitiontitle}
+
+@@start{thankyou}
+@@line{en} Thank you for applying Westside Chinese School and see you in September!
+@@line{tc} 感謝您申請加入西區中文學校, 我們九月校園見!
+@@line{sc} 感谢您申请加入西区中文学校, 我们九月校园见!
+@@end{thankyou}

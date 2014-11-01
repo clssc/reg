@@ -1,0 +1,17 @@
+How to generate minified main.js
+================================
+Install closurecompiler for nodejs:
+  npm install closurecompiler
+
+Download the jQuery externs
+  https://github.com/google/closure-compiler/blob/master/contrib/externs/jquery-1.9.js
+
+Then run this command
+  ccjs main.js --compilation_level=SIMPLE_OPTIMIZATIONS --externs=externs.js --externs=jquery-1.9.js --externs=jquery-ui.js --warning_level=VERBOSE
+
+If everything outputs fine, redirect the console to main_mini.js.
+
+The main_mini.js is only 2KB smaller than the original one even when advanced
+optimizations is turned on, and the jQuery dialog will pop up (which requires
+more fixes for the jquery-ui externs file. As a result SIMPLE_OPTIMIZATIONS is
+used for now.
