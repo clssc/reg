@@ -31,7 +31,7 @@ function genClassRosters() {
     return e;
   }
 }
-
+/*
 function mailClassRosters() {
   try {
     Reg.mailClassRosters();
@@ -40,7 +40,7 @@ function mailClassRosters() {
     return e;
   }
 }
-
+*/
 function genBlankRegForm() {
   try {
     var fileLink = Reg.generateBlankRegForm();

@@ -17,4 +17,3 @@
  * file loading, therefore defining the var or class here
  * does not work.
  */
- 

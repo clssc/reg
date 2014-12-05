@@ -7,8 +7,9 @@
  * Read-only data class for 'Class'.
  * @param {Range} data The raw range data.
  * @constructor
+ * @struct
  */
-Class = function(data) {
+var Class = function(data) {
   /** @private {Array.<ClassItem>} */
   this.data_ = [];
 
@@ -16,11 +17,7 @@ Class = function(data) {
 };
 
 
-/**
- * Resets to initial state. Hack for Google Apps Script since the
- * object lifetime management is different. Even use prototype
- * the property is still static.
- */
+/** Resets to initial state. */
 Class.prototype.clear = function() {
   this.data_ = [];
 };
@@ -94,7 +91,7 @@ Class.prototype.initialize_ = function(data) {
  * @struct
  * @constructor
  */
-ClassItem = function(values) {
+var ClassItem = function(values) {
   /** @type {string} */
   this.name = values[0];
   

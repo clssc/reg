@@ -7,8 +7,10 @@
  * Google Script Error.
  * @param {string} message
  * @param {string=} opt_comment
+ * @constructor
+ * @struct
  */
-GSError = function(message, opt_comment) { 
+var GSError = function(message, opt_comment) { 
   /** @type {string} */
   this.description = message;
   
@@ -64,7 +66,7 @@ function assertDefAndNotNull(value, opt_comment) {
 
 /**
  * Fails the unit test.
- * @throw {Error}
+ * @throws {Error}
  */
 function fail(failureMessage) {
   throw new GSError('Call to fail');

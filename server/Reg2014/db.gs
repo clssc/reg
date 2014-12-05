@@ -380,7 +380,7 @@ function buildNameLookup() {
     sheet.appendRow(tuples[k]);
   }
 }
-
+/*
 function autoMailer() {
   var db = new Db();
   var parents = db.getParent().getAll();
@@ -419,3 +419,4 @@ function autoMailer() {
     }
   }
 }
+*/

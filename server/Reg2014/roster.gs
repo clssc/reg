@@ -432,7 +432,7 @@ function generateClassRosters() {
  * Generates class rosters and mail to the teachers.
  * @throw {GSError}
  */
-function mailClassRosters() {
+/*function mailClassRosters() {
   var data = generateClassRosterData();
   
   for (var i = 0; i < data.length; ++i) {
@@ -441,4 +441,4 @@ function mailClassRosters() {
     var pdf = DocumentApp.openById(docId).getAs('application/pdf');
     mailTo(email, 'Class roster', [pdf]);
   }
-}
+}*/

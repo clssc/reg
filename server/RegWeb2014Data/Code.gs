@@ -93,3 +93,4 @@ function testWritingToRawDB() {
   var samplePayload = '{"family":{"address":"123 sonoma st","city":"los angeles","state":"CA","zip":"90034","home_ph":"310-567-8888","doc_name":"","doc_ph":"","emer_name":"","emer_ph":"","video_consent":true},"parents":[{"eng_name":"a b","chn_name":"","spec":"","work_ph":"","cell_ph":"310-234-5678","email":"a@bbb.com","chnlv":0}],"students":[{"last_name":"b","first_name":"b","chn_name":"","dob":"04-01-2009","gender":"F","sch":"N","pref":"1","tshirt":"YS","learned":"0"}]}';
   Logger.log(processData(samplePayload).getContent());
 }
+
