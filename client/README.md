@@ -9,4 +9,6 @@ Please check [this page](https://github.com/google/lovefield/blob/master/docs/de
 
 ## Command
 
-Please read the comments inside pagegen.js regarding how to run it.
+Please read the comments inside pagegen.js regarding detailed usage.
+node pagegen.js --template=resources/main.html --css=resources/common.css --js=resources/main.js
+

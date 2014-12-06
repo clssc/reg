@@ -1,3 +1,5 @@
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwRwWbwqw2ZJc_xJTAyGuY3lyfeOl9RFobe9PGmxNH5bUdHZ3gQ/exec';
+
 var STATE = [
   'AL', 'AK',  'AR', 'AS', 'AZ',
   'CO', 'CT',
@@ -533,7 +535,7 @@ function genFinalData() {
   $('#progress').dialog('open');
   $.ajax({
     type: 'POST',
-    url: 'https://script.google.com/macros/s/AKfycbxqx88xp0nKnULwYVyjZT9Y9_7pGwxhsj2YXYCAjjASW6fwpwA5/exec',
+    url: GOOGLE_URL,
     data: submission,
     dataType: 'text'
   }).done(function(data) {

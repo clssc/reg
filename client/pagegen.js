@@ -16,16 +16,23 @@
  *
  * @author Arthur Hsu (arthurhsu@westsidechineseschool.org)
  *
- * This code requires package yargs.
+ * This code requires package nopt.
  */
 var path = require('path');
 var fs = require('fs');
-var argv = require('yargs').argv;
+var nopt = require('nopt');
 var templateParser = require('./template.js');
 
+var knownOpts = {
+  'template': [path],
+  'css': [path, null],
+  'js': [path, null],
+  'outputdir': [path, null]
+};
+var args = nopt(knownOpts);
 
 function argsCheck() {
-  if (!argv.hasOwnProperty('template')) {
+  if (!args.hasOwnProperty('template')) {
     console.log('Usage: node pagegen.js');
     console.log('  --template=<template> The template to process');
     console.log('  --css=<CSS> Optional, the CSS file to include');
@@ -40,26 +47,26 @@ function argsCheck() {
 function main() {
   argsCheck();
   var css;
-  if (argv.hasOwnProperty('css')) {
-    var cssPath = path.resolve(argv.css);
+  if (args.css) {
+    var cssPath = path.resolve(args.css);
     css = fs.readFileSync(cssPath, {encoding: 'utf8'}).split('\n');
   }
   var js;
-  if (argv.hasOwnProperty('js')) {
-    var jsPath = path.resolve(argv.js);
+  if (args.js) {
+    var jsPath = path.resolve(args.js);
     js = fs.readFileSync(jsPath, {encoding: 'utf8'}).split('\n');
   }
   var parsedContents =
-      templateParser.parseHtml(path.resolve(argv.template), css, js);
+      templateParser.parseHtml(path.resolve(args.template), css, js);
   var LANG = templateParser.LANG;
-  var outputDir = path.dirname(path.resolve(argv.template));
-  if (argv.outputdir) {
-    outputDir = path.resolve(outputDir, argv.outputdir);
+  var outputDir = path.dirname(path.resolve(args.template));
+  if (args.outputdir) {
+    outputDir = path.resolve(outputDir, args.outputdir);
   }
 
-  var basename = path.basename(argv.template);
+  var basename = path.basename(args.template);
   basename = basename.substring(0, basename.indexOf('.htm'));
-  var extname = path.extname(argv.template);
+  var extname = path.extname(args.template);
   for (var i = 0; i < LANG.length; ++i) {
     var filePath = path.join(outputDir, basename + '-' + LANG[i] + extname);
     fs.writeFileSync(filePath, parsedContents[i], {encoding: 'utf8'});
