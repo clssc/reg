@@ -162,7 +162,8 @@ function parseHtmlForOneLang(file, lang, opt_css, opt_js) {
 
   var state = States.UNKNOWN;
   for (var i = 0; i < lines.length; ++i) {
-    var result = getState(state, lines[i]);
+    var toParse = lines[i].replace('@@lang', lang);
+    var result = getState(state, toParse);
     if (validTransitions[state].indexOf(result.state) == -1) {
       throw new Error('Invalid template file: ' + file);
     }

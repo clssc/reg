@@ -1,8 +1,8 @@
 /**
  * @fileoverview Web page generator for Westside Chinese School registration.
  * This code is supposed to be run using node.js. Usage:
- *   node pagegen.js 
- *      --template=<template> The template to process
+ *   node pagegen.js
+ *      --template=<template> Options, the template to process
  *      --css=<CSS> Optional, the CSS file to include
  *      --js=<JS> Optional, the JS file to include
  *      --outputdir=<output path> Optional, default to where the template is
@@ -21,24 +21,26 @@
 var path = require('path');
 var fs = require('fs');
 var nopt = require('nopt');
+var minify = require('html-minifier').minify;
 var templateParser = require('./template.js');
 
 var knownOpts = {
-  'template': [path],
+  'template': [path, null],
   'css': [path, null],
   'js': [path, null],
-  'outputdir': [path, null]
+  'outputdir': [path, null],
+  'help': [null]
 };
 var args = nopt(knownOpts);
 
 function argsCheck() {
-  if (!args.hasOwnProperty('template')) {
+  if (args.hasOwnProperty('help')) {
     console.log('Usage: node pagegen.js');
-    console.log('  --template=<template> The template to process');
+    console.log('  --template=<template> Optional, the template to process');
     console.log('  --css=<CSS> Optional, the CSS file to include');
     console.log('  --js=<JS> Optional, the JS file to include');
-    console.log('  --outputdir=<output path> Optional, default to where' +
-      ' the template is');
+    console.log('  --outputdir=<output path> Optional, default to dist/');
+    console.log('  --help Display usage');
     process.exit(1);
   }
 }
@@ -46,6 +48,9 @@ function argsCheck() {
 
 function main() {
   argsCheck();
+  var templatePath = args.template ? args.template :
+      path.join(__dirname, 'resources/main.html');
+  templatePath = path.resolve(templatePath);
   var css;
   if (args.css) {
     var cssPath = path.resolve(args.css);
@@ -57,19 +62,28 @@ function main() {
     js = fs.readFileSync(jsPath, {encoding: 'utf8'}).split('\n');
   }
   var parsedContents =
-      templateParser.parseHtml(path.resolve(args.template), css, js);
+      templateParser.parseHtml(templatePath, css, js);
   var LANG = templateParser.LANG;
-  var outputDir = path.dirname(path.resolve(args.template));
+  var outputDir = path.resolve(path.join(__dirname, 'dist'));
   if (args.outputdir) {
-    outputDir = path.resolve(outputDir, args.outputdir);
+    outputDir = path.resolve(__dirname, args.outputdir);
+  }
+  if (!fs.existsSync(outputDir)) {
+    // Attempt to create dir with best efforts.
+    fs.mkdirSync(outputDir);
   }
 
-  var basename = path.basename(args.template);
+  var basename = path.basename(templatePath);
   basename = basename.substring(0, basename.indexOf('.htm'));
-  var extname = path.extname(args.template);
+  var extname = path.extname(templatePath);
   for (var i = 0; i < LANG.length; ++i) {
     var filePath = path.join(outputDir, basename + '-' + LANG[i] + extname);
-    fs.writeFileSync(filePath, parsedContents[i], {encoding: 'utf8'});
+    var minified = minify(parsedContents[i], {
+      removeAttributeQuotes: true,
+      removeComments: true,
+      collapseWhitespace: true
+    });
+    fs.writeFileSync(filePath, minified, {encoding: 'utf8'});
   }
 }
 
