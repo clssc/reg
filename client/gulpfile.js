@@ -3,6 +3,8 @@ var path = require('path');
 var fs = require('fs');
 var exec = require('child_process').exec;
 var minify = require('html-minifier').minify;
+var uglify = require('uglify-js').minify;
+var CleanCSS = require('clean-css');
 
 
 var DIST_FILES = [
@@ -24,6 +26,10 @@ function minifyAndCp(source, target) {
       removeComments: true,
       collapseWhitespace: true
     });
+  } else if (ext == '.js') {
+    minified = uglify(sourceFile).code;
+  } else if (ext == '.css') {
+    minified = new CleanCSS().minify(contents);
   }
   fs.writeFileSync(targetFile, minified);
 }

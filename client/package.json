@@ -13,8 +13,10 @@
     "url": "https://github.com/clssc/reg.git"
   },
   "dependencies": {
+    "clean-css": "*",
     "gulp": "*",
     "html-minifier": "*",
-    "nopt": "*"
+    "nopt": "*",
+    "uglify-js": "*"
   }
 }
