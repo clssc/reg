@@ -1,14 +1,12 @@
 # CLSSC Registration Web Client
 
-These are the registration web pages source code. It needs to be compiled before deploying to Weebly.
+It uses NPM as its package manager.
 
-## Requirement
+## Developer Setup
 
-Please check [this page](https://github.com/google/lovefield/blob/master/docs/dev_setup.md) for required development setup.
-
-
-## Command
-
-Please read the comments inside pagegen.js regarding detailed usage.
-node pagegen.js --template=resources/main.html --css=resources/common.css --js=resources/main.js
+* Install node.js, preferably through [nvm](https://github.com/creationix/nvm)
+* Update npm: `npm install -g npm`
+* Change the `client/` directory and run `npm install` to install all
+  dependencies
+* `gulp build` to build the web site
 

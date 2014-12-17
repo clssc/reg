@@ -15,8 +15,6 @@
  *    SC (Simplified Chinese)
  *
  * @author Arthur Hsu (arthurhsu@westsidechineseschool.org)
- *
- * This code requires package nopt.
  */
 var path = require('path');
 var fs = require('fs');
@@ -39,7 +37,7 @@ function argsCheck() {
     console.log('  --template=<template> Optional, the template to process');
     console.log('  --css=<CSS> Optional, the CSS file to include');
     console.log('  --js=<JS> Optional, the JS file to include');
-    console.log('  --outputdir=<output path> Optional, default to dist/');
+    console.log('  --outputdir=<output path> Optional, default to build/');
     console.log('  --help Display usage');
     process.exit(1);
   }
@@ -49,7 +47,7 @@ function argsCheck() {
 function main() {
   argsCheck();
   var templatePath = args.template ? args.template :
-      path.join(__dirname, 'resources/main.html');
+      path.join(__dirname, '../resources/main.html');
   templatePath = path.resolve(templatePath);
   var css;
   if (args.css) {
@@ -64,7 +62,7 @@ function main() {
   var parsedContents =
       templateParser.parseHtml(templatePath, css, js);
   var LANG = templateParser.LANG;
-  var outputDir = path.resolve(path.join(__dirname, 'dist'));
+  var outputDir = path.resolve(path.join(__dirname, '../build'));
   if (args.outputdir) {
     outputDir = path.resolve(__dirname, args.outputdir);
   }
