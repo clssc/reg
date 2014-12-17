@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var path = require('path');
 var fs = require('fs');
 var exec = require('child_process').exec;
+var minify = require('html-minifier').minify;
+
 
 var DIST_FILES = [
   'common.css',
@@ -9,10 +11,21 @@ var DIST_FILES = [
   'main.js'
 ];
 
-function cp(source, target) {
+function minifyAndCp(source, target) {
   var sourceFile = path.resolve(source);
   var targetFile = path.resolve(target);
-  fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
+  var contents = fs.readFileSync(sourceFile, {encoding: 'utf8'});
+  var ext = path.extname(source);
+
+  var minified = contents;
+  if (ext == '.html' || ext == '.htm') {
+    minified = minify(contents, {
+      removeAttributeQuotes: true,
+      removeComments: true,
+      collapseWhitespace: true
+    });
+  }
+  fs.writeFileSync(targetFile, minified);
 }
 
 gulp.task('default', function() {
@@ -26,7 +39,7 @@ gulp.task('build', function(callback) {
     console.log(stdout);
     console.log(stderr);
     DIST_FILES.forEach(function(file) {
-      cp('resources/' + file, 'build/' + file);
+      minifyAndCp('resources/' + file, 'build/' + file);
     });
     callback(err);
   });

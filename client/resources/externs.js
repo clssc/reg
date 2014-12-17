@@ -1,2 +1,0 @@
-/** @type {string} */
-var lang;
