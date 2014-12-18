@@ -29,6 +29,9 @@ var cutoffTimestamp = new Date(2009, 12, 7).getTime();
 var adultTimestamp = new Date(1996, 10, 12).getTime();
 var submission = '';  // Data to submit to server.
 var numAdultStudents = 0;
+var familyId = '0000';
+var chargeAmount = 0;
+var checkoutHandler;
 
 // When the page loads.
 $(function() {
@@ -64,6 +67,8 @@ $(function() {
     showStudents();
   });
   $('#consent').change(function() { toggleLegalStep(); });
+
+  setPaymentHooks();
 
   // Really starts
   for (var i = 0; i < 7; ++i) {
@@ -112,6 +117,26 @@ function setNavigationHooks() {
   $('#prev4').click(function() { showStudents(); showPage(3); });
 }
 
+function setPaymentHooks() {
+  // Payment hook.
+  $('#payButton').click(function(e) {
+    $('#payButton').attr('disabled', 'disabled');
+    runPayment(e);
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    if (checkoutHandler) {
+      checkoutHandler.close();
+    }
+  });
+
+  // Hide payment related message.
+  $('#charging').hide();
+  $('#paySuccess').hide();
+  $('#payFailed').hide();
+}
+
 function showPage(pageNumber) {
   for (var i = 0; i < 7; ++i) {
     var pageId = '#page' + i;
@@ -132,6 +157,7 @@ function localizeButtons() {
     $('#prev3').prop('value', '<< 上一步');
     $('#prev4').prop('value', '<< 上一步');
     $('#next5').prop('value', lang == 'tc' ? '提交申請表' : '提交申请表');
+    $('#payButton').prop('value', lang == 'tc' ? '線上付款' : '在线付款');
   }
 }
 
@@ -508,7 +534,6 @@ function genSummary() {
 }
 
 function onServerReturn(data) {
-  $('#systemdata').html(data);
   $('#progress').dialog('close');
 
   // Calculate amount before proceeding to final page.
@@ -521,6 +546,20 @@ function onServerReturn(data) {
   $('#stotal2').text(total2.toString());
 
   showPage(6);
+
+  // Parse family ID.
+  var tempData = '';
+  try {
+    tempData = JSON.parse(data).result;
+  } catch (e) {
+    console.log('Failed to parse server data:', e);
+  }
+  if (tempData.indexOf('family number') != -1) {
+    familyId = tempData.substring(tempData.length - 4, tempData.length);
+    chargeAmount = total;
+  } else {
+    // TODO(arthurhsu): handle exceptions.
+  }
 }
 
 function onServerFailure(e) {
@@ -543,4 +582,48 @@ function genFinalData() {
   }).fail(function(e) {
     onServerFailure(e);
   });
+}
+
+function runPayment(e) {
+  if (!checkoutHandler) {
+    checkoutHandler = StripeCheckout.configure({
+      key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+      image: '/logo.png',
+      token: function(token) {
+        // Use the token to create the charge with a server-side script.
+        // You can access the token ID with `token.id`
+        console.log('returned token', token);
+        $('#payButton').hide();
+        $('#charging').show();
+        $.ajax({
+          type: 'POST',
+          url: 'http://reg.westsidechineseschool.com/charge.php',
+          data: {
+            'stripeToken': token.id,
+            'stripeTokenType': 'card',
+            'stripeEmail': token.email,
+            'familyId': familyId,
+            'dollarAmount': chargeAmount
+          },
+          dataType: 'text'
+        }).done(function(data) {
+          console.log('charge', data);
+          $('#charging').hide();
+          $('#paySuccess').show();
+        }).fail(function(e) {
+          console.log(e);
+          $('#charging').hide();
+          $('#payFailed').show();
+        });
+      }
+    });
+  }
+
+  // Open Checkout with further options
+  checkoutHandler.open({
+    name: 'Westside Chinese School',
+    description: 'Tuition for ' + familyId,
+    amount: chargeAmount * 100
+  });
+  e.preventDefault();
 }

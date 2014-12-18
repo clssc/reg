@@ -9,8 +9,9 @@ var CleanCSS = require('clean-css');
 
 var DIST_FILES = [
   'common.css',
+  'logo.png',
   'index.html',
-  'main.js'
+  'main.js',
 ];
 
 function minifyAndCp(source, target) {

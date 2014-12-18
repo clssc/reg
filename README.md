@@ -3,11 +3,11 @@ reg
 
 Westside Chinese School Registration System Repository
 
-# `client/`
+## `client/`
 
 This stores the web client, which is hosted on iPower.
 
-# `server/`
+## `server/`
 
 This stores Google Apps Script related code.
 
