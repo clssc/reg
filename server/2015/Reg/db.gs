@@ -5,7 +5,7 @@
 
 
 /**
- * REGDB2014
+ * REGDB2015
  * @const {string}
  */
 var DB_DOCID = '0AgvYC6nj697MdGFXSGJhRmFpd1hjV3puVGRqOHlXemc';
@@ -363,7 +363,7 @@ function buildNameLookup() {
         students[j].family_number]);
   }
 
-  var outputFile = lookupAndOpenFile('NameLookup') ||
+  var outputFile = lookupAndOpenFile('NameLookup' + getSchoolYear().toString()) ||
       SpreadsheetApp.create(fileName);
   shareFile(outputFile);
   var sheet = outputFile.getActiveSheet();

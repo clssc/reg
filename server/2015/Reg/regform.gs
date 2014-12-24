@@ -54,6 +54,13 @@ var BLANK_REG_FORM = 'BlankRegForm';
 var REG_FORM = 'RegForm';
 
 
+/**
+ * Tuition Breakdown document ID.
+ * @const {string}
+ */
+var TUITION_BREAKDOWN_DOCID = 'TuitionBreakdown';
+
+
 
 /**
  * The registration form generation class.
@@ -304,29 +311,40 @@ RegForm.prototype.generateRegForm = function(familyNumber, opt_force, opt_output
 
 
 /**
+ * Find unique family numbers from active students.
+ * @param {string=} opt_className
+ * @return {!Array.<number>}
+ * @private
+ */
+RegForm.prototype.findActiveFamilyNumbers_ = function(opt_className) {
+  var families = {};
+  var students = this.db_.getStudent().getAllActive();
+  for (var i = 0; i < students.length; ++i) {
+    if (!opt_className || students[i].prev_class == opt_className) {
+      families[students[i].family_number] = true;
+    }
+  }
+  
+  var familyNumbers = [];
+  for (var key in families) {
+    familyNumbers.push(key);
+  }
+  familyNumbers.sort();
+  return familyNumbers;
+};
+
+
+/**
  * Generates reg forms of students of a class. We can not generate forms of
  * all active students because that will yield timeout.
  * The results are stored under folder Reports\<year>.
  * @param {string} className Class of previous year.
  */
 RegForm.prototype.generateRegFormsByClass = function(className) {
-  // Find unique family numbers from active students.
-  var familyNumbers = [];
-  var students = this.db_.getStudent().getAllActive();
-  for (var i = 0; i < students.length; ++i) {
-    if (students[i].prev_class == className) {
-      familyNumbers.push(students[i].family_number);
-    }
-  }
-  familyNumbers.sort();
-  var docIds = [];
-  docIds.push(this.generateRegForm(familyNumbers[0], false));
-  for (var i = 1; i < familyNumbers.length; ++i) {
-    if (familyNumbers[i] !== familyNumbers[i - 1]) {
-      docIds.push(this.generateRegForm(familyNumbers[i], false));      
-    }
-    DebugLog('[' + i + '/' + familyNumbers.length + '] ' + familyNumbers[i]);
-  }
+  var familyNumbers = this.findActiveFamilyNumbers_(className);
+  var docIds = familyNumbers.map(function(fid) {
+    return this.generateRegForm(fid, false);
+  });
   
   // The following code was created to merge all generate docs in one
   // file. However, it seems that Google Apps Script is not reliable
@@ -357,6 +375,52 @@ RegForm.prototype.generateRegFormsByClass = function(className) {
   doc.saveAndClose();
   return [docId, doc.getUrl()];
   */
+};
+
+
+/**
+ * Generates tuition breakdown for online payments.
+ * @param {number} baseTuition
+ */
+RegForm.prototype.generateTuitionBreakdown = function(baseTuition) {
+  var familyNumbers = this.findActiveFamilyNumbers_();
+  var db = this.db_;
+  var serviceDb = this.serviceDb_;
+  var tuitionBreakdown = new TuitionBreakdownDB();
+  
+  familyNumbers.forEach(function(familyNumber) {
+    var students = db.getStudent().get(familyNumber);
+    
+    var item = tuitionBreakdown.select(familyNumber);
+    var servicePoints = serviceDb.lookup(familyNumber);
+    if (item == null) {
+      item = new TuitionItem([
+        familyNumber,
+        students.length,
+        servicePoints,
+        students.length * EARLY_BIRD_TUITION,
+        students.length * NORMAL_TUITION,
+        0,
+        (MIN_SERVICE_POINTS - servicePoints) * SERVICE_FINE,
+        0,
+        0,
+        'New'
+      ]);
+    } else {
+      // Detect change and mark.
+      var isDirty = (item.num_students != students.length) ||
+          (item.service_points != servicePoints);
+      if (isDirty) {
+        item.num_students = students.length;
+        item.service_points = servicePoints;
+        item.early_tuition = students.length * EARLY_BIRD_TUITION;
+        item.normal_tuition = students.length * NORMAL_TUITION;
+        item.service_fine = (MIN_SERVICE_POINTS - servicePoints) * SERVICE_FINE;
+        item.notes = item.notes + ' [MANUAL REVIEW REQUIRED]';
+      }
+    }
+    tuitionBreakdown.insertOrReplace(item);
+  });
 };
 
  
@@ -413,4 +477,9 @@ function generateBlankRegForm() {
 function generateRegFormsByClass(className) {
   var form = new RegForm();
   form.generateRegFormsByClass(className || '8B');
+}
+
+function generateTuitionBreakdown() {
+  var form = new RegForm();
+  return form.generateTuitionBreakdown();
 }

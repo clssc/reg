@@ -1,5 +1,5 @@
 /**
- * @fileoverview The registration database.
+ * @fileoverview The service points database, defaulted to previous year.
  * @author arthurhsu@westsidechineseschool.org (Arthur Hsu)
  */
 
@@ -11,9 +11,15 @@
 var SERVICE_DB_NAME = 'ServiceDB';
 
 
+/**
+ * ServiceDB2014 (previous year)
+ * @const {string}
+ */
+var SERVICEDB_DOCID = '0AgvYC6nj697MdEtqdU1jUUtnR1RVZW5qNTBzMmNPR0E';
+
 
 /**
- * The registration database.
+ * The service points database.
  * @param {string=} opt_dbName Spreadsheet name to open as database.
  * @constructor
  */
@@ -21,7 +27,7 @@ var ServiceDb = function(opt_dbName) {
   /** @private {Object} */
   this.map_ = {};
   
-  this.initialize_(opt_dbName);
+  this.initialize_(opt_dbName || SERVICEDB_DOCID);
 };
 
 
@@ -30,10 +36,11 @@ var ServiceDb = function(opt_dbName) {
  * @param {string=} opt_dbName Spreadsheet name to open as database
  */
 ServiceDb.prototype.initialize_ = function(opt_dbName) {
-  var dbName = opt_dbName || 'OldServiceDB' + (getSchoolYear() - 1).toString();
+  var dbName = opt_dbName || 'ServiceDB' + (getSchoolYear() - 1).toString();
+  var openById = (dbName == SERVICEDB_DOCID);
+  var spreadsheet = openById ? SpreadsheetApp.openById(dbName) : lookupAndOpenFile(dbName);
   this.map_ = {};
   
-  var spreadsheet = lookupAndOpenFile(dbName);
   var sheet = spreadsheet.getSheets()[0];
   var range = sheet.getRange(2, 1, sheet.getLastRow(), sheet.getLastColumn());
   var rows = range.getValues();
