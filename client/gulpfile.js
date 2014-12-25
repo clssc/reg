@@ -11,7 +11,9 @@ var DIST_FILES = [
   'common.css',
   'logo.png',
   'index.html',
+  'lang_selector.html',
   'main.js',
+  'returning.html'
 ];
 
 function minifyAndCp(source, target) {
