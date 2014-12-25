@@ -1,0 +1,11 @@
+@@start{title}
+@@line{en} Westside Chinese School Registration
+@@line{tc} 西區中文學校網路註冊
+@@line{sc} 西区中文学校网络注册
+@@end{title}
+
+@@start{subtitle}
+@@line{en} Returning Families Registration
+@@line{tc} 舊生註冊
+@@line{sc} 旧生注册
+@@end{subtitle}

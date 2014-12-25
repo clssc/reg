@@ -23,7 +23,7 @@ var minify = require('html-minifier').minify;
 var templateParser = require('./template.js');
 
 var knownOpts = {
-  'template': [path, null],
+  'templates': [String, null],
   'css': [path, null],
   'js': [path, null],
   'outputdir': [path, null],
@@ -34,7 +34,7 @@ var args = nopt(knownOpts);
 function argsCheck() {
   if (args.hasOwnProperty('help')) {
     console.log('Usage: node pagegen.js');
-    console.log('  --template=<template> Optional, the template to process');
+    console.log('  --templates=<template> The templates to process, comma separated.');
     console.log('  --css=<CSS> Optional, the CSS file to include');
     console.log('  --js=<JS> Optional, the JS file to include');
     console.log('  --outputdir=<output path> Optional, default to build/');
@@ -47,8 +47,11 @@ function argsCheck() {
 function main() {
   argsCheck();
   var templatePath = args.template ? args.template :
-      path.join(__dirname, '../resources/main.html');
-  templatePath = path.resolve(templatePath);
+      '../resources/main.html,' +
+      '../resources/selector.html,' +
+      '../resources/returning.html,' +
+      '../resources/manual.html';
+  var templates = templatePath.split(',');
   var css;
   if (args.css) {
     var cssPath = path.resolve(args.css);
@@ -59,9 +62,7 @@ function main() {
     var jsPath = path.resolve(args.js);
     js = fs.readFileSync(jsPath, {encoding: 'utf8'}).split('\n');
   }
-  var parsedContents =
-      templateParser.parseHtml(templatePath, css, js);
-  var LANG = templateParser.LANG;
+
   var outputDir = path.resolve(path.join(__dirname, '../build'));
   if (args.outputdir) {
     outputDir = path.resolve(__dirname, args.outputdir);
@@ -71,18 +72,25 @@ function main() {
     fs.mkdirSync(outputDir);
   }
 
-  var basename = path.basename(templatePath);
-  basename = basename.substring(0, basename.indexOf('.htm'));
-  var extname = path.extname(templatePath);
-  for (var i = 0; i < LANG.length; ++i) {
-    var filePath = path.join(outputDir, basename + '-' + LANG[i] + extname);
-    var minified = minify(parsedContents[i], {
-      removeAttributeQuotes: true,
-      removeComments: true,
-      collapseWhitespace: true
-    });
-    fs.writeFileSync(filePath, minified, {encoding: 'utf8'});
-  }
+  templates.forEach(function(filePath) {
+    var templatePath = path.resolve(path.join(__dirname, filePath));
+    var parsedContents =
+        templateParser.parseHtml(templatePath, css, js);
+    var LANG = templateParser.LANG;
+
+    var basename = path.basename(templatePath);
+    basename = basename.substring(0, basename.indexOf('.htm'));
+    var extname = path.extname(templatePath);
+    for (var i = 0; i < LANG.length; ++i) {
+      var filePath = path.join(outputDir, basename + '-' + LANG[i] + extname);
+      var minified = minify(parsedContents[i], {
+        removeAttributeQuotes: true,
+        removeComments: true,
+        collapseWhitespace: true
+      });
+      fs.writeFileSync(filePath, minified, {encoding: 'utf8'});
+    }
+  });
 }
 
 main();
