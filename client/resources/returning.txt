@@ -9,3 +9,58 @@
 @@line{tc} 舊生註冊
 @@line{sc} 旧生注册
 @@end{subtitle}
+
+@@start{desc}
+@@block{en}
+Please enter your family number, located at the top right corner of
+the registration form e-mailed to you:
+@@endblock
+
+@@block{tc}
+請輸入家庭代號, 您可在 e-mail 給您的註冊表的右上角找到這個號碼:
+@@endblock
+
+@@block{sc}
+请输入家庭代号, 您可在 e-mail 给您的注册表的右上角找到这个号码:
+@@endblock
+@@end{desc}
+
+@@start{payAmountTitle}
+@@line{en} You need to pay
+@@line{tc} 您需付
+@@line{sc} 您需付
+@@end{payAmountTitle}
+
+@@start{thankyou}
+@@block{en}
+Payment successfully processed. You should expect a confirmation e-mail from us shortly.<br/>
+Thank you for applying Westside Chinese School and see you in September!
+@@endblock
+
+@@block{tc}
+付款成功, 確認 e-mail 將會在稍後寄送到您的電子郵件信箱。<br/>
+感謝您申請加入西區中文學校, 我們九月校園見!
+@@endblock
+
+@@block{sc}
+付款成功, 确认 e-mail 将会在稍后寄送到您的电子邮件信箱。<br/>
+感谢您申请加入西区中文学校, 我们九月校园见!
+@@endblock
+@@end{thankyou}
+
+@@start{noretry}
+@@block{en}
+Credit card payment failed. Please print out registration form, mail it with your payment to
+P.O. Box 1280, Culver City, CA 90232 to complete the registration. Make your check payable to CLSSC.
+@@endblock
+
+@@block{tc}
+請款失敗, 您必須印出註冊表, 連同您的支票一起郵寄到
+P.O. Box 1280, Culver City, CA 90232 以完成註冊手續。支票抬頭為 CLSSC。
+@@endblock
+
+@@block{sc}
+请款失败, 您必须印出注册表, 连同您的支票一起邮寄到
+P.O. Box 1280, Culver City, CA 90232 以完成注册手续。支票抬头为 CLSSC。
+@@endblock
+@@end{noretry}

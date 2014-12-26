@@ -4,7 +4,11 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Westside Chinese School Registration</title>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
   <link rel="stylesheet" type="text/css" href="common.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
 </head>
 <body>
 
@@ -15,7 +19,33 @@
   <div class="subtitle">
     <div data-name="subtitle">Returning Students</div>
   </div>
-  <h2>UNDER CONSTRUCTION</h2>
+  <div id="inputForm">
+    <div data-name="desc">
+      Please enter your family number, located at the top right corner of
+      the registration form e-mailed to you:
+    </div>
+    <br />
+    <input type="text" id="familyNumber" />
+    <input type="button" id="submitButton" value="Submit" />
+  </div>
+  <br/>
+  <div id="paymentDesc">
+    <div data-name="payAmountTitle">You need to pay</div> $<span id="paymentAmount">0</span>.<br />
+    <input type="button" id="payButton" value="Pay Now" />
+  </div>
+  <br />
+  <div id="paySuccess">
+    <div data-name="thankyou">Thank you for applying Westside Chinese School and see you in September!</div>
+  </div>
+  <br/>
+  <div id="payFailed">
+    <div data-name="noretry">
+      Unable to charge your card. Please mail your registration form with check payable to CLSSC instead.
+    </div>
+  </div>
+  <!-- @@include{process_dialog.html} -->
+  <!-- @@include{error_dialog.html} -->
+  <script src="returning.js" type="text/javascript"></script>
 </div>
 
 </body>
