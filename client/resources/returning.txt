@@ -25,11 +25,23 @@ the registration form e-mailed to you:
 @@endblock
 @@end{desc}
 
+@@start{alreadyPaid}
+@@line{en} The tuition is already paid.
+@@line{tc} 學費已繳過了, 我們九月校園見!
+@@line{sc} 学费已缴过了, 我们九月校园见!
+@@end{alreadyPaid}
+
 @@start{payAmountTitle}
 @@line{en} You need to pay
 @@line{tc} 您需付
 @@line{sc} 您需付
 @@end{payAmountTitle}
+
+@@start{charging}
+@@line{en} Processing payment, please wait ...
+@@line{tc} 交易正在處理中, 請稍候 ...
+@@line{sc} 交易正在处理中, 请稍候 ...
+@@end{charging}
 
 @@start{thankyou}
 @@block{en}

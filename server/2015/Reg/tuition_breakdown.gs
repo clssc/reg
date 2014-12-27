@@ -11,6 +11,11 @@
 var TUITION_BREAKDOWN_DOCID = '1BP33zMdftNkVhd6cRmniDYTVP_gHW14GVMnXrwvrh0Y';
 
 
+/**
+ * Cut off date. 2015-08-01.
+ */
+var CUT_OFF_DATE = new Date(2015, 7, 1);
+
 
 /**
  * Data item of 'TuitionBreakdown'.
@@ -46,8 +51,11 @@ TuitionItem = function(values) {
   /** @type {number} */
   this.total = values[8];
   
+  /** @type {Date} */
+  this.transaction_date = values[9]
+  
   /** @type {string} */
-  this.notes = values[9];
+  this.notes = values[10];
 };
 
 
@@ -75,7 +83,6 @@ TuitionBreakdownDB.prototype.initialize_ = function(opt_dbName) {
   var spreadsheet = openById ? SpreadsheetApp.openById(dbName) : lookupAndOpenFile(dbName);
   
   this.sheet_ = spreadsheet.getSheets()[0];
-  DebugLog('opened ' + dbName);
 };
 
 
@@ -90,7 +97,7 @@ TuitionBreakdownDB.prototype.findRow_ = function(familyId) {
   var rows = range.getValues();
   for (var i = 0; i < rows.length; ++i) {
     if (rows[i][0] == familyId) {
-      var cellRange = 'A' + (i + 2).toString() + ':J' + (i + 2).toString();
+      var cellRange = 'A' + (i + 2).toString() + ':K' + (i + 2).toString();
       results = this.sheet_.getRange(cellRange.toString());
       return results;
     }
@@ -128,6 +135,7 @@ TuitionBreakdownDB.prototype.insertOrReplace = function(item) {
     item.service_fine,
     item.credits,
     item.total,
+    item.transaction_date,
     item.notes
   ];
   
@@ -177,6 +185,7 @@ function testTuitionBreakdownSCUD() {
     100,
     0,
     800,
+    null,
     'test'
   ]);
   sheet.insertOrReplace(item);
@@ -197,4 +206,33 @@ function testTuitionBreakdownSCUD() {
   
   sheet.remove(3322);
   assertNull(sheet.select(3322));
+}
+
+
+/**
+ * @param {number} familyNumber
+ * @param {string=} opt_dbName
+ * @return {number} Tuition to pay: 0: not found, -1: already paid, positive numbers: amount to pay.
+ */
+function lookupTuition(familyNumber, opt_dbName) {
+  var sheet = new TuitionBreakdownDB(opt_dbName);
+  var now = new Date();
+  var item = sheet.select(familyNumber);
+  if (item) {
+    if (item.transaction_date) {
+      return -1;
+    } else if (now <= CUT_OFF_DATE) {
+      return item.early_tuition + item.service_fine - item.credits;
+    } else {
+      return item.normal_tuition + item.service_fine - item.credits;
+    }
+  }
+  
+  return 0;
+}
+
+function testLookupTuition() {
+  assertEquals(1140, lookupTuition(3366, 'TuitionBreakdownTest'));
+  assertEquals(-1, lookupTuition(3520, 'TuitionBreakdownTest'));
+  assertEquals(0, lookupTuition(3388, 'TuitionBreakdownTest'));
 }
