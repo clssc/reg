@@ -31,7 +31,7 @@ function minifyAndCp(source, target) {
   } else if (ext == '.js') {
     minified = uglify(sourceFile).code;
   } else if (ext == '.css') {
-    minified = new CleanCSS().minify(contents);
+    minified = new CleanCSS().minify(contents).styles;
   }
   fs.writeFileSync(targetFile, minified);
 }
