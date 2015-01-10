@@ -588,7 +588,7 @@ function runPayment(e) {
   if (!checkoutHandler) {
     checkoutHandler = StripeCheckout.configure({
       key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
-      image: '/logo.png',
+      image: 'logo.png',
       token: function(token) {
         // Use the token to create the charge with a server-side script.
         // You can access the token ID with `token.id`
@@ -597,7 +597,7 @@ function runPayment(e) {
         $('#charging').show();
         $.ajax({
           type: 'POST',
-          url: 'http://reg.westsidechineseschool.com/charge.php',
+          url: 'https://www.westsidechineseschool.com/reg/charge.php',
           data: {
             'stripeToken': token.id,
             'stripeTokenType': 'card',
