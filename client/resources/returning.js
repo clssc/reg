@@ -93,14 +93,15 @@ function queryAmount(familyNumber) {
     data: JSON.stringify(familyNumber),
     dataType: 'text'
   }).done(function(data) {
+    $('#progress').dialog('close');
     onServerReturn(data);
   }).fail(function(e) {
+    $('#progress').dialog('close');
     onServerFailure(e);
   });
 }
 
 function onServerFailure(e) {
-  $('#progress').dialog('close');
   $('#error').dialog('open');
 }
 
@@ -121,8 +122,8 @@ function onServerReturn(data) {
     return;
   }
 
+  $('#paymentAmount').text('$#36;' + chargeAmount.toString());
   $('#paymentDesc').show();
-  $('#paymentAmount').text(chargeAmount.toString());
 }
 
 function payTuition(e) {
