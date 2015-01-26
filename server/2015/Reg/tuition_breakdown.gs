@@ -236,3 +236,21 @@ function testLookupTuition() {
   assertEquals(-1, lookupTuition(3520, 'TuitionBreakdownTest'));
   assertEquals(0, lookupTuition(3388, 'TuitionBreakdownTest'));
 }
+
+
+/**
+ * @param {number} familyNumber
+ */
+function setPaid(familyNumber) {
+  var sheet = new TuitionBreakdownDB();
+  var timestamp = (new Date()).toString();
+  var item = sheet.select(familyNumber);
+  if (item) {
+    if (item.transaction_date) {
+      // Already set, do nothing.
+    } else {
+      item.transaction_date = timestamp;
+      sheet.insertOrReplace(item);
+    }
+  }
+}
