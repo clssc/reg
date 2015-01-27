@@ -44,12 +44,14 @@ $(function() {
 
 function initDialogs() {
   $('#progress').dialog({
+    dialogClass: 'no-close',
     autoOpen: false,
     resizable: false,
     modal: true
   });
 
   $('#error').dialog({
+    dialogClass: 'no-close',
     autoOpen: false,
     resizable: false,
     modal: true,
