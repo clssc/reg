@@ -97,3 +97,6 @@ ol {
 .no-close .ui-dialog-titlebar-close {
   display: none;
 }
+.short {
+  width: 100px;
+}

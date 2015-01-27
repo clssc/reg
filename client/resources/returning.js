@@ -124,7 +124,7 @@ function onServerReturn(data) {
     return;
   }
 
-  $('#paymentAmount').text('$#36;' + chargeAmount.toString());
+  $('#paymentAmount').text('USD$' + chargeAmount.toString());
   $('#paymentDesc').show();
 }
 

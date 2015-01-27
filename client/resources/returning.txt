@@ -32,9 +32,9 @@ the registration form e-mailed to you:
 @@end{alreadyPaid}
 
 @@start{payAmountTitle}
-@@line{en} You need to pay
-@@line{tc} 您需付
-@@line{sc} 您需付
+@@line{en} You need to pay&nbsp;
+@@line{tc} 您需付&nbsp;
+@@line{sc} 您需付&nbsp;
 @@end{payAmountTitle}
 
 @@start{charging}
