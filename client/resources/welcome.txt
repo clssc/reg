@@ -14,30 +14,25 @@
 @@block{en}
 Welcome to the online registration page of Westside Chinese School.<br />
 <br />
-You will need to print out an application form at the end of the registration, please have your printer ready.<br />
-<br />
-For returning families, please pay at school directly and there's no need to register again online.<br />
-<br />
-For new families, click Next.
+You will need to use your credit card to pay in order to complete the 
+registration process. If you do not have a credit card, please
+<a href="https://www.westsidechineseschool.com/reg/manual-en.html">click here</a>. Debit card will very likely be rejected due to daily purchase limit, so 
+please use credit cards instead.
 @@endblock
 
 @@block{tc}
 歡迎使用西區中文學校網路註冊服務。<br />
 <br />
-在註冊的最後步驟，您必須將申請表列印出來，請準備好您的印表機。<br />
-<br />
-舊生家庭請在學校繳費即可，無需網路註冊。<br />
-<br />
-新生請按下一步。
+您必須使用信用卡繳費以完成註冊手續，若您沒有信用卡，
+<a href="https://www.westsidechineseschool.com/reg/manual-tc.html">請按這裡</a>。
+因交易額度很高，銀行極可能拒絕提款卡 (Debit Card)，請務必使用信用卡。
 @@endblock
 
 @@block{sc}
 欢迎使用西区中文学校网络注册服务。<br />
 <br />
-在注册的最後步骤，您必须将申请表打印出来，请准备好您的打印机。<br />
-<br />
-旧生家庭请在学校缴费即可，无需网络注册。<br />
-<br />
-新生请按下一步。
+您必须使用信用卡缴费以完成注册手续，若您没有信用卡，
+<a href="https://www.westsidechineseschool.com/reg/manual-tc.html">请按这里</a>。
+因交易额度很高，银行极可能拒绝提款卡 (Debit Card)，请务必使用信用卡。
 @@endblock
 @@end{desc}
