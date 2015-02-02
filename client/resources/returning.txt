@@ -76,3 +76,9 @@ P.O. Box 1280, Culver City, CA 90232 以完成註冊手續。支票抬頭為 CLS
 P.O. Box 1280, Culver City, CA 90232 以完成注册手续。支票抬头为 CLSSC。
 @@endblock
 @@end{noretry}
+
+@@start{legalconsent}
+@@line{en} Please read the following legal disclaimer carefully, and check the checkbox to proceed.
+@@line{tc} 請詳閱下列法律聲明文件後, 勾選「已閱讀」核取方塊繼續。
+@@line{sc} 请详阅下列法律声明文件後, 勾选「已阅读」核取方块继续。
+@@end{legalconsent}

@@ -15,6 +15,7 @@ $(function() {
   $('#payFailed').hide();
   $('#alreadyPaid').hide();
   $('#charging').hide();
+  $('#legal').hide();
 
   $('#submitButton').click(function() {
     var rawNumber = $('#familyNumber').val().trim();
@@ -33,6 +34,7 @@ $(function() {
     queryAmount(fn);
   });
 
+  $('#consent').change(function() { toggleLegalStep(); });
   $('#payButton').click(payTuition);
 
   var familyNumber = parseCGI();
@@ -125,6 +127,20 @@ function onServerReturn(data) {
   }
 
   $('#paymentAmount').text('USD$' + chargeAmount.toString());
+  legalConsent();
+}
+
+function toggleLegalStep() {
+  if ($('#consent').is(':checked')) {
+    $('#payButton').removeAttr('disabled');
+  } else {
+    $('#payButton').attr('disabled', 'disabled');
+  }
+}
+
+function legalConsent() {
+  $('#legal').show();
+  toggleLegalStep();
   $('#paymentDesc').show();
 }
 
