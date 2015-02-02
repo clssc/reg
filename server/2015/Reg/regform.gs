@@ -2,14 +2,14 @@
  * Early bird tuition per student.
  * @const {number}
  */
-var EARLY_BIRD_TUITION = 600;
+var EARLY_BIRD_TUITION = 700;
 
 
 /**
  * Normal tuition per student.
  * @const {number}
  */
-var NORMAL_TUITION = 700;
+var NORMAL_TUITION = 800;
 
 
 /**

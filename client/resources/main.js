@@ -540,8 +540,8 @@ function onServerReturn(data) {
   $('#snum_stu').text(numStudents.toString());
   var svcDeposit = (numStudents - numAdultStudents) > 0 ? 200 : 0;
   $('#ssvc_deposit').text(svcDeposit.toString());
-  var total = 700 * numStudents + svcDeposit + 100;
-  var total2 = 600 * numStudents + svcDeposit + 100;
+  var total = 800 * numStudents + svcDeposit + 100;
+  var total2 = 700 * numStudents + svcDeposit + 100;
   $('#stotal').text(total.toString());
   $('#stotal2').text(total2.toString());
 
