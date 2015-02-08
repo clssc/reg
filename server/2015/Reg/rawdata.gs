@@ -162,7 +162,7 @@ RawData.prototype.validateStudents = function(data, consent) {
 
 
 /**
- * Writes entry to RawDB2014.
+ * Writes entry to RawDB.
  * @param {Object} entry
  */
 function writeEntry(entry) {
@@ -190,7 +190,7 @@ function writeEntry(entry) {
 RawData.prototype.generateFamilyNumber = function() {
   var familyNumber = -1;
   var fn = new FamilyNumberLookup();
-  var rawDb = new Db('RawDB2014');  // Open raw DB.
+  var rawDb = new Db(RAWDATA_DOCID, true);  // Open raw DB.
   for (var i = 0; i < this.entry.parents.length && familyNumber == -1; ++i) {
     familyNumber = fn.lookup(this.entry.parents[i].english_name);
     familyNumber = rawDb.lookupFamilyNumber(this.entry.parents[i].english_name);

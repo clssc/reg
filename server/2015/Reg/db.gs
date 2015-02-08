@@ -392,7 +392,7 @@ function autoMailer() {
     if (targets.indexOf(p.family_number) != -1) {
       if (p.email.length) {
         var docId = null;
-        docName = 'RegForm2014-' + p.family_number;
+        docName = 'RegForm2015-' + p.family_number;
         for (var j = 0; j < files.length; ++j) {
           if (files[j].getName() == docName) {
             docId = files[j].getId();
@@ -407,7 +407,7 @@ function autoMailer() {
           to: p.email,
           subject: 'Westside Chinese School Registration Form',
           htmlBody: '<b>AUTO-GENERATED E-MAIL. DO NOT REPLY.</b><br/><br/>' +
-                    'Attached file is your registration form for school year 2014-2015. ' +
+                    'Attached file is your registration form for school year 2015-2016. ' +
                     'The deadline to receive the $100 early bird registration discount is 07-31-14. ' +
                     'In order to be eligible, please mail in the attached form and check before deadline.' +
                     '<br/><br/>' +
