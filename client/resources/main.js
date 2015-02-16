@@ -221,7 +221,7 @@ function validatePhone(input) {
     }
   }
   return '';
-};
+}
 
 function validateEmail(input) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
@@ -266,7 +266,7 @@ function validateFamilyData() {
     // Check secondary phone
     var rawWorkPhone = $('#p' + i + 'work_ph').val().trim();
     var workPhone = validatePhone(rawWorkPhone);
-    if (workPhone != rawWorkPhone) {
+    if (workPhone.length != 12 && workPhone.length != 0) {
       result &= false;
     	$('#ptworkph').addClass('error');
     }
@@ -379,7 +379,10 @@ function validateStudentData() {
       var timestamp = 0;
       try {
         timestamp = jQuery.datepicker.parseDate('mm-dd-yy', value).getTime();
-      } catch (e) {}
+      } catch (e) {
+        // Make sure dateResult is not true.
+        timestamp = cutoffTimestamp;
+      }
       if (timestamp < cutoffTimestamp) {
         dateResult = true;
       }
