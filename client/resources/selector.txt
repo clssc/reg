@@ -7,7 +7,8 @@
 @@start{desc}
 @@block{en}
 Returning families (i.e. you or your children attended Westside
-Chinese School in 2014 for the whole school year), please click the link below:
+Chinese School in 2014-2015 school year for the whole school year), please
+click the link below:
 <a href="returning-en.html">Returning Families</a>
 <br />
 <br />
@@ -20,7 +21,7 @@ For all other special cases, <a href="manual-en.html">please click here</a>.
 @@endblock
 
 @@block{tc}
-舊生 (意即您或您的子女去年已於中文學校就讀全學年者) 請按下面的連結:
+舊生 (意即您或您的子女在2014-2015學年已於中文學校就讀全學年者) 請按下面的連結:
 <a href="returning-tc.html">舊生註冊</a>
 <br />
 <br />
@@ -32,7 +33,7 @@ For all other special cases, <a href="manual-en.html">please click here</a>.
 @@endblock
 
 @@block{sc}
-旧生 (意即您或您的子女去年已于中文学校就读全学年者) 请按下面的连结:
+旧生 (意即您或您的子女在2014-2015学年已于中文学校就读全学年者) 请按下面的连结:
 <a href="returning-sc.html">旧生注册</a>
 <br />
 <br />
