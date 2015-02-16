@@ -85,6 +85,7 @@ RegForm = function(opt_dataFileName) {
  * @private
  */
 RegForm.prototype.initialize_ = function(opt_dataFileName, opt_serviceDbName) {
+  DebugLog('Regform init');
   this.db_ = new Db(opt_dataFileName);
   this.serviceDb_ = new ServiceDb(opt_serviceDbName);
 };
@@ -262,6 +263,7 @@ RegForm.prototype.prepareDoc_ = function(fileName, data, opt_force) {
     var doc = lookupAndOpenDoc(fileName);
     if (doc) {
       // File exists, give up.
+      DebugLog(fileName + ' existed, give up');
       return [doc.getId(), doc.getUrl()];
     }
   }
@@ -304,9 +306,8 @@ RegForm.prototype.generateBlankRegForm = function(opt_force, opt_output) {
  */
 RegForm.prototype.generateRegForm = function(familyNumber, opt_force, opt_output) {
   var year = getSchoolYear();
-  var fn = familyNumber || 1020;
-  var fileName = opt_output || REG_FORM + year + '-' + fn;
-  return this.prepareDoc_(fileName, this.getFormData_(fn), opt_force);
+  var fileName = opt_output || REG_FORM + year + '-' + familyNumber;
+  return this.prepareDoc_(fileName, this.getFormData_(familyNumber), opt_force);
 };
 
 
@@ -343,23 +344,17 @@ RegForm.prototype.findActiveFamilyNumbers_ = function(opt_className) {
 RegForm.prototype.generateRegFormsByClass = function(className) {
   var familyNumbers = this.findActiveFamilyNumbers_(className);
   var docIds = familyNumbers.map(function(fid) {
-    return this.generateRegForm(fid, false);
-  });
+    return this.generateRegForm(fid, false)[0];
+  }.bind(this));
   
   // The following code was created to merge all generate docs in one
   // file. However, it seems that Google Apps Script is not reliable
   // enough to concatenate hundreds of files. Bummer.
-  /*
   var year = getSchoolYear();
-  var fileName = opt_output || REG_FORM + year;
+  var fileName = REG_FORM + year + '-' + className;
   deleteFile(fileName);
   var doc = DocumentApp.create(fileName);
-  var folder = DocsList.getFolder('Reports/' + year);
-  var root = DocsList.getRootFolder();
-  var docId = doc.getId();
-  var docFile = DocsList.getFileById(docId);
-  docFile.addToFolder(folder);
-  docFile.removeFromFolder(root);
+  shareFile(doc);  
   this.copyTemplate_(doc);
   var body = doc.getBody();
   
@@ -373,8 +368,7 @@ RegForm.prototype.generateRegFormsByClass = function(className) {
     }
   }
   doc.saveAndClose();
-  return [docId, doc.getUrl()];
-  */
+  return [doc.getId(), doc.getUrl()];
 };
 
 
@@ -476,7 +470,7 @@ function generateBlankRegForm() {
 
 function generateRegFormsByClass(className) {
   var form = new RegForm();
-  form.generateRegFormsByClass(className || '8B');
+  form.generateRegFormsByClass(className || '3A');
 }
 
 function generateTuitionBreakdown() {

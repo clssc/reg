@@ -34,16 +34,15 @@ function logSchoolYear() {
 
 /**
  * Search for the spreadsheet of given file name.
- * WARNING: PERFORMANCE ISSUE IDENTIFIED
- * It takes at least 3 second to open a file.
  * @param {string} fileName
  * @return {Spreadsheet}
  */
 function lookupAndOpenFile(fileName) {
-  var files = getFilesByType('spreadsheet');
-  for (var i = 0; i < files.length; ++i) {
-    if (files[i].getName() == fileName) {
-      return SpreadsheetApp.open(files[i]);
+  var it = DriveApp.getFilesByName(fileName);
+  while (it.hasNext()) {
+    var file = it.next();
+    if (file.getMimeType() == 'application/vnd.google-apps.spreadsheet') {
+      return SpreadsheetApp.openById(file.getId());
     }
   }
   return null;
@@ -70,10 +69,11 @@ function DebugLog(message) {
  * @return {Document}
  */
 function lookupAndOpenDoc(fileName) {
-  var files = getFilesByType('document');
-  for (var i = 0; i < files.length; ++i) {
-    if (files[i].getName() == fileName) {
-      return DocumentApp.openById(files[i].getId());
+  var it = DriveApp.getFilesByName(fileName);
+  while (it.hasNext()) {
+    var file = it.next();
+    if (file.getMimeType() == 'application/vnd.google-apps.document') {
+      return DocumentApp.openById(file.getId());
     }
   }
   return null;
@@ -100,12 +100,10 @@ function openCleanDoc(fileName) {
  * @param {string} fileName
  */
 function deleteFile(fileName) {
-  var files = getAllFiles();
-  for (var i = 0; i < files.length; ++i) {
-    if (files[i].getName() == fileName) {
-      files[i].setTrashed(true);
-      break;
-    }
+  var it = DriveApp.getFilesByName(fileName);
+  while (it.hasNext()) {
+    var file = it.next();
+    file.setTrashed(true);
   }
 }
 
@@ -116,11 +114,10 @@ function deleteFile(fileName) {
  * @return {string} Copied file id.
  */
 function copyFile(fileName) {
-  var files = getAllFiles();
-  for (var i = 0; i < files.length; ++i) {
-    if (files[i].getName() == fileName) {
-      return files[i].makeCopy().getId();
-    }
+  var it = DriveApp.getFilesByName(fileName);
+  while (it.hasNext()) {
+    var file = it.next();
+    return file.makeCopy().getId();
   }
 }
 
@@ -194,12 +191,21 @@ function clearDoc(doc) {
  * @param {Document|Spreadsheet} doc File to move.
  */
 function shareFile(doc) {
-  var folder = DocsList.getFolder(PUBLIC_FOLDER + '/' + getSchoolYear());
-  var root = DocsList.getRootFolder();
-  var docId = doc.getId();
-  var docFile = DocsList.getFileById(docId);
-  docFile.addToFolder(folder);
-  docFile.removeFromFolder(root);
+  var it = DriveApp.getFoldersByName(PUBLIC_FOLDER);
+  while (it.hasNext()) {
+    var reports = it.next();
+    var it2 = reports.getFoldersByName(getSchoolYear().toString());
+    if (it2.hasNext()) {
+      var folder = it2.next();
+      var root = DriveApp.getRootFolder();
+      var docId = doc.getId();
+      var docFile = DriveApp.getFileById(docId);
+      folder.addFile(docFile);
+      root.removeFile(docFile);
+      return;
+    }
+  }
+  Logger.log('WARNING: unable to share file ' + doc.getName());
 }
 
 
@@ -306,50 +312,16 @@ function mailTo(email, title, files) {
    });
 }
 
-/**
- * Real getAllFiles.
- * @param {!function(File): boolean} opt_filter
- * @return {!Array.<File>}
- */
-function getAllFiles(opt_filter) {
-  var results = [];
-  var pageSize = 200;
-  var files = null;
-  var token = null; // use a null token for the first lookup
-  var identity = function() { return true; };
-  var filter = opt_filter || identity;
-  do {
-    var result = DocsList.getAllFilesForPaging(pageSize, token);
-    files = result.getFiles();
-    token = result.getToken();
-    
-    for (var i = 0; i < files.length; i++) {
-      if (filter(files[i])) {
-        results.push(files[i]);
-      }
-    }
-  } while (files.length >= pageSize);
-  return results;
-}
-
-
-/**
- * Real getFilesByType.
- * @param {string} type
- * @return {!Array.<File>}
- */
-function getFilesByType(type) {
-  return getAllFiles(function(file) { return file.getFileType() == type; });
-}
-
 
 /**
  * Dump all file metadata.
  */
 function dumpFileMetadata() {
-  var files = getAllFiles();
-  for (var i = 0; i < files.length; ++i) {
-    var message = files[i].getName() + ' ' + files[i].getFileType() + ' ' + files[i].getUrl();
+  var fileName = 'DebugLog';
+  var it = DriveApp.getFilesByName(fileName);
+  while (it.hasNext()) {
+    var file = it.next();
+    var message = file.getName() + ' ' + file.getMimeType() + ' ' + file.getUrl();
     Logger.log(message);
   }
 }
