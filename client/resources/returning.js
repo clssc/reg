@@ -30,6 +30,7 @@ $(function() {
       return;
     } else {
       $('#familyNumber').removeClass();
+      $('#submitButton').attr('disabled', 'disabled');
     }
     queryAmount(fn);
   });
