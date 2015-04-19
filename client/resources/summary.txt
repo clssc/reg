@@ -155,9 +155,9 @@
 @@end{gender}
 
 @@start{scah}
-@@line{en} Speak Chinese at Home
-@@line{tc} 在家是否說中文
-@@line{sc} 在家是否说中文
+@@line{en} Can follow full Mandarin instructions
+@@line{tc} 能完全了解全中文授課環境並以中文應答
+@@line{sc} 能完全了解全中文授课环境并以中文应答
 @@end{scah}
 
 @@start{textpref}
