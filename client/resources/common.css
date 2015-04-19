@@ -91,6 +91,9 @@ ol {
   margin: 10px;
   padding: 20px;
 }
+li {
+  padding-bottom: 10px;
+}
 .ui-dialog-titlebar {
   background: #bd5353;
   color: white;

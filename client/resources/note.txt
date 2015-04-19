@@ -20,10 +20,10 @@ following registration notes:<br />
   <li>The tuition is $800 (or $700 for early registration). Officers, teachers,
   and coaches who meet tuition reduction criteria will be refunded after the
   school year begins.</li>
-  <li>Students whose completed registrations are postmarked by 7/31/2015
-  will receive the textbooks on the first day of school. Students who
-  register after 7/31/2015 are not guaranteed to receive the textbooks
-  on the first day of school.</li>
+  <li>Early registration students (students whose completed registrations are
+  postmarked by 7/31/2015) will receive the textbooks on the first day of
+  school. Students who register after 7/31/2015 are not guaranteed to receive
+  the textbooks on the first day of school.</li>
   <li>Registration deadline and early bird discount deadline are determined by
   payment postmark.</li>
   <li>Each family, except staff and some teachers, shall serve 20 hours
@@ -40,7 +40,10 @@ following registration notes:<br />
   fees for these activities are not included in the tuition. The pertinent
   rules (including subsequent updates) for these activities which are published
   on the school website shall govern.</li>
-  <li>Registration fee is $100 and non-refundable. Bounced check fee is $30/each.</li>
+  <li>Registration fee is $100 and non-refundable. Bounced check fee is
+  $30/each. Detailed rules regarding <a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">
+tuition fees</a> and <a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">refund policy</a> can be found on
+the school web site.</li>
 </ol>
 @@endblock
 
@@ -49,8 +52,9 @@ following registration notes:<br />
 <ol>
   <li>學生在開學日當天必須滿五足歲。</li>
   <li>本學年學費為每學生 $800,  (提前註冊者 $700)。教職員符合寬減條件者, 開學後發放寬減額。</li>
-  <li>學生於7/31/2015 (郵戳為憑) 前完成註冊手續者, 將可於開學當日領取教科書。
-  學生於7/31/2015 後始註冊者, 於開學當日不保證可領取教科書。</li>
+  <li>提前註冊學生 (於7/31/2015 (郵戳為憑) 前完成註冊手續者),
+將可於開學當日領取教科書。學生於7/31/2015 後始註冊者,
+於開學當日不保證可領取教科書。</li>
   <li>註冊截止日期以繳費日郵戳為憑。</li>
   <li>除行政人員、部份教職員外, 每個會員家庭每年應服務20小時。註冊時應繳足服務保證金$200。
   離校家庭須於離校該學年度之最後一日起算一年之期限內申請服務保証金之退費, 逾期恕不受理。</li>
@@ -58,7 +62,9 @@ following registration notes:<br />
   (共計四小時), 並繳交課外活動費用。有關學分申請相關規定以學校網站公佈及嗣後更新之規定為準。</li>
   <li>課外活動時間為11:45A.M.-12:45P.M.。課外活動的費用不包括在學費之內,
   有關課外活動相關規定以學校網站公佈及嗣後更新之規定為準。</li>
-  <li>註冊費 $100 (恕不退費), 支票跳票處理費每張 $30。</li>
+  <li>註冊費 $100 (恕不退費), 支票跳票處理費每張 $30,
+<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">學費與註冊規定</a>及
+<a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">退費規定</a>均以學校網站公佈及嗣後更新之規定為準。</li>
 </ol>
 @@endblock
 
@@ -67,16 +73,19 @@ following registration notes:<br />
 <ol>
   <li>学生在开学日当天必须满五足岁。</li>
   <li>本学年学费为每学生 $800,  (提前注册者 $700)。教职员符合宽减条件者, 开学後发放宽减额。</li>
-  <li>学生於7/31/2015 (邮戳为凭) 前完成注册手续者, 将可於开学当日领取教科书。
-  学生於7/31/2015 後始注册者, 於开学当日不保证可领取教科书。</li>
+  <li>提前注册学生 (於7/31/2015 (邮戳为凭) 前完成注册手续者),
+将可於开学当日领取教科书。学生於7/31/2015 後始注册者,
+於开学当日不保证可领取教科书。</li>
   <li>注册截止日期以缴费日邮戳为凭。</li>
   <li>除行政人员、部份教职员外, 每个会员家庭每年应服务20小时。注册时应缴足服务保证金$200。
   离校家庭须於离校该学年度之最後一日起算一年之期限内申请服务保证金之退费, 逾期恕不受理。</li>
   <li>申请学分的学生, 每周除了上固定的三堂中文课外, 并须加选一堂指定的课外活动
-  (共计四小时), 并缴交课外活动费用。有关学分申请相关规定以学校网站公布及嗣後更新之规定为准。</li>
+  (共计四小时), 并缴交课外活动费用。有关学分申请相关规定以学校网站公布及嗣後更新之规范为准。</li>
   <li>课外活动时间为11:45A.M.-12:45P.M.。课外活动的费用不包括在学费之内,
   有关课外活动相关规定以学校网站公布及嗣後更新之规定为准。</li>
-  <li>注册费 $100 (恕不退费), 支票跳票处理费每张 $30。</li>
+  <li>注册费 $100 (恕不退费), 支票跳票处理费每张 $30。
+<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">学费与注册规范</a>及
+<a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">退费规范</a>均以学校网站公佈及嗣後更新之规范为準。</li>
 </ol>
 @@endblock
 @@end{desc}
