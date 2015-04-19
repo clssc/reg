@@ -1,4 +1,5 @@
 var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwRwWbwqw2ZJc_xJTAyGuY3lyfeOl9RFobe9PGmxNH5bUdHZ3gQ/exec';
+var CUTOFF_TIME = 1438412400000;  // Sat Aug 01 2015 00:00:00 GMT-0700 (Pacific Daylight Time)
 
 var STATE = [
   'AL', 'AK',  'AR', 'AS', 'AZ',
@@ -559,9 +560,10 @@ function onServerReturn(data) {
   }
   if (tempData.indexOf('family number') != -1) {
     familyId = tempData.substring(tempData.length - 4, tempData.length);
-    chargeAmount = total;
+    var now = new Date();
+    chargeAmount = now.getTime() >= CUTOFF_TIME ? total : total2;
   } else {
-    // TODO(arthurhsu): handle exceptions.
+    onServerFailure('failed to parse server results: ' + data);
   }
 }
 
@@ -590,7 +592,7 @@ function genFinalData() {
 function runPayment(e) {
   if (!checkoutHandler) {
     checkoutHandler = StripeCheckout.configure({
-      key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+      key: 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R',
       image: 'logo.png',
       token: function(token) {
         // Use the token to create the charge with a server-side script.
@@ -612,7 +614,12 @@ function runPayment(e) {
         }).done(function(data) {
           console.log('charge', data);
           $('#charging').hide();
-          $('#paySuccess').show();
+          if (data.indexOf('OK') == -1) {
+            // failure
+            $('#payFailed').show();
+          } else {
+            $('#paySuccess').show();
+          }
         }).fail(function(e) {
           console.log(e);
           $('#charging').hide();

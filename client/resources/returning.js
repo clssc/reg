@@ -174,7 +174,12 @@ function payTuition(e) {
         }).done(function(data) {
           console.log('charge', data);
           $('#charging').hide();
-          $('#paySuccess').show();
+          if (data.indexOf('OK') == -1) {
+            // failure
+            $('#payFailed').show();
+          } else {
+            $('#paySuccess').show();
+          }
         }).fail(function(e) {
           console.log(e);
           $('#charging').hide();
