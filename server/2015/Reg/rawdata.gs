@@ -5,7 +5,7 @@
 
 
 /** @const {string} */
-var RAWDATA_DOCID = '0AgvYC6nj697MdEhITjB2VU9CQkZZbHdMR3NXX2JESnc';
+var RAWDATA_DOCID = '1U9q_TWZgLvi4fbRJVBjw7Sv_MiSGEX8G96aXQkPDtEY';
 
 
 /**
@@ -32,8 +32,10 @@ function importWebData(data) {
     return rawData.errMsg;
   }
   
-  writeEntry(rawData.entry);
-  return 'SUCCESS: data accepted, family number = ' + rawData.entry.family.family_number;
+  if (writeEntry(rawData.entry)) {
+    return 'SUCCESS: data accepted, family number = ' + rawData.entry.family.family_number;
+  }
+  return failImport('already paid, family number = ' + rawData.entry.family.family_number);
 }
 
 
@@ -162,27 +164,6 @@ RawData.prototype.validateStudents = function(data, consent) {
 
 
 /**
- * Writes entry to RawDB.
- * @param {Object} entry
- */
-function writeEntry(entry) {
-  var outputFile = SpreadsheetApp.openById(RAWDATA_DOCID);
-  
-  var familyTable = outputFile.getSheetByName('Family');
-  var parentTable = outputFile.getSheetByName('Parent');
-  var studentTable = outputFile.getSheetByName('Student');
-
-  FamilyItem.serialize(familyTable, entry.family);
-  for (var j = 0; j < entry.parents.length; ++j) {
-    ParentItem.serialize(parentTable, entry.parents[j]);
-  }
-  for (var j = 0; j < entry.students.length; ++j) {
-    StudentItem.serialize(studentTable, entry.students[j]);
-  }
-}
-
-
-/**
  * Generate Family number for web data.
  * @param {Db} db New student reg database.
  * @param {Object} entry Parsed data entry.
@@ -215,6 +196,65 @@ RawData.prototype.generateFamilyNumber = function() {
     this.entry.students[i].family_number = familyNumber;
   }
 };
+
+
+/**
+ * Writes entry to RawDB.
+ * @param {Object} entry
+ * @return {boolean}
+ */
+function writeEntry(entry) {
+  var outputFile = SpreadsheetApp.openById(RAWDATA_DOCID);
+  var sheet = outputFile.getSheetByName('Student');
+  var familyNumber = entry.students[0].family_number;
+  var range = sheet.getRange(2, 1, sheet.getLastRow(), sheet.getLastColumn());
+  var rows = range.getValues();
+  for (var i = 0; i < rows.length; ++i) {
+    if (rows[i][0] == familyNumber && rows[i][10] == 'Y') {
+      return false;  // Already paid
+    }
+  }
+  
+  var familyTable = outputFile.getSheetByName('Family');
+  var parentTable = outputFile.getSheetByName('Parent');
+
+  FamilyItem.serialize(familyTable, entry.family);
+  for (var j = 0; j < entry.parents.length; ++j) {
+    ParentItem.serialize(parentTable, entry.parents[j]);
+  }
+  for (var j = 0; j < entry.students.length; ++j) {
+    StudentItem.serialize(sheet, entry.students[j]);
+  }
+  return true;
+}
+
+
+/**
+ * Update payment information.
+ * @param {number} familyNumber
+ * @param {number} amount
+ */
+function reportNewStudentPayment(familyNumber, amount) {
+  var outputFile = SpreadsheetApp.openById(RAWDATA_DOCID);  
+  var sheet = outputFile.getSheetByName('Student');
+  
+  var range = sheet.getRange(2, 1, sheet.getLastRow(), sheet.getLastColumn());
+  var rows = range.getValues();
+  for (var i = 0; i < rows.length; ++i) {
+    if (rows[i][0] == familyNumber) {
+      var values = rows[i].slice();
+      values[10] = 'Y';  // Mark as active.
+      var cellRange = 'A' + (i + 2).toString() + ':O' + (i + 2).toString();
+      sheet.getRange(cellRange.toString()).setValues([values]);
+    }
+  }
+}
+
+// WARNING: side effects, do not run when RawDB is live.
+function testReportNewStudentPayment() {
+  reportNewStudentPayment(1423, 1000);
+}
+
 
 function getTestData() {
   return {
@@ -301,4 +341,9 @@ function getTestData() {
 
 function testImportParsing() {
   Logger.log(importWebData(getTestData()));
+}
+
+function testFamilyNumber() {
+  var rawDb = new Db(RAWDATA_DOCID, true);  // Open raw DB.
+  Logger.log(rawDb.nextAvailableFamilyNumber());
 }

@@ -189,9 +189,10 @@ function clearDoc(doc) {
 /**
  * Share file (i.e. move a newly created file to public folder).
  * @param {Document|Spreadsheet} doc File to move.
+ * @param {string=} opt_folder
  */
-function shareFile(doc) {
-  var it = DriveApp.getFoldersByName(PUBLIC_FOLDER);
+function shareFile(doc, opt_folder) {
+  var it = DriveApp.getFoldersByName(opt_folder || PUBLIC_FOLDER);
   while (it.hasNext()) {
     var reports = it.next();
     var it2 = reports.getFoldersByName(getSchoolYear().toString());
@@ -210,21 +211,41 @@ function shareFile(doc) {
 
 
 /**
- * Copies contents from template file.
+ * Reads template contents.
  * @param {string} templateName
- * @param {Body} dstDoc Destination document.
  * @return {Body}
- * @private
  */
-function copyTemplate(templateName, dstDoc) {
+function readTemplate(templateName) {
   var doc = lookupAndOpenDoc(templateName);
-  var body = doc.getBody();
+  return doc.getBody();
+}
+
+
+/**
+ * Applies template contents.
+ * @param {Body} body Source template body
+ * @param {Document} dstDoc
+ * @return {Body}
+ */
+function applyTemplate(body, dstDoc) {
   var dstBody = dstDoc.getBody();
   dstBody.setMarginTop(body.getMarginTop());
   dstBody.setMarginLeft(body.getMarginLeft());
   dstBody.setMarginBottom(body.getMarginBottom());
   dstBody.setMarginRight(body.getMarginRight());
   return body.copy();
+}
+ 
+
+/**
+ * Copies contents from template file.
+ * @param {string} templateName
+ * @param {Document} dstDoc Destination document.
+ * @return {Body}
+ */
+function copyTemplate(templateName, dstDoc) {
+  var body = readTemplate(templateName);
+  return applyTemplate(body, dstDoc);
 }
 
 

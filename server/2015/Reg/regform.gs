@@ -34,6 +34,20 @@ var MIN_SERVICE_POINTS = 20;
 
 
 /**
+ * Mail blast message template HTML file.
+ * @const {string}
+ */
+var MAIL_BLAST_TEMPLATE = 'ReturningStudentInfo2015-en.html';
+
+
+/**
+ * Mail blast data file.
+ * @const {string}
+ */
+var MAIL_BLAST = 'MailBlast';
+
+
+/**
  * Name of template to use.
  * @const {string}
  */
@@ -55,11 +69,10 @@ var REG_FORM = 'RegForm';
 
 
 /**
- * Tuition Breakdown document ID.
+ * RegForm Folder Name.
  * @const {string}
  */
-var TUITION_BREAKDOWN_DOCID = 'TuitionBreakdown';
-
+var REG_FORM_FOLDER = 'RegForm';
 
 
 /**
@@ -68,11 +81,14 @@ var TUITION_BREAKDOWN_DOCID = 'TuitionBreakdown';
  * @constructor
  */
 RegForm = function(opt_dataFileName) {
-  /** @type {Db} */
+  /** @private {Db} */
   this.db_ = undefined;
   
-  /** @type {ServiceDb} */
+  /** @private {ServiceDb} */
   this.serviceDb_ = undefined;
+  
+  /** @private {Body} */
+  this.template_ = null;
 
   this.initialize_(opt_dataFileName);
 };
@@ -98,8 +114,12 @@ RegForm.prototype.initialize_ = function(opt_dataFileName, opt_serviceDbName) {
  * @private
  */
 RegForm.prototype.copyTemplate_ = function(dstDoc) {
-  var year = getSchoolYear();
-  return copyTemplate(REG_FORM_TEMPLATE + year, dstDoc);
+  if (this.template_ == null) {
+    var year = getSchoolYear();
+    this.template_ = readTemplate(REG_FORM_TEMPLATE + year);
+  }
+  
+  return applyTemplate(this.template_, dstDoc);
 };
 
 
@@ -271,7 +291,7 @@ RegForm.prototype.prepareDoc_ = function(fileName, data, opt_force) {
   var year = getSchoolYear();
   deleteFile(fileName);
   var doc = DocumentApp.create(fileName);
-  shareFile(doc);
+  shareFile(doc, REG_FORM_FOLDER);
   var body = this.copyTemplate_(doc);
   this.scanElement_(body, data);  
   appendToDoc(body, doc);
@@ -354,7 +374,7 @@ RegForm.prototype.generateRegFormsByClass = function(className) {
   var fileName = REG_FORM + year + '-' + className;
   deleteFile(fileName);
   var doc = DocumentApp.create(fileName);
-  shareFile(doc);  
+  shareFile(doc, REG_FORM_FOLDER);  
   this.copyTemplate_(doc);
   var body = doc.getBody();
   
@@ -398,19 +418,24 @@ RegForm.prototype.generateTuitionBreakdown = function(baseTuition) {
         (MIN_SERVICE_POINTS - servicePoints) * SERVICE_FINE,
         0,
         0,
-        'New'
+        '',
+        ''
       ]);
     } else {
       // Detect change and mark.
       var isDirty = (item.num_students != students.length) ||
           (item.service_points != servicePoints);
-      if (isDirty) {
+      var isFinal = false;
+      if (item.transaction_date) {
+        isFinal = true;
+      }
+      if (isDirty && !isFinal) {
         item.num_students = students.length;
         item.service_points = servicePoints;
         item.early_tuition = students.length * EARLY_BIRD_TUITION;
         item.normal_tuition = students.length * NORMAL_TUITION;
         item.service_fine = (MIN_SERVICE_POINTS - servicePoints) * SERVICE_FINE;
-        item.notes = item.notes + ' [MANUAL REVIEW REQUIRED]';
+        item.notes = item.notes;
       }
     }
     tuitionBreakdown.insertOrReplace(item);
@@ -460,7 +485,7 @@ function analyzeBlankForm() {
 
 function generateRegForm(familyNumber) {
   var form = new RegForm();
-  return form.generateRegForm(familyNumber || 1014, true)[1];
+  return form.generateRegForm(familyNumber || 1020, true)[1];
 }
 
 function generateBlankRegForm() {
@@ -476,4 +501,78 @@ function generateRegFormsByClass(className) {
 function generateTuitionBreakdown() {
   var form = new RegForm();
   return form.generateTuitionBreakdown();
+}
+
+
+/**
+ * This function will generate 50 regforms at a given time so it needs to be run several times.
+ * Please generate MailBlast form first by running buildMailBlast in db.gs.
+ */
+function generateRegForms(opt_limit) {
+  var LIMIT = opt_limit || 50;  // At most 50 forms to avoid max execution time limit exceeded error.
+  
+  var dataSource = lookupAndOpenFile(MAIL_BLAST + getSchoolYear().toString());
+  var sheet = dataSource.getActiveSheet();
+  var range = sheet.getRange(2, 1, sheet.getLastRow(), sheet.getLastColumn());
+  var rows = range.getValues();
+  var form = new RegForm();
+  
+  for (var i = 0, count = 0; i < rows.length - 1 && count < LIMIT; ++i) {
+    if (!rows[i][0]) continue;
+    if (rows[i][3]) continue;
+    var docId = form.generateRegForm(rows[i][0], true)[0];
+    var range = sheet.getRange('D' + (i + 2).toString() + ':D' + (i + 2).toString());
+    range.setValue([docId]);
+    count++;
+  }
+}
+
+function mailOne(template, emails, pdf) {
+  if (emails.length <= 0) return;
+  
+  var toUser = emails[0];
+  var ccUser = emails[1] || '';
+  
+  MailApp.sendEmail({
+    to: toUser,
+    replyTo: 'info@westsidechineseschool.com',
+    subject: 'Westside Chinese School 2015-2016 Registration',
+    cc: ccUser,
+    htmlBody: template,
+    attachments: pdf
+  });
+}
+
+function testMailOne() {
+  var template = DriveApp.getFilesByName(MAIL_BLAST_TEMPLATE).next().getBlob().getDataAsString();
+  var pdf = DriveApp.getFilesByName('RegForm2015-1020').next().getAs('application/pdf');
+  mailOne(template, ['arthur@cchsu.com'], pdf);
+}
+
+function mailBlast(opt_fileName) {
+  var template = DriveApp.getFilesByName(MAIL_BLAST_TEMPLATE).next().getBlob().getDataAsString();
+  var fileName = opt_fileName || MAIL_BLAST + getSchoolYear().toString();
+  var dataSource = lookupAndOpenFile(fileName);
+  var sheet = dataSource.getActiveSheet();
+  var range = sheet.getRange(2, 1, sheet.getLastRow(), sheet.getLastColumn());
+  var rows = range.getValues();
+  for (var i = 0; i < rows.length; ++i) {
+    if (!rows[i][0]) continue;
+    var docId = rows[i][3];
+    if (!docId) continue;
+    
+    var emails = [];
+    for (var j = 1; j <= 2; ++j) {
+      if (rows[i][j] && rows[i][j].length) {
+        emails.push(rows[i][j]);
+      }
+    }
+    var pdf = DriveApp.getFileById(docId).getAs('application/pdf');
+    // Comment out, uncomment only when you need to send out the email.
+    //mailOne(template, emails, pdf);
+  }
+}
+
+function testMailBlast() {
+  mailBlast('MailBlastTest');
 }

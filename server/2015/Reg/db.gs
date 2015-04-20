@@ -363,8 +363,7 @@ function buildNameLookup() {
         students[j].family_number]);
   }
 
-  var outputFile = lookupAndOpenFile('NameLookup' + getSchoolYear().toString()) ||
-      SpreadsheetApp.create(fileName);
+  var outputFile = lookupAndOpenFile('NameLookup' + getSchoolYear().toString());
   shareFile(outputFile);
   var sheet = outputFile.getActiveSheet();
   sheet.clear();
@@ -380,43 +379,40 @@ function buildNameLookup() {
     sheet.appendRow(tuples[k]);
   }
 }
-/*
-function autoMailer() {
+
+
+/** Construct mail blast sheet */
+function buildMailBlast() {
   var db = new Db();
-  var parents = db.getParent().getAll();
-  var targets = [1020];
-  var files = getFilesByType('document');
-
-  for (var i = 0; i < parents.length; ++i) {
-    var p = parents[i];
-    if (targets.indexOf(p.family_number) != -1) {
-      if (p.email.length) {
-        var docId = null;
-        docName = 'RegForm2015-' + p.family_number;
-        for (var j = 0; j < files.length; ++j) {
-          if (files[j].getName() == docName) {
-            docId = files[j].getId();
-            break;
-          }
-        }
-        if (docId == null) continue;
-
-        var pdf = DocumentApp.openById(docId).getAs('application/pdf');
-        Logger.log('mailing ' + docName + ' to ' + p.email);
-        MailApp.sendEmail({
-          to: p.email,
-          subject: 'Westside Chinese School Registration Form',
-          htmlBody: '<b>AUTO-GENERATED E-MAIL. DO NOT REPLY.</b><br/><br/>' +
-                    'Attached file is your registration form for school year 2015-2016. ' +
-                    'The deadline to receive the $100 early bird registration discount is 07-31-14. ' +
-                    'In order to be eligible, please mail in the attached form and check before deadline.' +
-                    '<br/><br/>' +
-                    'If you have questions about the form, please contact ' +
-                    '<a href="mailto:arthur@cchsu.com">arthur@cchsu.com</a>',
-          attachments: pdf
-        });
-      }
+  var outputFile = lookupAndOpenFile('MailBlast' + getSchoolYear().toString());
+  var sheet = outputFile.getActiveSheet();
+  sheet.clear();
+  
+  // Construct family data
+  var data = {};
+  var students = db.getStudent().getAllActive();
+  var parents = db.getParent();
+  
+  for (var i = 0; i < students.length; ++i) {
+    var s = students[i];
+    if (data.hasOwnProperty(s.family_number)) {
+      continue;
     }
+    var p = parents.get(s.family_number);
+    data[s.family_number] = p.map(function(item) {
+      return item.email;
+    });
+  }
+  
+  // Output title row
+  sheet.appendRow([
+    'family_number',
+    'email1',
+    'email2',
+    'form_id'
+  ]);
+  
+  for (var j in data) {
+    sheet.appendRow([j].concat(data[j]));
   }
 }
-*/

@@ -22,7 +22,7 @@
     <b><div data-name="tuitiontitle">Tuition and Fees</div></b>
   </div>
   <br />
-  <div>
+  <div id="feeSchedule">
     <table>
       <tr>
         <td></td><td>$800 ($700 early bird) * <span id="snum_stu">1</span></td>
@@ -39,15 +39,22 @@
     </table>
   </div>
   <br />
-  <div data-name="desc">
-    The registration is NOT completed until the payment for tuition is fulfilled.
-    Please review our payment and refund policy before you pay.
+  <div id="feeDesc">
+    <div data-name="desc">
+      The registration is NOT completed until the payment for tuition is fulfilled.
+      Please review our payment and refund policy before you pay.
+    </div>
   </div>
   <br/>
   <br/>
   <input type="button" id="payButton" value="Pay Now" />
   <br/>
   <br/>
+  <div id="paid">
+    <div data-name="paid">You have already paid. If you wish to alter your
+      registration, please contact us directly.
+    </div>
+  </div>
   <div id="charging">
     <div data-name="charging">Contacting bank, please wait ...</div>
   </div>

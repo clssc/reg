@@ -59,3 +59,9 @@ Thank you for applying Westside Chinese School and see you in September!
 @@line{tc} 請款失敗, 請改用紙面申請註冊。
 @@line{sc} 请款失败, 请改用纸面申请注册。
 @@end{noretry}
+
+@@start{paid}
+@@line{en} You have already paid. If you wish to alter your registration, please email info@westsidechineseschool.com directly.
+@@line{tc} 您已完成註冊並付款, 若您需要更改註冊內容, 請 E-Mail info@westsidechineseschool.com。
+@@line{sc} 您已完成注册并付款, 若您需要更改注册内容, 请 E-Mail info@westsidechineseschool.com。
+@@end{paid}

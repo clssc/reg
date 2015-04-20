@@ -98,8 +98,7 @@ TuitionBreakdownDB.prototype.findRow_ = function(familyId) {
   for (var i = 0; i < rows.length; ++i) {
     if (rows[i][0] == familyId) {
       var cellRange = 'A' + (i + 2).toString() + ':K' + (i + 2).toString();
-      results = this.sheet_.getRange(cellRange.toString());
-      return results;
+      return this.sheet_.getRange(cellRange.toString());
     }
   }
   return null;
@@ -237,6 +236,9 @@ function testLookupTuition() {
   assertEquals(0, lookupTuition(3388, 'TuitionBreakdownTest'));
 }
 
+function testRealLookupTuition() {
+  Logger.log(lookupTuition(1020));
+}
 
 /**
  * @param {number} familyNumber

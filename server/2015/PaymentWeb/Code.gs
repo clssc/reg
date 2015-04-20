@@ -29,14 +29,28 @@ function DebugLog(message) {
 function mailConfirmation(email, familyNumber, amount, paymentId) {
   MailApp.sendEmail(
     email,
-    'Payment received',
+    'Westside Chinese School 2015-2016 Registration: Payment received',
     '',
     {
       'replyTo': 'info@westsidechineseschool.com',
-      'htmlBody': '<html><body><p>Your payment: ' + amount + ' was received by Westside Chinese School.</p>' +
-                  '<p>Your family number is ' + familyNumber + '.</p>' +
-                  '<p>Your reference number is ' + paymentId + '</p>' +
-                  '<p>Thank you for your payment and see you in coming September!</p>'
+      'htmlBody': '<html><body>' +
+      
+'<p>Thank you for your registration at the Westside Chinese School ' +
+'for the school year 2015-2016. Your online payment was successful. ' +
+'The school will start on September 12, 2015. We will email pertinent ' +
+'information to you approximately a week prior to the beginning of ' +
+'the new school year.  Please visit the school website ' +
+'<a href="www.westsidechineseschool.com">www.westsidechineseschool.com</a>' +
+' for updates. The school is closed during the summer. If you have ' +
+'any questions, please email ' +
+'<a href="mailto:info@westsidechineseschool.com">info@westsidechinesechool.com</a>' +
+'.</p><p>Thank you!</p><br/>' +
+'<p>Tuition payment details:</p>' +
+'<p>Amount: ' + amount + '</p>' +
+'<p>Family number: ' + familyNumber + '</p>' +
+'<p>Reference number: ' + paymentId + '</p>' +
+      
+                  '</body></html>'
     });
   Reg.setPaid(parseInt(familyNumber, 10));
 }
@@ -117,7 +131,7 @@ function testProcessData() {
     'created': 1422227429,
     'livemode': false,
     'paid': true,
-    'amount': 120000,
+    'amount': 140000,
     'currency': 'usd',
     'refunded': false,
     'captured': true,

@@ -133,6 +133,7 @@ function setPaymentHooks() {
   });
 
   // Hide payment related message.
+  $('#paid').hide();
   $('#charging').hide();
   $('#paySuccess').hide();
   $('#payFailed').hide();
@@ -558,7 +559,13 @@ function onServerReturn(data) {
   } catch (e) {
     console.log('Failed to parse server data:', e);
   }
-  if (tempData.indexOf('family number') != -1) {
+  // TODO(arthurhsu): A bit fragile, need some TLC.
+  if (tempData.indexOf('already paid') != -1) {
+    $('#feeSchedule').hide();
+    $('#feeDesc').hide();
+    $('#paid').show();
+    $('#payButton').hide();
+  } else if (tempData.indexOf('family number') != -1) {
     familyId = tempData.substring(tempData.length - 4, tempData.length);
     var now = new Date();
     chargeAmount = now.getTime() >= CUTOFF_TIME ? total : total2;
@@ -589,6 +596,20 @@ function genFinalData() {
   });
 }
 
+function reportPayment(chargeData) {
+  var sameDone = function() {
+     $('#charging').hide();
+     $('#paySuccess').show();
+  };
+
+  $.ajax({
+    type: 'POST',
+    url: 'https://script.google.com/macros/s/AKfycbzjZkQGuBkZmBa93UsiRBzUEtn9MGG1MZF0-gnzo5YKI-jqv_Y/exec',
+    data: chargeData,
+    dataType: 'text'
+  }).done(sameDone).fail(sameDone);
+}
+
 function runPayment(e) {
   if (!checkoutHandler) {
     checkoutHandler = StripeCheckout.configure({
@@ -613,12 +634,12 @@ function runPayment(e) {
           dataType: 'text'
         }).done(function(data) {
           console.log('charge', data);
-          $('#charging').hide();
           if (data.indexOf('OK') == -1) {
             // failure
+            $('#charging').hide();
             $('#payFailed').show();
           } else {
-            $('#paySuccess').show();
+            reportPayment(data);
           }
         }).fail(function(e) {
           console.log(e);
