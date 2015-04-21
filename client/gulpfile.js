@@ -12,7 +12,8 @@ var DIST_FILES = [
   'logo.png',
   'index.html',
   'main.js',
-  'returning.js'
+  'returning.js',
+  'detect.js'
 ];
 
 function minifyAndCp(source, target) {
