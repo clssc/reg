@@ -1,4 +1,5 @@
 var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwRwWbwqw2ZJc_xJTAyGuY3lyfeOl9RFobe9PGmxNH5bUdHZ3gQ/exec';
+var SCHOOL_START = 1442041200000;  // Sat Sep 12 2015 00:00:00 GMT-0700 (Pacific Daylight Time)
 var CUTOFF_TIME = 1438412400000;  // Sat Aug 01 2015 00:00:00 GMT-0700 (Pacific Daylight Time)
 
 var STATE = [
@@ -26,8 +27,12 @@ var STATE = [
 // The very evil global variables.
 var numStudents = 1;  // Number of students, range [1, 4].
 var numParents = 2;  // Number of parents, range [1, 2].
-var cutoffTimestamp = new Date(2009, 12, 7).getTime();
-var adultTimestamp = new Date(1996, 10, 12).getTime();
+
+var schoolStartDate = new Date();
+schoolStartDate.setYear(2015);
+
+var cutoffTimestamp = SCHOOL_START - (5 * 365 + 1) * 86400000;
+var adultTimestamp = SCHOOL_START - (18 * 365 + 4) * 86400000;
 var submission = '';  // Data to submit to server.
 var numAdultStudents = 0;
 var familyId = '0000';
