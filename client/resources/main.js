@@ -332,17 +332,23 @@ function validateFamilyData() {
   // Format optional phone numbers
   //    var fax = validatePhone($('#fax').val().trim());
   //    $('#fax').val(fax);
-  var docPh = validatePhone($('#doc_ph').val().trim());
-  if (docPh.length != 0 && docPh.length != 12) {
-    result &= false;
-    $('#ptdoc_ph').addClass('error');
+  var docPh = $('#doc_ph').val().trim();
+  if (docPh.length != 0) {
+    docPh = validatePhone(docPh);
+    if (docPh.length != 12) {
+      result &= false;
+      $('#ptdoc_ph').addClass('error');
+    }
   } else {
     $('#doc_ph').val(docPh);
   }
-  var emerPh = validatePhone($('#emer_ph').val().trim());
-  if (emerPh.length != 0 && emerPh.length != 12) {
-    result &= false;
-    $('#ptemer_ph').addClass('error');
+  var emerPh = $('#emer_ph').val().trim();
+  if (emerPh.length != 0) {
+    emerPh = validatePhone(emerPh);
+    if (emerPh.length != 12) {
+      result &= false;
+      $('#ptemer_ph').addClass('error');
+    }
   } else {
     $('#emer_ph').val(emerPh);
   }
