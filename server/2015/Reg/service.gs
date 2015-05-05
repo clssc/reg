@@ -79,3 +79,16 @@ function testServiceDb() {
   assertEquals(20, serviceDb.lookup(1017));
   assertEquals(12, serviceDb.lookup(1048));
 }
+
+
+function testServiceRevision() {
+  var revisions = Drive.Revisions.list(SERVICEDB_DOCID);
+  if (revisions.items && revisions.items.length > 0) {
+    for (var i = 0; i < revisions.items.length; i++) {
+      var revision = revisions.items[i];
+      Logger.log(revision);
+    }
+  } else {
+    Logger.log('No revisions found.');
+  }
+}

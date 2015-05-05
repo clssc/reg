@@ -34,6 +34,13 @@ var MIN_SERVICE_POINTS = 20;
 
 
 /**
+ * New Family non-refundable fee.
+ * @const {number}
+ */
+var NEW_FAMILY_FEE = 100;
+
+
+/**
  * Mail blast message template HTML file.
  * @const {string}
  */
@@ -240,6 +247,7 @@ RegForm.prototype.getFormData_ = function(familyNumber) {
     'tp'  // 8 text preference
   ];
   
+  var parentNMe = true;
   for (var i = 0; i < students.length; ++i) {
     var fieldNames = [];
     for (var j = 0; j < studentFields.length; ++j) {
@@ -252,18 +260,28 @@ RegForm.prototype.getFormData_ = function(familyNumber) {
     data[fieldNames[3]] = Utilities.formatDate(s.dob, 'GMT', 'MM/dd/yy');
     data[fieldNames[4]] = s.gender;
     data[fieldNames[5]] = s.prev_class;
+    if (!(s.prev_class && s.prev_class.substring(0, 6) == 'Parent')) {
+      parentNMe = false;
+    }
     data[fieldNames[6]] = s.currClass;
     data[fieldNames[7]] = s.speak_chinese ? 'Y' : 'N';
     data[fieldNames[8]] = s.text_pref;
   }
   
   // Money Money Money
-  var servicePoints = this.serviceDb_.lookup(familyNumber);
   data['num'] = students.length;
   data['subtotal1'] = NORMAL_TUITION * students.length;
   data['subtotal2'] = EARLY_BIRD_TUITION * students.length;
-  data['svc'] = MIN_SERVICE_POINTS - servicePoints;
-  data['svcfine'] = SERVICE_FINE * (MIN_SERVICE_POINTS - servicePoints);
+  if (parentNMe) {
+    // Upgraded from Parent and Me classes
+    data['service'] = SERVICE_DEPOSIT;
+    data['newfamily'] = NEW_FAMILY_FEE;
+  } else {
+    // Returning families
+    var servicePoints = this.serviceDb_.lookup(familyNumber);
+    data['svc'] = MIN_SERVICE_POINTS - servicePoints;
+    data['svcfine'] = SERVICE_FINE * (MIN_SERVICE_POINTS - servicePoints);
+  }
   return data;
 };
 
@@ -485,7 +503,7 @@ function analyzeBlankForm() {
 
 function generateRegForm(familyNumber) {
   var form = new RegForm();
-  return form.generateRegForm(familyNumber || 1020, true)[1];
+  return form.generateRegForm(familyNumber || 1391, true)[1];
 }
 
 function generateBlankRegForm() {
