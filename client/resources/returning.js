@@ -152,7 +152,7 @@ function payTuition(e) {
 
   if (!checkoutHandler) {
     checkoutHandler = StripeCheckout.configure({
-      key: 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R',
+      key: 'pk_live_nGVIQje5vy4A0MiOFCv40GB9',
       image: 'logo.png',
       token: function(token) {
         // Use the token to create the charge with a server-side script.
