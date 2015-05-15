@@ -15,17 +15,20 @@
 <strong>Please read the complete registration rules on
 <a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">school's web site</a>
 before you register</strong>.<br/><br/>
+<strong>Only VISA and Master cards are accepted.</strong><br/><br/>
 Please enter your family number, located at the top right corner of
 the registration form e-mailed to you:
 @@endblock
 
 @@block{tc}
 <strong>在您註冊之前, 請先詳細閱讀<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">學校網站上的註冊規定</strong>。<br/><br/>
+<strong>本系統只收 VISA 或 Master 卡。</strong><br/><br/>
 請輸入家庭代號, 您可在 e-mail 給您的註冊表的右上角找到這個號碼:
 @@endblock
 
 @@block{sc}
 <strong>在您註册之前, 请先详细阅读<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">学校网站上的註册规定</strong>。<br/><br/>
+<strong>本系统只收 VISA 或 Master 卡。</strong><br/><br/>
 请输入家庭代号, 您可在 e-mail 给您的注册表的右上角找到这个号码:
 @@endblock
 @@end{desc}

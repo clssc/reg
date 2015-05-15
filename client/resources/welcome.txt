@@ -14,7 +14,7 @@
 @@block{en}
 Welcome to the online registration page of Westside Chinese School.<br />
 <br />
-You will need to use your credit card to pay in order to complete the 
+You will need to use your VISA or Master credit card to pay in order to complete the 
 registration process. If you do not have a credit card, please
 <a href="https://www.westsidechineseschool.com/reg/manual-en.html">click here</a>. Debit card will very likely be rejected due to daily purchase limit, so 
 please use credit cards instead.
@@ -23,7 +23,7 @@ please use credit cards instead.
 @@block{tc}
 歡迎使用西區中文學校網路註冊服務。<br />
 <br />
-您必須使用信用卡繳費以完成註冊手續，若您沒有信用卡，
+您必須使用 VISA 或 Master 信用卡繳費以完成註冊手續，若您沒有信用卡，
 <a href="https://www.westsidechineseschool.com/reg/manual-tc.html">請按這裡</a>。
 因交易額度很高，銀行極可能拒絕提款卡 (Debit Card)，請務必使用信用卡。
 @@endblock
@@ -31,7 +31,7 @@ please use credit cards instead.
 @@block{sc}
 欢迎使用西区中文学校网络注册服务。<br />
 <br />
-您必须使用信用卡缴费以完成注册手续，若您没有信用卡，
+您必须使用 VISA 或 Master 信用卡缴费以完成注册手续，若您没有信用卡，
 <a href="https://www.westsidechineseschool.com/reg/manual-tc.html">请按这里</a>。
 因交易额度很高，银行极可能拒绝提款卡 (Debit Card)，请务必使用信用卡。
 @@endblock
