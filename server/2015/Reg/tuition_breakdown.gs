@@ -163,6 +163,20 @@ TuitionBreakdownDB.prototype.select = function(familyId) {
 };
 
 
+/**
+ * Returns family numbers on TuitionBreakdown DB.
+ * @return {!Array<number>}
+ */
+TuitionBreakdownDB.prototype.getFamilyNumbers = function() {
+  var range = this.sheet_.getRange(2, 1, this.sheet_.getLastRow() - 1, 1);
+  var results = [];
+  range.getValues().forEach(function(value) {
+    results.push(value[0]);
+  });
+  return results;
+};
+
+
 function testTuitionBreakdownSelect() {
   var sheet = new TuitionBreakdownDB('TuitionBreakdownTest');
   var item1 = sheet.select(3366);
@@ -234,6 +248,14 @@ function testLookupTuition() {
   assertEquals(1140, lookupTuition(3366, 'TuitionBreakdownTest'));
   assertEquals(-1, lookupTuition(3520, 'TuitionBreakdownTest'));
   assertEquals(0, lookupTuition(3388, 'TuitionBreakdownTest'));
+}
+
+function testGetFamilyNumbers() {
+  var sheet = new TuitionBreakdownDB('TuitionBreakdownTest');
+  var results = sheet.getFamilyNumbers();
+  assertEquals(2, results.length);
+  assertEquals(3366, results[0]);
+  assertEquals(3520, results[1]);
 }
 
 function testRealLookupTuition() {

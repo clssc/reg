@@ -412,9 +412,9 @@ RegForm.prototype.generateRegFormsByClass = function(className) {
 
 /**
  * Generates tuition breakdown for online payments.
- * @param {number} baseTuition
+ * This function can only be used before data migration.
  */
-RegForm.prototype.generateTuitionBreakdown = function(baseTuition) {
+RegForm.prototype.generateTuitionBreakdown = function() {
   var familyNumbers = this.findActiveFamilyNumbers_();
   var db = this.db_;
   var serviceDb = this.serviceDb_;
@@ -453,8 +453,38 @@ RegForm.prototype.generateTuitionBreakdown = function(baseTuition) {
         item.early_tuition = students.length * EARLY_BIRD_TUITION;
         item.normal_tuition = students.length * NORMAL_TUITION;
         item.service_fine = (MIN_SERVICE_POINTS - servicePoints) * SERVICE_FINE;
-        item.notes = item.notes;
       }
+    }
+    tuitionBreakdown.insertOrReplace(item);
+  });
+};
+
+
+/**
+ * Update Tuition Breakdowns.
+ * This function can only be used after data migration.
+ */
+RegForm.prototype.updateTuitionBreakdown = function() {
+  var db = this.db_;
+  var serviceDb = this.serviceDb_;
+  var tuitionBreakdown = new TuitionBreakdownDB();
+  var familyNumbers = tuitionBreakdown.getFamilyNumbers();
+  
+  familyNumbers.forEach(function(familyNumber) {
+    var students = db.getStudent().get(familyNumber);
+    
+    var item = tuitionBreakdown.select(familyNumber);
+    var servicePoints = serviceDb.lookup(familyNumber);
+    // Detect change and mark.
+    var isDirty = (item.num_students != students.length) ||
+        (item.service_points != servicePoints);
+    var isFinal = false;
+    if (item.transaction_date) {
+      isFinal = true;
+    }
+    if (isDirty && !isFinal) {
+      item.service_points = servicePoints;
+      item.service_fine = (MIN_SERVICE_POINTS - servicePoints) * SERVICE_FINE;
     }
     tuitionBreakdown.insertOrReplace(item);
   });
@@ -521,6 +551,10 @@ function generateTuitionBreakdown() {
   return form.generateTuitionBreakdown();
 }
 
+function updateTuitionBreakdown() {
+  var form = new RegForm();
+  return form.updateTuitionBreakdown();
+}
 
 /**
  * This function will generate 50 regforms at a given time so it needs to be run several times.
@@ -556,6 +590,7 @@ function mailOne(template, emails, pdf) {
     replyTo: 'info@westsidechineseschool.com',
     subject: 'Westside Chinese School 2015-2016 Registration',
     cc: ccUser,
+    bcc: 'arthurhsu@westsidechineseschool.org',
     htmlBody: template,
     attachments: pdf
   });
@@ -574,10 +609,15 @@ function mailBlast(opt_fileName) {
   var sheet = dataSource.getActiveSheet();
   var range = sheet.getRange(2, 1, sheet.getLastRow(), sheet.getLastColumn());
   var rows = range.getValues();
-  for (var i = 0; i < rows.length; ++i) {
+  var count = 0;
+  
+  // Sent at most 20 emails at a time
+  for (var i = 0; i < rows.length && count < 20; ++i) {
     if (!rows[i][0]) continue;
     var docId = rows[i][3];
     if (!docId) continue;
+    var sent = rows[i][4];
+    if (sent == 'Y') continue;
     
     var emails = [];
     for (var j = 1; j <= 2; ++j) {
@@ -587,8 +627,11 @@ function mailBlast(opt_fileName) {
     }
     var pdf = DriveApp.getFileById(docId).getAs('application/pdf');
     // Comment out, uncomment only when you need to send out the email.
-    //mailOne(template, emails, pdf);
+    mailOne(template, emails, pdf);
+    count++;
+    rows[i][4] = 'Y';
   }
+  range.setValues(rows);
 }
 
 function testMailBlast() {
