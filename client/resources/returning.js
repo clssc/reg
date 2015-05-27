@@ -154,6 +154,7 @@ function payTuition(e) {
     checkoutHandler = StripeCheckout.configure({
       key: 'pk_live_nGVIQje5vy4A0MiOFCv40GB9',
       image: 'logo.png',
+      zipCode: true,
       token: function(token) {
         // Use the token to create the charge with a server-side script.
         // You can access the token ID with `token.id`
