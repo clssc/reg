@@ -1,7 +1,9 @@
 function doGet() {
   return HtmlService
-      .createHtmlOutputFromFile('index.html')
-      .setSandboxMode(HtmlService.SandboxMode.NATIVE);
+      .createTemplateFromFile('index')
+      .evaluate()
+      .setTitle('Report')
+      .setSandboxMode(HtmlService.SandboxMode.IFRAME);
 }
 
 function genFullRoster() {

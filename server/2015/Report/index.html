@@ -1,23 +1,11 @@
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<style>
-  body {
-    width: 800px;
-    font-family: Open Sans, Arial, sans-serif;
-    font-size: 16px;
-  }
-  p {
-    padding: 0px 0px 0px 10px;
-    color: green;
-  }
-  input {
-    margin: 0px 0px 0px 10px;
-    padding: 2px 2px 2px 2px;
-    font-family: Open Sans, Arial, sans-serif;
-    font-size: 16px;
-  }
-</style>
+<!DOCTYPE html>
+<html>
+<head>
+
+<?!= HtmlService.createHtmlOutputFromFile('css').getContent(); ?>
+
+</head>
+<body>
 
 <h2>Rosters</h2>
 
@@ -83,80 +71,7 @@ their class. Sorry, no TA&#39;s. The system has a limit of 500 e-mails per day s
   <p id="errContext"></p>
 </div>
 
-<script>
-  $(function() {
-    $('#progress').dialog({
-      autoOpen: false,
-      resizable: false,
-      modal: true,
-    });
-    $('#completed').dialog({
-      autoOpen: false,
-      resizable: false,
-      modal: true,
-      buttons: {
-        'OK': function() { $(this).dialog('close'); }
-      }
-    });
-    $('#error').dialog({
-      autoOpen: false,
-      resizable: false,
-      modal: true,
-      buttons: {
-        'OK': function() { $(this).dialog('close'); }
-      }
-    });
-        
-    function commonStart() {
-      $('#completed').dialog('close');
-      $('#error').dialog('close');
-      $('#progress').dialog('open');
-    }
-        
-    $('#fullRoster').click(function() {
-      commonStart();
-      google.script.run.withSuccessHandler(defaultHandler).genFullRoster();
-    });
-        
-    $('#publicRoster').click(function() {
-      commonStart();
-      google.script.run.withSuccessHandler(defaultHandler).genPublicRosters();
-    });
-        
-    $('#classRoster').click(function() {
-      commonStart();
-      google.script.run.withSuccessHandler(defaultHandler).genClassRosters();
-    });
-        
-    $('#mailClassRoster').click(function() {
-      commonStart();
-      google.script.run.withSuccessHandler(defaultHandler).mailClassRosters();
-    });
-        
-    $('#blankRegForm').click(function() {
-      commonStart();
-      google.script.run.withSuccessHandler(defaultHandler).genBlankRegForm();
-    });
-        
-    $('#singleRegForm').click(function() {
-      commonStart();
-      google.script.run.withSuccessHandler(defaultHandler).genRegForm($('#formIdentity').val());
-    });
-        
-    $('#allRegForm').click(function() {
-      commonStart();
-      google.script.run.withSuccessHandler(defaultHandler).genRegFormsByClass($('#classIdentity').val());
-    });
-        
-    function defaultHandler(link) {
-      $('#progress').dialog('close');
-      if (link.substring(0, 4) != 'http') {
-        $('#errContext').text(link);
-        $('#error').dialog('open');
-      } else {
-        $('a#reportLink').attr('href', link ? link : 'https://drive.google.com/a/westsidechineseschool.org/#folders/0BwvYC6nj697MZGNHY25qVEdlMHM');
-        $('#completed').dialog('open');
-      }
-    }
-  });
-</script>
+<?!= HtmlService.createHtmlOutputFromFile('js').getContent(); ?>
+
+</body>
+</html>
