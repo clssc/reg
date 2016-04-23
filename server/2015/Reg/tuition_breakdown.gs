@@ -12,9 +12,9 @@ var TUITION_BREAKDOWN_DOCID = '1BP33zMdftNkVhd6cRmniDYTVP_gHW14GVMnXrwvrh0Y';
 
 
 /**
- * Cut off date. 2015-08-01.
+ * Cut off date. 2015-08-01. This is GMT, so PST daylight time is 7 hours later.
  */
-var CUT_OFF_DATE = new Date(2015, 7, 1);
+var CUT_OFF_DATE = new Date(Date.UTC(2015, 7, 1, 7)).getTime();
 
 
 /**
@@ -229,7 +229,7 @@ function testTuitionBreakdownSCUD() {
  */
 function lookupTuition(familyNumber, opt_dbName) {
   var sheet = new TuitionBreakdownDB(opt_dbName);
-  var now = new Date();
+  var now = new Date().getTime();
   var item = sheet.select(familyNumber);
   if (item) {
     if (item.transaction_date) {
