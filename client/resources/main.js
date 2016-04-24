@@ -1,4 +1,6 @@
 var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxUK556VS61tYHuMGEF1vYYw00W1AfF_zKfc9uRp5Oie59N6j4/exec';
+var CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbywBFWI9FpeyGOALYz-gLz5HLnlp1hhQlvIWkZ88GKES-Y0a4r5/exec';
+
 // September 10, 2016, 00:00:00
 // Use JavaScript console to get the number:
 // new Date(2016, 8, 10, 0, 0, 0).getTime()
@@ -621,7 +623,7 @@ function reportPayment(chargeData) {
 
   $.ajax({
     type: 'POST',
-    url: 'https://script.google.com/macros/s/AKfycbzjZkQGuBkZmBa93UsiRBzUEtn9MGG1MZF0-gnzo5YKI-jqv_Y/exec',
+    url: CONFIRM_URL,
     data: chargeData,
     dataType: 'text'
   }).done(sameDone).fail(sameDone);
