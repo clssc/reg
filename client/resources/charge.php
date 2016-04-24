@@ -13,7 +13,7 @@
       'description' => $familyId . ' ' . $email
   ));
 
-  $url = 'https://script.google.com/macros/s/AKfycbzP9pdLR20Ldb1X6a65X3PopwHL-yL4RsxoAxYnM_on_PhV_vQ/exec';
+  $url = 'https://script.google.com/macros/s/AKfycbydaibCXeuTU-P9auXOWSpUI8x9KinNInsL2vkuAREZ0p3ZaL3F/exec';
   $postdata = array('data' => json_encode(array(
     'id' => $charge['id'],
     'description' => $charge['description'],

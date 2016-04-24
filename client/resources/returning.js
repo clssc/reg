@@ -1,7 +1,11 @@
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwIIO_GeYabsobhGgvMFgvvMXJ8TMFMenE6HMnldJnK0SQSZrU/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbyGBVPKineP2e3jHZm4a33FFSvoQJOR429ZZ8P1weiW_4CNQQ/exec';
+// Charge key to use: publishable key from Stripe.com.
+var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
+
 var TOKEN = 'familyNumber';
-var MAX_ID = 1390;
-var MIN_ID = 7;
+var MAX_ID = 1495;
+var MIN_ID = 293;
 var chargeAmount = 0;
 var checkoutHandler;
 var familyId = 0;
@@ -152,7 +156,7 @@ function payTuition(e) {
 
   if (!checkoutHandler) {
     checkoutHandler = StripeCheckout.configure({
-      key: 'pk_live_nGVIQje5vy4A0MiOFCv40GB9',
+      key: CHARGE_KEY,
       image: 'logo.png',
       zipCode: true,
       token: function(token) {

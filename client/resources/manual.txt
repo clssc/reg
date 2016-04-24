@@ -12,16 +12,16 @@
 
 @@start{desc}
 @@block{en}
-Please <a href="BlankRegForm2015.pdf">download the blank registration sheet here</a>.<br />
+Please <a href="BlankRegForm2016.pdf">download the blank registration sheet here</a>.<br />
 <br />
-Tuition with early bird discount (must be postmarked before 07-31-2015):<br />
+Tuition with early bird discount (must be postmarked before 07-31-2016):<br />
 tuition $700 x number of students + service point deposit $200 + registration fee $100<br />
 1 student: $1000<br />
 2 students: $1700<br />
 3 students: $2400<br />
 4 students: $3100<br />
 <br />
-Regular tuition (postmarked on or after 08-01-2015):<br />
+Regular tuition (postmarked on or after 08-01-2016):<br />
 tuition $800 x number of students + service point deposit $200 + registration fee $100<br />
 1 student: $1100<br />
 2 students: $1900<br />
@@ -33,20 +33,20 @@ tuition $800 x number of students + service point deposit $200 + registration fe
 P.O. Box 1280, Culver City, CA 90232 to complete the registration.
 Make your check payable to CLSSC.</b>
 <br />
-To qualify for early bird discount, the application must be postmarked before July 31, 2015.
+To qualify for early bird discount, the application must be postmarked before July 31, 2016.
 @@endblock
 
 @@block{tc}
-請先<a href="BlankRegForm2015.pdf">下載註冊表格</a>。<br/>
+請先<a href="BlankRegForm2016.pdf">下載註冊表格</a>。<br/>
 <br />
-若於 07-31-2015 之前繳費, 可享提前註冊折扣, 學費計算公式如下: <br />
+若於 07-31-2016 之前繳費, 可享提前註冊折扣, 學費計算公式如下: <br />
 學費 $700 x 學生數 + service point deposit $200 + 註冊費 $100<br />
 1 位學生: $1000<br />
 2 位學生: $1700<br />
 3 位學生: $2400<br />
 4 位學生: $3100<br />
 <br />
-在 08-01-2015 或之後繳費者，則使用一般學費費率，計算公式如下: <br />
+在 08-01-2016 或之後繳費者，則使用一般學費費率，計算公式如下: <br />
 學費 $800 x 學生數 + service point deposit $200 + 註冊費 $100<br />
 1 位學生: $1100<br />
 2 位學生: $1900<br />
@@ -57,20 +57,20 @@ To qualify for early bird discount, the application must be postmarked before Ju
 <b>您必須下載註冊表, 印出並填寫完成後，連同您的支票一起郵寄到
 P.O. Box 1280, Culver City, CA 90232 以完成註冊手續。支票抬頭為 CLSSC。</b>
 <br />
-您必須在 2015 年 7 月 31 日前將支票寄出 (郵戳為憑) 才能享有提前註冊的折扣。
+您必須在 2016 年 7 月 31 日前將支票寄出 (郵戳為憑) 才能享有提前註冊的折扣。
 @@endblock
 
 @@block{sc}
-请先<a href="BlankRegForm2015.pdf">下载注册表格</a>。<br/>
+请先<a href="BlankRegForm2016.pdf">下载注册表格</a>。<br/>
 <br />
-若于 07-31-2015 之前缴费, 可享提前注册折扣, 学费计算公式如下: <br />
+若于 07-31-2016 之前缴费, 可享提前注册折扣, 学费计算公式如下: <br />
 学费 $700 x 学生数 + service point deposit $200 + 注册费 $100<br />
 1 位学生: $1000<br />
 2 位学生: $1700<br />
 3 位学生: $2400<br />
 4 位学生: $3100<br />
 <br />
-在 08-01-2015 或之后缴费者，则使用一般学费费率，计算公式如下: <br />
+在 08-01-2016 或之后缴费者，则使用一般学费费率，计算公式如下: <br />
 学费 $800 x 学生数 + service point deposit $200 + 注册费 $100<br />
 1 位学生: $1100<br />
 2 位学生: $1900<br />
@@ -81,6 +81,6 @@ P.O. Box 1280, Culver City, CA 90232 以完成註冊手續。支票抬頭為 CLS
 <b>您必须下载注册表, 印出并填写完成后，连同您的支票一起邮寄到
 P.O. Box 1280, Culver City, CA 90232 以完成注册手续。支票抬头为 CLSSC。</b>
 <br />
-您必须在 2015 年 7 月 31 日前将支票寄出 (邮戳为凭) 才能享有提前注册的折扣。
+您必须在 2016 年 7 月 31 日前将支票寄出 (邮戳为凭) 才能享有提前注册的折扣。
 @@endblock
 @@end{desc}

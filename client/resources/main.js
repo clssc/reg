@@ -1,6 +1,15 @@
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwRwWbwqw2ZJc_xJTAyGuY3lyfeOl9RFobe9PGmxNH5bUdHZ3gQ/exec';
-var SCHOOL_START = 1442041200000;  // Sat Sep 12 2015 00:00:00 GMT-0700 (Pacific Daylight Time)
-var CUTOFF_TIME = 1438412400000;  // Sat Aug 01 2015 00:00:00 GMT-0700 (Pacific Daylight Time)
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxUK556VS61tYHuMGEF1vYYw00W1AfF_zKfc9uRp5Oie59N6j4/exec';
+// September 10, 2016, 00:00:00
+// Use JavaScript console to get the number:
+// new Date(2016, 8, 10, 0, 0, 0).getTime()
+var SCHOOL_START = 1473490800000;
+// August 01, 2016, 00:00:00
+// new Date(2016, 7, 1, 0, 0, 0).getTime()
+var CUTOFF_TIME = 1473490800000;
+
+// Charge key to use: publishable key from Stripe.com.
+var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var STATE = [
   'AL', 'AK',  'AR', 'AS', 'AZ',
@@ -27,9 +36,6 @@ var STATE = [
 // The very evil global variables.
 var numStudents = 1;  // Number of students, range [1, 4].
 var numParents = 2;  // Number of parents, range [1, 2].
-
-var schoolStartDate = new Date();
-schoolStartDate.setYear(2015);
 
 var cutoffTimestamp = SCHOOL_START - (5 * 365 + 1) * 86400000;
 var adultTimestamp = SCHOOL_START - (18 * 365 + 4) * 86400000;
@@ -624,7 +630,7 @@ function reportPayment(chargeData) {
 function runPayment(e) {
   if (!checkoutHandler) {
     checkoutHandler = StripeCheckout.configure({
-      key: 'pk_live_nGVIQje5vy4A0MiOFCv40GB9',
+      key: CHARGE_KEY,
       image: 'logo.png',
       zipCode: true,
       token: function(token) {
