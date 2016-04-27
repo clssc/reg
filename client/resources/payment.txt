@@ -1,0 +1,53 @@
+@@start{title}
+@@line{en} Westside Chinese School Registration
+@@line{tc} 西區中文學校網路註冊
+@@line{sc} 西区中文学校网络注册
+@@end{title}
+
+@@start{subtitle}
+@@line{en} Payment
+@@line{tc} 繳費
+@@line{sc} 缴费
+@@end{subtitle}
+
+@@start{payAmountTitle}
+@@line{en} You need to pay&nbsp;
+@@line{tc} 您需付&nbsp;
+@@line{sc} 您需付&nbsp;
+@@end{payAmountTitle}
+
+@@start{steps}
+@@block{en}
+You can pay via VISA or Master Card. There will be three steps:
+<ol>
+  <li>Input your card information. If everything is correct, you will
+  see a green check.</li>
+  <li>System will charge your card.</li>
+  <li>System will show you whether the charge is successful or not.</li>
+</ol>
+@@endblock
+
+@@block{tc}
+您可用 VISA 或 Master Card 繳費, 繳費有三個步驟:
+<ol>
+  <li>輸入卡片資料, 若資料檢查正確則會出現一個綠色的勾勾</li>
+  <li>系統向銀行請款</li>
+  <li>系統顯示請款的結果</li>
+</ol>
+@@endblock{tc}
+
+@@block{sc}
+您可用 VISA 或 Master Card 缴费, 缴费有三个步骤:
+<ol>
+  <li>输入卡片资料, 若资料检查正确则会出现一个绿色的勾勾</li>
+  <li>系统向银行请款</li>
+  <li>系统显示请款的结果</li>
+</ol>
+@@endblock{sc}
+@@end{steps}
+
+@@start{charging}
+@@line{en} Processing payment, please wait ...
+@@line{tc} 交易正在處理中, 請稍候 ...
+@@line{sc} 交易正在处理中, 请稍候 ...
+@@end{charging}

@@ -14,11 +14,9 @@ var familyId = 0;
 $(function() {
   initDialogs();
 
-  $('#paymentDesc').hide();
-  $('#paySuccess').hide();
-  $('#payFailed').hide();
+  $('#page8').hide();
+  $('#page9').hide();
   $('#alreadyPaid').hide();
-  $('#charging').hide();
   $('#legal').hide();
 
   $('#submitButton').click(function() {
@@ -40,6 +38,10 @@ $(function() {
   });
 
   $('#consent').change(function() { toggleLegalStep(); });
+  $('#next7').click(function() {
+    $('#pager').hide();
+    $('#page8').show();
+  });
   $('#payButton').click(payTuition);
 
   var familyNumber = parseCGI();
@@ -65,6 +67,13 @@ function initDialogs() {
     buttons: {
       'OK': function() { $(this).dialog('close'); }
     }
+  });
+
+  $('#charging').dialog({
+    dialogClass: 'no-close',
+    autoOpen: false,
+    resizable: false,
+    modal: true
   });
 }
 
@@ -137,9 +146,9 @@ function onServerReturn(data) {
 
 function toggleLegalStep() {
   if ($('#consent').is(':checked')) {
-    $('#payButton').removeAttr('disabled');
+    $('#next7').removeAttr('disabled');
   } else {
-    $('#payButton').attr('disabled', 'disabled');
+    $('#next7').attr('disabled', 'disabled');
   }
 }
 
@@ -164,7 +173,7 @@ function payTuition(e) {
         // You can access the token ID with `token.id`
         console.log('returned token', token);
         $('#payButton').hide();
-        $('#charging').show();
+        $('#charging').dialog('open');
         $.ajax({
           type: 'POST',
           url: 'https://www.westsidechineseschool.com/reg/charge.php',
@@ -178,16 +187,23 @@ function payTuition(e) {
           dataType: 'text'
         }).done(function(data) {
           console.log('charge', data);
-          $('#charging').hide();
+          $('#charging').dialog('close');
+          $('#page8').hide();
+          $('#page9').show();
           if (data.indexOf('OK') == -1) {
             // failure
+            $('#paySuccess').hide();
             $('#payFailed').show();
           } else {
             $('#paySuccess').show();
+            $('#payFailed').hide();
           }
         }).fail(function(e) {
           console.log(e);
-          $('#charging').hide();
+          $('#charging').dialog('close');
+          $('#page8').hide();
+          $('#page9').show();
+          $('#paySuccess').hide();
           $('#payFailed').show();
         });
       }
