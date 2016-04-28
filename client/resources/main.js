@@ -85,7 +85,7 @@ $(function() {
   setPaymentHooks();
 
   // Really starts
-  for (var i = 0; i < 7; ++i) {
+  for (var i = 0; i < 10; ++i) {
     var pageId = '#page' + i;
     $(pageId).hide();
   }
@@ -111,6 +111,13 @@ function initDialogs() {
       'OK': function() { $(this).dialog('close'); }
     }
   });
+
+  $('#charging').dialog({
+    dialogClass: 'no-close',
+    autoOpen: false,
+    resizable: false,
+    modal: true
+  });
 }
 
 function setNavigationHooks() {
@@ -127,6 +134,10 @@ function setNavigationHooks() {
   // $('#next3b').click(function() { genSummary(); showPage(4); });
   $('#next4').click(function() { showPage(5); });
   $('#next5').click(function() { genFinalData(); });
+  $('#next6').click(function() {
+    showPage(7);
+    $('#paymentAmount').text(chargeAmount.toString());
+  });
   $('#prev3').click(function() { showParents(); showPage(2); });
   $('#prev4').click(function() { showStudents(); showPage(3); });
 }
@@ -153,7 +164,7 @@ function setPaymentHooks() {
 }
 
 function showPage(pageNumber) {
-  for (var i = 0; i < 7; ++i) {
+  for (var i = 0; i < 10; ++i) {
     var pageId = '#page' + i;
     if (i != pageNumber) {
       $(pageId).hide();
@@ -172,6 +183,7 @@ function localizeButtons() {
     $('#prev3').prop('value', '<< 上一步');
     $('#prev4').prop('value', '<< 上一步');
     $('#next5').prop('value', lang == 'tc' ? '提交申請表' : '提交申请表');
+    $('#next6').prop('value', '下一步 >>');
     $('#payButton').prop('value', lang == 'tc' ? '線上付款' : '在线付款');
   }
 }
@@ -583,7 +595,7 @@ function onServerReturn(data) {
     $('#feeSchedule').hide();
     $('#feeDesc').hide();
     $('#paid').show();
-    $('#payButton').hide();
+    $('#next6').hide();
   } else if (tempData.indexOf('family number') != -1) {
     familyId = tempData.substring(tempData.length - 4, tempData.length);
     var now = new Date();
@@ -617,8 +629,10 @@ function genFinalData() {
 
 function reportPayment(chargeData) {
   var sameDone = function() {
-     $('#charging').hide();
+     $('#charging').dialog('close');
+     showPage(8);
      $('#paySuccess').show();
+     $('#payFailed').hide();
   };
 
   $.ajax({
@@ -639,8 +653,8 @@ function runPayment(e) {
         // Use the token to create the charge with a server-side script.
         // You can access the token ID with `token.id`
         console.log('returned token', token);
-        $('#payButton').hide();
-        $('#charging').show();
+        $('#next6').hide();
+        $('#charging').dialog('open');
         $.ajax({
           type: 'POST',
           url: 'https://www.westsidechineseschool.com/reg/charge.php',
@@ -656,14 +670,18 @@ function runPayment(e) {
           console.log('charge', data);
           if (data.indexOf('OK') == -1) {
             // failure
-            $('#charging').hide();
+            $('#charging').dialog('close');
+            showPage(8);
+            $('#paySuccess').hide();
             $('#payFailed').show();
           } else {
             reportPayment(data);
           }
         }).fail(function(e) {
           console.log(e);
-          $('#charging').hide();
+          $('#charging').dialog('close');
+          showPage(8);
+          $('#paySuccess').hide();
           $('#payFailed').show();
         });
       }
