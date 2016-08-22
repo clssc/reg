@@ -7,7 +7,7 @@ var CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbywBFWI9FpeyGOALYz-gL
 var SCHOOL_START = 1473490800000;
 // August 01, 2016, 00:00:00
 // new Date(2016, 7, 1, 0, 0, 0).getTime()
-var CUTOFF_TIME = 1473490800000;
+var CUTOFF_TIME = 1470034800000;
 
 // Charge key to use: publishable key from Stripe.com.
 //var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
