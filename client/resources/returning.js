@@ -16,6 +16,7 @@ $(function() {
 
   $('#page7').hide();
   $('#page8').hide();
+  $('#page9').hide();
   $('#alreadyPaid').hide();
   $('#legal').hide();
 

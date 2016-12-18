@@ -95,40 +95,45 @@ function replaceMessage(lang, output, message) {
   var result = [];
   var divLevel = 0;
   for (var i = 0; i < output.length; ++i) {
-    var line = output[i];
-    var match = line.match(/\s+/);
-    var indent = match ? match[0] : '';
-    if (line.indexOf('</div>') != -1 && divLevel > 0) {
-      divLevel--;
-      continue;
-    }
-
-    if (line.indexOf('<div') != -1 && line.indexOf('data-name') != -1) {
-      // This div needs to be localized.
-      if (divLevel > 0) {
-        throw new Error('Cannot nest localizable divs');
+    try {
+      var line = output[i];
+      var match = line.match(/\s+/);
+      var indent = match ? match[0] : '';
+      if (line.indexOf('</div>') != -1 && divLevel > 0) {
+        divLevel--;
+        continue;
       }
-      divLevel = 1;
-      var dataName = getAttribute(line, 'data-name');
-      var className = getAttribute(line, 'class');
 
-      var tag = (className == null) ? '<div>' :
-          '<div class="' + className + '">';
-      if (line.indexOf('</div>') != -1) {
-        // Single line
-        divLevel = 0;
-        result.push(indent + tag + message[dataName][lang] + '</div>');
-      } else {
-        // Block
-        result.push(indent + tag);
-        result.push(message[dataName][lang]);
-        result.push(indent + '</div>');
+      if (line.indexOf('<div') != -1 && line.indexOf('data-name') != -1) {
+        // This div needs to be localized.
+        if (divLevel > 0) {
+          throw new Error('Cannot nest localizable divs');
+        }
+        divLevel = 1;
+        var dataName = getAttribute(line, 'data-name');
+        var className = getAttribute(line, 'class');
+
+        var tag = (className == null) ? '<div>' :
+            '<div class="' + className + '">';
+        if (line.indexOf('</div>') != -1) {
+          // Single line
+          divLevel = 0;
+          result.push(indent + tag + message[dataName][lang] + '</div>');
+        } else {
+          // Block
+          result.push(indent + tag);
+          result.push(message[dataName][lang]);
+          result.push(indent + '</div>');
+        }
+        continue;
       }
-      continue;
-    }
 
-    if (divLevel == 0) {
-      result.push(line);
+      if (divLevel == 0) {
+        result.push(line);
+      }
+    } catch(e) {
+      console.error('FAIL: faulting line:' + line);
+      throw e;
     }
   }
 
@@ -211,7 +216,14 @@ function parseHtmlForOneLang(file, lang, opt_css, opt_js) {
   var message = messageBuilder.buildMessage(
       fs.readFileSync(messagePath, 'utf8').split('\n'));
 
-  return replaceMessage(lang, output, message);
+  var newMessage;
+  try {
+    newMessage = replaceMessage(lang, output, message);
+  } catch (e) {
+    console.error('FAIL: file:' + file + ' lang:' + lang);
+    throw e;
+  }
+  return newMessage;
 }
 
 

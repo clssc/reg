@@ -1,17 +1,17 @@
 var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxUK556VS61tYHuMGEF1vYYw00W1AfF_zKfc9uRp5Oie59N6j4/exec';
 var CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbywBFWI9FpeyGOALYz-gLz5HLnlp1hhQlvIWkZ88GKES-Y0a4r5/exec';
 
-// September 10, 2016, 00:00:00
+// September 11, 2017, 00:00:00
 // Use JavaScript console to get the number:
-// new Date(2016, 8, 10, 0, 0, 0).getTime()
-var SCHOOL_START = 1473490800000;
-// August 01, 2016, 00:00:00
-// new Date(2016, 7, 1, 0, 0, 0).getTime()
-var CUTOFF_TIME = 1470034800000;
+// new Date(2017, 8, 11, 0, 0, 0).getTime()
+var SCHOOL_START = 1505113200000;
+// August 01, 2017, 00:00:00
+// new Date(2017, 7, 1, 0, 0, 0).getTime()
+var CUTOFF_TIME = 1501570800000;
 
 // Charge key to use: publishable key from Stripe.com.
-//var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
-var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
+var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var STATE = [
   'AL', 'AK',  'AR', 'AS', 'AZ',
@@ -34,6 +34,38 @@ var STATE = [
   'VA', 'VT',
   'WA', 'WI', 'WV', 'WY'
 ];
+
+var EC_CLASSES = {
+  'cal': 'Chinese Calligraphy',
+  'che': 'Chess',
+  'cho': 'Chorus',
+  'coo': 'Chinese Cooking Class',
+  'dan': 'Chinese Folk Dance',
+  'mar': 'Martial Arts',
+  'mov': 'Movie',
+  'mus': 'Chinese Musical Instruments',
+  'pai': 'Chinese Painting',
+  'ori': 'Origami',
+  'sat': 'SAT II Prep',
+  'sci': 'Scientific Handcrafts',
+  'wes': 'Westside Breeze'
+};
+
+var EC_AGE = {
+  'cal': 8,
+  'che': 6,
+  'cho': 5,
+  'coo': 12,
+  'dan': 5,
+  'mar': 5,
+  'mov': 13,
+  'mus': 8,
+  'pai': 6,
+  'ori': 5,
+  'sat': 12,
+  'sci': 7,
+  'wes': 8
+};
 
 // The very evil global variables.
 var numStudents = 1;  // Number of students, range [1, 4].
@@ -85,7 +117,7 @@ $(function() {
   setPaymentHooks();
 
   // Really starts
-  for (var i = 0; i < 10; ++i) {
+  for (var i = 0; i < 11; ++i) {
     var pageId = '#page' + i;
     $(pageId).hide();
   }
@@ -127,19 +159,19 @@ function setNavigationHooks() {
   $('#next2').click(function() {
     if (validateFamilyData()) { showStudents(); showPage(3); }
   });
-  // $('#next2b').click(function() { showStudents(); showPage(3); });
   $('#next3').click(function() {
-    if (validateStudentData()) { genSummary(); showPage(4); } 
+    if (validateStudentData()) { showPage(4); } 
   });
-  // $('#next3b').click(function() { genSummary(); showPage(4); });
   $('#next4').click(function() { showPage(5); });
-  $('#next5').click(function() { genFinalData(); });
-  $('#next6').click(function() {
-    showPage(7);
+  $('#next5').click(function() { genSummary(); showPage(6); });
+  $('#next6').click(function() { genFinalData(); });
+  $('#next7').click(function() {
+    showPage(8);
     $('#paymentAmount').text(chargeAmount.toString());
   });
   $('#prev3').click(function() { showParents(); showPage(2); });
   $('#prev4').click(function() { showStudents(); showPage(3); });
+  $('#prev5').click(function() { showPage(4); })
 }
 
 function setPaymentHooks() {
@@ -164,7 +196,7 @@ function setPaymentHooks() {
 }
 
 function showPage(pageNumber) {
-  for (var i = 0; i < 10; ++i) {
+  for (var i = 0; i < 11; ++i) {
     var pageId = '#page' + i;
     if (i != pageNumber) {
       $(pageId).hide();
@@ -182,8 +214,10 @@ function localizeButtons() {
     }
     $('#prev3').prop('value', '<< 上一步');
     $('#prev4').prop('value', '<< 上一步');
-    $('#next5').prop('value', lang == 'tc' ? '提交申請表' : '提交申请表');
-    $('#next6').prop('value', '下一步 >>');
+    $('#prev5').prop('value', '<< 上一步');
+    $('#next5').prop('value', '下一步 >>');
+    $('#next6').prop('value', lang == 'tc' ? '提交申請表' : '提交申请表');
+    $('#next7').prop('value', '下一步 >>');
     $('#payButton').prop('value', lang == 'tc' ? '線上付款' : '在线付款');
   }
 }
@@ -225,9 +259,9 @@ function showParents() {
 
 function toggleLegalStep() {
   if ($('#consent').is(':checked')) {
-    $('#next5').removeAttr("disabled");
+    $('#next6').removeAttr("disabled");
   } else {
-    $('#next5').attr('disabled', 'disabled');
+    $('#next6').attr('disabled', 'disabled');
   }
 }
 
@@ -608,12 +642,12 @@ function onServerReturn(data) {
 function onServerFailure(e) {
   $('#progress').dialog('close');
   $('#error').dialog('open');
-  $('#next5').removeAttr("disabled");
+  $('#next6').removeAttr("disabled");
   console.log(e);
 }
 
 function genFinalData() {
-  $('#next5').attr("disabled", "disabled");
+  $('#next6').attr("disabled", "disabled");
   $('#progress').dialog('open');
   $.ajax({
     type: 'POST',
