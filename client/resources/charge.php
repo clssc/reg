@@ -5,15 +5,16 @@
   $email  = $_POST['stripeEmail'];
   $familyId = strval($_POST['familyId']);
   $dollar = $_POST['dollarAmount'];
+  $ec = $_POST['ec'];
 
   $charge = Stripe_Charge::create(array(
       'card' => $token,
       'amount'   => $dollar * 100,
       'currency' => 'usd',
-      'description' => $familyId . ' ' . $email
+      'description' => $familyId . '#' . $email . '#' . $ec
   ));
 
-  $url = 'https://script.google.com/macros/s/AKfycbydaibCXeuTU-P9auXOWSpUI8x9KinNInsL2vkuAREZ0p3ZaL3F/exec';
+  $url = 'https://script.google.com/macros/s/AKfycby2xzxzyQBZ_ede96n8_CLkXdhc1MdnB74wX1be2S7c0ofL3Jk/exec';
   $postdata = array('data' => json_encode(array(
     'id' => $charge['id'],
     'description' => $charge['description'],

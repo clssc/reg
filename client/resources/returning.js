@@ -50,7 +50,7 @@ $(function() {
   $('#consent').change(toggleLegalStep);
   $('#next7').click(function() {
     $('#pager').hide();
-    $('#page9').show();
+    $('#page8').show();
   });
   $('#payButton').click(payTuition);
 
