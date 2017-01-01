@@ -7,7 +7,7 @@
   $dollar = $_POST['dollarAmount'];
   $ec = $_POST['ec'];
 
-  $charge = Stripe_Charge::create(array(
+  $charge = \Stripe\Charge::create(array(
       'card' => $token,
       'amount'   => $dollar * 100,
       'currency' => 'usd',
