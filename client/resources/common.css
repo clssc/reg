@@ -31,7 +31,7 @@ div.systemdata {
   font-family: "courier new";
   font-size: 14px;
 }
-input {
+input, select {
   display: inline-block;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 14px;

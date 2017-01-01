@@ -27,6 +27,7 @@ var knownOpts = {
   'css': [path, null],
   'js': [path, null],
   'outputdir': [path, null],
+  'nominify': Boolean,
   'help': [null]
 };
 var args = nopt(knownOpts);
@@ -38,6 +39,7 @@ function argsCheck() {
     console.log('  --css=<CSS> Optional, the CSS file to include');
     console.log('  --js=<JS> Optional, the JS file to include');
     console.log('  --outputdir=<output path> Optional, default to build/');
+    console.log('  --nominify Optional, will not minify HTML if specified');
     console.log('  --help Display usage');
     process.exit(1);
   }
@@ -83,12 +85,13 @@ function main() {
     var extname = path.extname(templatePath);
     for (var i = 0; i < LANG.length; ++i) {
       var filePath = path.join(outputDir, basename + '-' + LANG[i] + extname);
-      var minified = minify(parsedContents[i], {
-        removeAttributeQuotes: true,
-        removeComments: true,
-        collapseWhitespace: true
-      });
-      fs.writeFileSync(filePath, minified, {encoding: 'utf8'});
+      var contents = args.nominify ? parsedContents[i] :
+          minify(parsedContents[i], {
+            removeAttributeQuotes: true,
+            removeComments: true,
+            collapseWhitespace: true
+          });
+      fs.writeFileSync(filePath, contents, {encoding: 'utf8'});
     }
   });
 }

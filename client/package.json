@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "clean-css": "*",
+    "fs-extra": "*",
     "gulp": "*",
+    "gulp-connect": "*",
     "html-minifier": "*",
     "nopt": "*",
     "uglify-js": "*"

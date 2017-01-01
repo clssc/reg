@@ -1,23 +1,31 @@
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbyGBVPKineP2e3jHZm4a33FFSvoQJOR429ZZ8P1weiW_4CNQQ/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbymtIAO696M1snMVL_p-sbKK_hOmMkMtPhTHehzOnbqRWe-GWua/exec';
 // Charge key to use: publishable key from Stripe.com.
-//var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
-var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
+var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var TOKEN = 'familyNumber';
-var MAX_ID = 1495;
+var MAX_ID = 1560;
 var MIN_ID = 293;
+var EC_TUITION = 150;
 var chargeAmount = 0;
 var checkoutHandler;
 var familyId = 0;
+var ecRegister = [];
+
+function disable(id) {
+  var d = 'disabled';
+  $(id).attr(d, d);
+}
 
 // When the page loads.
 $(function() {
   initDialogs();
 
-  $('#page7').hide();
   $('#page8').hide();
   $('#page9').hide();
+  $('#page9').hide();
   $('#alreadyPaid').hide();
+  $('#ec').hide();
   $('#legal').hide();
 
   $('#submitButton').click(function() {
@@ -33,15 +41,16 @@ $(function() {
       return;
     } else {
       $('#familyNumber').removeClass();
-      $('#submitButton').attr('disabled', 'disabled');
+      disable('#submitButton');
     }
     queryAmount(fn);
   });
 
-  $('#consent').change(function() { toggleLegalStep(); });
+  $('#ecConfirm').click(ecConfirm);
+  $('#consent').change(toggleLegalStep);
   $('#next7').click(function() {
     $('#pager').hide();
-    $('#page7').show();
+    $('#page9').show();
   });
   $('#payButton').click(payTuition);
 
@@ -125,22 +134,57 @@ function onServerFailure(e) {
 }
 
 function onServerReturn(data) {
+  var pack = null;
+  $('#submitButton').hide();
   try {
-    chargeAmount = parseInt(data, 10);
+    pack = JSON.parse(data);
+    chargeAmount = pack.tuition;
   } catch (e) {
-    // Ignore parse error
+    // Ignore parse error, force the chargeAmount to be zero.
+    chargeAmount = 0;
   }
   if (chargeAmount < 0) {
     // Already paid.
     $('#alreadyPaid').show();
     return;
   }
-  if (chargeAmount == 0) {
+  if (chargeAmount == 0 || pack == null) {
     // No data or communication error
     $('#error').dialog('open');
     return;
   }
 
+  // publish EC data, if any eligible
+  if (pack.ec.length) {
+    $('#ec').show();
+    for (var i = 0; i < pack.ec.length; ++i) {
+      var name = escape(pack.ec[i].stu);
+      var html = '<tr><td>' + name + '</td><td><select id="ecs' + i + '">';
+      html += '<option value="nada##' + name + '" selected>No EC class</option>';
+      pack.ec[i].class.forEach(function(item) {
+        var val = item.code + '##' + name;
+        html += '<option value="' + val + '">' + item.desc + '</option>';
+      });
+      html += '</select></td></tr>';
+      $('#ecopt').append(html);
+    }
+  }
+}  
+
+function ecConfirm() {
+  // selects is an array-like.
+  var selects = $('#ecopt>tbody>tr>td>select');
+  for (var i = 0; i < selects.size(); ++i) {
+    var id = '#ecs' + i;
+    var tokens = $(id).val().split('##');
+    if (tokens[0] != 'nada') {
+      ecRegister.push({name: tokens[1], code: tokens[0]});
+    }
+    disable(id);
+  }
+  disable('#ecConfirm');
+  $('#ecConfirm').hide();
+  chargeAmount += ecRegister.length * EC_TUITION;
   $('#paymentAmount').text('USD$' + chargeAmount.toString());
   legalConsent();
 }
@@ -149,7 +193,7 @@ function toggleLegalStep() {
   if ($('#consent').is(':checked')) {
     $('#next7').removeAttr('disabled');
   } else {
-    $('#next7').attr('disabled', 'disabled');
+    disable('#next7');
   }
 }
 
@@ -183,14 +227,15 @@ function payTuition(e) {
             'stripeTokenType': 'card',
             'stripeEmail': token.email,
             'familyId': familyId,
-            'dollarAmount': chargeAmount
+            'dollarAmount': chargeAmount,
+            'ec': JSON.stringify(ecRegister)
           },
           dataType: 'text'
         }).done(function(data) {
           console.log('charge', data);
           $('#charging').dialog('close');
-          $('#page7').hide();
-          $('#page8').show();
+          $('#page8').hide();
+          $('#page9').show();
           if (data.indexOf('OK') == -1) {
             // failure
             $('#paySuccess').hide();
@@ -202,8 +247,8 @@ function payTuition(e) {
         }).fail(function(e) {
           console.log(e);
           $('#charging').dialog('close');
-          $('#page7').hide();
-          $('#page8').show();
+          $('#page8').hide();
+          $('#page9').show();
           $('#paySuccess').hide();
           $('#payFailed').show();
         });
