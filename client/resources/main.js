@@ -341,23 +341,24 @@ function validateFamilyData() {
   var result = true;
 
   for (var i = 1; i <= numParents; ++i) {
+    var prefix = '#p' + i;
     // Check if name is empty.
-    if (!$('#p' + i + 'eng_name').val().trim().length) {
+    if (!$(prefix + 'eng_name').val().trim().length) {
       result &= false;
       $('#pteng_name').addClass('error');
     }
 
     // Check cell phone validity.
-    var cell = validatePhone($('#p' + i + 'cell_ph').val().trim());
+    var cell = validatePhone($(prefix + 'cell_ph').val().trim());
     if (cell.length != 12) {
       result &= false;
       $('#ptcell').addClass('error');
     } else {
-      $('#p' + i + 'cell_ph').val(cell);
+      $(prefix + 'cell_ph').val(cell);
     }
 
     // Check secondary phone
-    var rawWorkPhone = $('#p' + i + 'work_ph').val().trim();
+    var rawWorkPhone = $(prefix + 'work_ph').val().trim();
     var workPhone = validatePhone(rawWorkPhone);
     if (workPhone.length != 12 && workPhone.length != 0) {
       result &= false;
@@ -365,7 +366,7 @@ function validateFamilyData() {
     }
 
     // Check chinese name
-    var rawChineseName = $('#p' + i + 'chn_name').val().trim();
+    var rawChineseName = $(prefix + 'chn_name').val().trim();
     var chnName = validateChinese(rawChineseName);
     if (chnName != rawChineseName) {
       result &= false;
@@ -373,18 +374,18 @@ function validateFamilyData() {
     }
 
     // Check email validity.
-    var email = validateEmail($('#p' + i + 'email').val().trim());
+    var email = validateEmail($(prefix + 'email').val().trim());
     if (email.length < 4) {
       result &= false;
       $('#ptemail').addClass('error');
     } else {
-      $('#p' + i + 'email').val(email);
+      $(prefix + 'email').val(email);
     }
 
     // Check if chinese level is checked.
-    var nada = '#p' + i + 'clv0';
-    var lands = '#p' + i + 'clv1';
-    var edu = '#p' + i + 'clv2';
+    var nada = prefix + 'clv0';
+    var lands = prefix + 'clv1';
+    var edu = prefix + 'clv2';
     if (!$(nada).is(':checked') && !$(lands).is(':checked') &&
         !$(edu).is(':checked')) {
       result &= false;
@@ -452,27 +453,28 @@ function validateStudentData() {
   var result = true;
   numAdultStudents = 0;
   for (var i = 1; i <= numStudents; ++i) {
+    var prefix = '#s' + i;
     // Check if names are empty.
-    if (!$('#s' + i + 'ln').val().trim().length) {
+    if (!$(prefix + 'ln').val().trim().length) {
       result &= false;
-      $('#s' + i + 'tln').addClass('error');
+      $(prefix + 'tln').addClass('error');
     }
-    if (!$('#s' + i + 'fn').val().trim().length) {
+    if (!$(prefix + 'fn').val().trim().length) {
       result &= false;
-      $('#s' + i + 'tfn').addClass('error');
+      $(prefix + 'tfn').addClass('error');
     }
 
     // Check Chinese name is Chinese
     // Check chinese name
-    var rawChName = $('#s' + i + 'chn').val().trim();
+    var rawChName = $(prefix + 'chn').val().trim();
     var chName = validateChinese(rawChName);
     if (chName != rawChName) {
       result &= false;
-	  $('#s' + i + 'tcn').addClass('error');
+	  $(prefix + 'tcn').addClass('error');
     }
 
     // Check DOB is greater than 5 years.
-    var value = $('#s' + i + 'bd').val().toString();
+    var value = $(prefix + 'bd').val().toString();
     var dateResult = false;
     if (value.length) {
       var timestamp = 0;
@@ -491,23 +493,23 @@ function validateStudentData() {
     }
     if (!dateResult) {
       result &= false;
-      $('#s' + i + 'tbd').addClass('error');
+      $(prefix + 'tbd').addClass('error');
     }
 
     // Check if gender is checked.
-    var male = '#s' + i + 'gm';
-    var female = '#s' + i + 'gf';
+    var male = prefix + 'gm';
+    var female = prefix + 'gf';
     if (!$(male).is(':checked') && !$(female).is(':checked')) {
       result &= false;
-      $('#s' + i + 'tg').addClass('error');
+      $(prefix + 'tg').addClass('error');
     }
 
     // Check if speak Chinese at home is checked.
-    var scy = '#s' + i + 'sy';
-    var scn = '#s' + i + 'sn';
+    var scy = prefix + 'sy';
+    var scn = prefix + 'sn';
     if (!$(scy).is(':checked') && !$(scn).is(':checked')) {
       result &= false;
-      $('#s' + i + 'ts').addClass('error');
+      $(prefix + 'ts').addClass('error');
     }
   }
   return result;
@@ -550,25 +552,27 @@ function getChineseLevelString(level) {
 function genParentSummary() {
   var data = [];
   for (var i = 1; i <= numParents; ++i) {
+    var prefix = '#p' + i;
     var item = {
-      eng_name: $('#p' + i + 'eng_name').val().toString(),
-      chn_name: $('#p' + i + 'chn_name').val().toString(),
-      spec: $('#p' + i + 'spec').val().toString(),
-      work_ph: $('#p' + i + 'work_ph').val().toString(),
-      cell_ph: $('#p' + i + 'cell_ph').val().toString(),
-      email: $('#p' + i + 'email').val().toString(),
-      chnlv: $('#p' + i + 'clv0').is(':checked') ? 0 :
-             ($('#p' + i + 'clv1').is(':checked') ? 1 : 2)
+      eng_name: $(prefix + 'eng_name').val().toString(),
+      chn_name: $(prefix + 'chn_name').val().toString(),
+      spec: $(prefix + 'spec').val().toString(),
+      work_ph: $(prefix + 'work_ph').val().toString(),
+      cell_ph: $(prefix + 'cell_ph').val().toString(),
+      email: $(prefix + 'email').val().toString(),
+      chnlv: $(prefix + 'clv0').is(':checked') ? 0 :
+             ($(prefix + 'clv1').is(':checked') ? 1 : 2)
     };
     data.push(item);
 
-    $('#gp' + i + 'eng_name').text(item.eng_name);
-    $('#gp' + i + 'chn_name').text(item.chn_name);
-    $('#gp' + i + 'spec').text(item.spec);
-    $('#gp' + i + 'work_ph').text(item.work_ph);
-    $('#gp' + i + 'cell_ph').text(item.cell_ph);
-    $('#gp' + i + 'email').text(item.email);
-    $('#gp' + i + 'chnlv').text(getChineseLevelString(item.chnlv));
+    prefix = '#gp' + i;
+    $(prefix + 'eng_name').text(item.eng_name);
+    $(prefix + 'chn_name').text(item.chn_name);
+    $(prefix + 'spec').text(item.spec);
+    $(prefix + 'work_ph').text(item.work_ph);
+    $(prefix + 'cell_ph').text(item.cell_ph);
+    $(prefix + 'email').text(item.email);
+    $(prefix + 'chnlv').text(getChineseLevelString(item.chnlv));
   }
 
   return data;
@@ -594,33 +598,40 @@ function getLearnedString(learned) {
   }
 }
 
+function getECString(code) {
+  if (code == 'nada') return 'No EC Class';
+  return ecClasses[code].desc;
+}
+
 function genStudentSummary() {
   var data = [];
   for (var i = 1; i <= numStudents; ++i) {
-    var male = '#s' + i + 'gm';
-    var scy = '#s' + i + 'sy';
+    var prefix = '#s' + i;
     var item = {
-      last_name: $('#s' + i + 'ln').val().toString(),
-      first_name: $('#s' + i + 'fn').val().toString(),
-      chn_name: $('#s' + i + 'chn').val().toString(),
-      dob: $('#s' + i + 'bd').val().toString(),
-      gender: $(male).is(':checked') ? 'M' : 'F',
-      sch: $(scy).is(':checked') ? 'Y' : 'N',
-      pref: $('#s' + i + 'pref').val(),
-      tshirt: $('#s' + i + 'tshirt').val().toString(),
-      learned: $('#s' + i + 'learned').val()
+      last_name: $(prefix + 'ln').val().toString(),
+      first_name: $(prefix + 'fn').val().toString(),
+      chn_name: $(prefix + 'chn').val().toString(),
+      dob: $(prefix + 'bd').val().toString(),
+      gender: $(prefix + 'gm').is(':checked') ? 'M' : 'F',
+      sch: $(prefix + 'sy').is(':checked') ? 'Y' : 'N',
+      pref: $(prefix + 'pref').val(),
+      tshirt: $(prefix + 'tshirt').val().toString(),
+      learned: $(prefix + 'learned').val(),
+      ec: $(prefix + 'ec').val()
     };
     data.push(item);
 
-    $('#gs' + i + 'ln').text(item.last_name);
-    $('#gs' + i + 'fn').text(item.first_name);
-    $('#gs' + i + 'chn').text(item.chn_name);
-    $('#gs' + i + 'bd').text(item.dob);
-    $('#gs' + i + 'gender').text(localizeGender(item.gender));
-    $('#gs' + i + 's').text(item.sch);
-    $('#gs' + i + 'pref').text(getPrefString(item.pref));
-    $('#gs' + i + 'tshirt').text(item.tshirt);
-    $('#gs' + i + 'learned').text(getLearnedString(item.learned));
+    prefix = '#gs' + i;
+    $(prefix + 'ln').text(item.last_name);
+    $(prefix + 'fn').text(item.first_name);
+    $(prefix + 'chn').text(item.chn_name);
+    $(prefix + 'bd').text(item.dob);
+    $(prefix + 'gender').text(localizeGender(item.gender));
+    $(prefix + 's').text(item.sch);
+    $(prefix + 'pref').text(getPrefString(item.pref));
+    $(prefix + 'tshirt').text(item.tshirt);
+    $(prefix + 'learned').text(getLearnedString(item.learned));
+    $(prefix + 'ec').text(getECString(item.ec));
   }
 
   return data;
