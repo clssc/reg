@@ -35,38 +35,6 @@ var STATE = [
   'WA', 'WI', 'WV', 'WY'
 ];
 
-var EC_CLASSES = {
-  'cal': 'Chinese Calligraphy',
-  'che': 'Chess',
-  'cho': 'Chorus',
-  'coo': 'Chinese Cooking Class',
-  'dan': 'Chinese Folk Dance',
-  'mar': 'Martial Arts',
-  'mov': 'Movie',
-  'mus': 'Chinese Musical Instruments',
-  'pai': 'Chinese Painting',
-  'ori': 'Origami',
-  'sat': 'SAT II Prep',
-  'sci': 'Scientific Handcrafts',
-  'wes': 'Westside Breeze'
-};
-
-var EC_AGE = {
-  'cal': 8,
-  'che': 6,
-  'cho': 5,
-  'coo': 12,
-  'dan': 5,
-  'mar': 5,
-  'mov': 13,
-  'mus': 8,
-  'pai': 6,
-  'ori': 5,
-  'sat': 12,
-  'sci': 7,
-  'wes': 8
-};
-
 // The very evil global variables.
 var numStudents = 1;  // Number of students, range [1, 4].
 var numParents = 2;  // Number of parents, range [1, 2].
