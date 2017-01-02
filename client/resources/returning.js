@@ -21,9 +21,8 @@ function disable(id) {
 $(function() {
   initDialogs();
 
+  $('#page7').hide();
   $('#page8').hide();
-  $('#page9').hide();
-  $('#page9').hide();
   $('#alreadyPaid').hide();
   $('#ec').hide();
   $('#legal').hide();
@@ -50,7 +49,7 @@ $(function() {
   $('#consent').change(toggleLegalStep);
   $('#next7').click(function() {
     $('#pager').hide();
-    $('#page8').show();
+    $('#page7').show();
   });
   $('#payButton').click(payTuition);
 
@@ -234,8 +233,8 @@ function payTuition(e) {
         }).done(function(data) {
           console.log('charge', data);
           $('#charging').dialog('close');
-          $('#page8').hide();
-          $('#page9').show();
+          $('#page7').hide();
+          $('#page8').show();
           if (data.indexOf('OK') == -1) {
             // failure
             $('#paySuccess').hide();
@@ -247,8 +246,8 @@ function payTuition(e) {
         }).fail(function(e) {
           console.log(e);
           $('#charging').dialog('close');
-          $('#page8').hide();
-          $('#page9').show();
+          $('#page7').hide();
+          $('#page8').show();
           $('#paySuccess').hide();
           $('#payFailed').show();
         });
