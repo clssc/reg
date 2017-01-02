@@ -1,5 +1,5 @@
 <?php
-require_once('./stripe-php-1.17.3/lib/Stripe.php');
+require_once('./stripe-php-4.3.0/init.php');
 
 $stripe = array(
   // This secret key is bogus, please refer to stripe console and change it to
@@ -8,5 +8,5 @@ $stripe = array(
   "publishable_key" => "pk_test_k0R3N6jkDi5W4l6tU7ki0P4R"
 );
 
-Stripe::setApiKey($stripe['secret_key']);
+\Stripe\Stripe::setApiKey($stripe['secret_key']);
 ?>

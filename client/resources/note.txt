@@ -21,8 +21,8 @@ following registration notes:<br />
   and coaches who meet tuition reduction criteria will be refunded after the
   school year begins.</li>
   <li>Early registration students (students whose completed registrations are
-  postmarked by 7/31/2016) will receive the textbooks on the first day of
-  school. Students who register after 7/31/2016 are not guaranteed to receive
+  postmarked by 7/31/2017) will receive the textbooks on the first day of
+  school. Students who register after 7/31/2017 are not guaranteed to receive
   the textbooks on the first day of school.</li>
   <li>Registration deadline and early bird discount deadline are determined by
   payment postmark.</li>
@@ -52,8 +52,8 @@ the school web site.</li>
 <ol>
   <li>學生在開學日當天必須滿五足歲。</li>
   <li>本學年學費為每學生 $800,  (提前註冊者 $700)。教職員符合寬減條件者, 開學後發放寬減額。</li>
-  <li>提前註冊學生 (於7/31/2016 (郵戳為憑) 前完成註冊手續者),
-將可於開學當日領取教科書。學生於7/31/2016 後始註冊者,
+  <li>提前註冊學生 (於7/31/2017 (郵戳為憑) 前完成註冊手續者),
+將可於開學當日領取教科書。學生於7/31/2017 後始註冊者,
 於開學當日不保證可領取教科書。</li>
   <li>註冊截止日期以繳費日郵戳為憑。</li>
   <li>除行政人員、部份教職員外, 每個會員家庭每年應服務20小時。註冊時應繳足服務保證金$200。
@@ -73,8 +73,8 @@ the school web site.</li>
 <ol>
   <li>学生在开学日当天必须满五足岁。</li>
   <li>本学年学费为每学生 $800,  (提前注册者 $700)。教职员符合宽减条件者, 开学後发放宽减额。</li>
-  <li>提前注册学生 (於7/31/2016 (邮戳为凭) 前完成注册手续者),
-将可於开学当日领取教科书。学生於7/31/2016 後始注册者,
+  <li>提前注册学生 (於7/31/2017 (邮戳为凭) 前完成注册手续者),
+将可於开学当日领取教科书。学生於7/31/2017 後始注册者,
 於开学当日不保证可领取教科书。</li>
   <li>注册截止日期以缴费日邮戳为凭。</li>
   <li>除行政人员、部份教职员外, 每个会员家庭每年应服务20小时。注册时应缴足服务保证金$200。
