@@ -1,3 +1,4 @@
+var EC_URL = 'https://script.google.com/macros/s/AKfycbxI3BucvHpvCJ1kpd7sWlpRyNap4opJjJGDBRyvHtqnTZecTL2J/exec';
 var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxUK556VS61tYHuMGEF1vYYw00W1AfF_zKfc9uRp5Oie59N6j4/exec';
 var CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbywBFWI9FpeyGOALYz-gLz5HLnlp1hhQlvIWkZ88GKES-Y0a4r5/exec';
 
@@ -46,6 +47,16 @@ var numAdultStudents = 0;
 var familyId = '0000';
 var chargeAmount = 0;
 var checkoutHandler;
+var ecClasses = null;
+
+function disable(id) {
+  var d = 'disabled';
+  $(id).attr(d, d);
+}
+
+function enable(id) {
+  $(id).removeAttr('disabled');
+}
 
 // When the page loads.
 $(function() {
@@ -63,7 +74,8 @@ $(function() {
       changeYear: true,
       dateFormat: 'mm-dd-yy',
       maxDate: new Date(),
-      yearRange: '-80:+0'
+      yearRange: '-80:+0',
+      onClose: updateECDropdown
     });
   }
 
@@ -83,6 +95,17 @@ $(function() {
   $('#consent').change(function() { toggleLegalStep(); });
 
   setPaymentHooks();
+
+  // Fire EC class request, let it race.
+  $.ajax({
+    type: 'GET',
+    url: EC_URL,
+  }).done(function(data) {
+    ecClasses = {};
+    data.forEach(function(cls) {
+      ecClasses[cls.code] = cls;
+    });
+  });
 
   // Really starts
   for (var i = 0; i < 10; ++i) {
@@ -127,11 +150,9 @@ function setNavigationHooks() {
   $('#next2').click(function() {
     if (validateFamilyData()) { showStudents(); showPage(3); }
   });
-  // $('#next2b').click(function() { showStudents(); showPage(3); });
   $('#next3').click(function() {
     if (validateStudentData()) { genSummary(); showPage(4); } 
   });
-  // $('#next3b').click(function() { genSummary(); showPage(4); });
   $('#next4').click(function() { showPage(5); });
   $('#next5').click(function() { genFinalData(); });
   $('#next6').click(function() {
@@ -145,7 +166,7 @@ function setNavigationHooks() {
 function setPaymentHooks() {
   // Payment hook.
   $('#payButton').click(function(e) {
-    $('#payButton').attr('disabled', 'disabled');
+    disable('#payButton');
     runPayment(e);
   });
 
@@ -188,6 +209,50 @@ function localizeButtons() {
   }
 }
 
+function ensureECItems(index) {
+  var id = '#s' + index + 'ec';
+  if ($(id + ' option').length == 1 && ecClasses) {
+    Object.keys(ecClasses).forEach(function(key) {
+      var cls = ecClasses[key];
+      // Exclude Tai-chi class, it has different tuition schedule.
+      if (cls.code == 'tai') return;
+      $(id).append($('<option disabled></option>').attr('value', cls.code).text(cls.desc));
+    });
+  }
+}
+
+function disableAllEC(index) {
+  var id = '#s' + index + 'ec option';
+  $(id).each(function() {
+    if ($(this).val() == 'nada') return;
+    $(this).attr('disabled', 'disabled');
+  });
+}
+
+function updateECDropdown(dateText, inst) {
+  var timestamp = 0;
+  try {
+    timestamp = jQuery.datepicker.parseDate('mm-dd-yy', dateText).getTime();
+  } catch (e) {
+    disableAllEC(index);
+  }
+
+  var age = (SCHOOL_START - timestamp) / 31536000000;
+  var index = inst.id.substring(1, 2);
+  var id = '#s' + index + 'ec option';
+  $(id).each(function() {
+    var code = $(this).val();
+    if (code == 'nada') return;
+    if (ecClasses[code]) {
+      if (ecClasses[code].min_age <= age) {
+        $(this).removeAttr('disabled');
+      } else {
+        $(this).attr('disabled', 'disabled');
+      }
+    }
+  });
+}
+
 function showStudents() {
   for (var i = 1; i <= 4; ++i) {
     var id = '#stu' + i;
@@ -195,6 +260,7 @@ function showStudents() {
     if (i <= numStudents) {
       $(id).show();
       $(id2).show();
+      ensureECItems(i);
     } else {
       $(id).hide();
       $(id2).hide();
@@ -225,9 +291,9 @@ function showParents() {
 
 function toggleLegalStep() {
   if ($('#consent').is(':checked')) {
-    $('#next5').removeAttr("disabled");
+    enable('#next5');
   } else {
-    $('#next5').attr('disabled', 'disabled');
+    disable('#next5');
   }
 }
 
@@ -608,12 +674,12 @@ function onServerReturn(data) {
 function onServerFailure(e) {
   $('#progress').dialog('close');
   $('#error').dialog('open');
-  $('#next5').removeAttr("disabled");
+  enable('#next5');
   console.log(e);
 }
 
 function genFinalData() {
-  $('#next5').attr("disabled", "disabled");
+  disable('#next5');
   $('#progress').dialog('open');
   $.ajax({
     type: 'POST',

@@ -91,3 +91,9 @@ School.
 @@line{tc} 是否曾在學校學過或補習中文
 @@line{sc} 是否曾在学校学过或补习中文
 @@end{learnedchn}
+
+@@start{ecdesc}
+@@line{en} Optional Extra Curricular Class
+@@line{tc} 選修課外活動
+@@line{sc} 选修课外活动
+@@end{ecdesc}
