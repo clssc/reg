@@ -66,7 +66,7 @@ Thank you for applying Westside Chinese School and see you in September!
 @@end{noretry}
 
 @@start{paid}
-@@line{en} You have already paid. If you wish to alter your registration, please email info@westsidechineseschool.com directly.
-@@line{tc} 您已完成註冊並付款, 若您需要更改註冊內容, 請 E-Mail info@westsidechineseschool.com。
-@@line{sc} 您已完成注册并付款, 若您需要更改注册内容, 请 E-Mail info@westsidechineseschool.com。
+@@line{en} You have already paid or you had registered with us before. Please email info@westsidechineseschool.com directly.
+@@line{tc} 您已完成註冊或您曾於本校註冊, 請 E-Mail info@westsidechineseschool.com。
+@@line{sc} 您已完成注册或您曾於本校注册, 请 E-Mail info@westsidechineseschool.com。
 @@end{paid}

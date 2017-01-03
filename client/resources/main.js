@@ -1,5 +1,5 @@
 var EC_URL = 'https://script.google.com/macros/s/AKfycbxI3BucvHpvCJ1kpd7sWlpRyNap4opJjJGDBRyvHtqnTZecTL2J/exec';
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxUK556VS61tYHuMGEF1vYYw00W1AfF_zKfc9uRp5Oie59N6j4/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbw3qVYc9Lgz3g59tQHkaWr_6DGq_iCPyTQIGFlP-jmwklH4oocJ/exec';
 var CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbywBFWI9FpeyGOALYz-gLz5HLnlp1hhQlvIWkZ88GKES-Y0a4r5/exec';
 
 // September 10, 2016, 00:00:00
@@ -44,7 +44,8 @@ var cutoffTimestamp = SCHOOL_START - (5 * 365 + 1) * 86400000;
 var adultTimestamp = SCHOOL_START - (18 * 365 + 4) * 86400000;
 var submission = '';  // Data to submit to server.
 var numAdultStudents = 0;
-var familyId = '0000';
+var familyId = 0;
+var regData = null;
 var chargeAmount = 0;
 var checkoutHandler;
 var ecClasses = null;
@@ -649,35 +650,40 @@ function genSummary() {
 function onServerReturn(data) {
   $('#progress').dialog('close');
 
-  // Calculate amount before proceeding to final page.
-  $('#snum_stu').text(numStudents.toString());
-  var svcDeposit = (numStudents - numAdultStudents) > 0 ? 200 : 0;
-  $('#ssvc_deposit').text(svcDeposit.toString());
-  var total = 800 * numStudents + svcDeposit + 100;
-  var total2 = 700 * numStudents + svcDeposit + 100;
-  $('#stotal').text(total.toString());
-  $('#stotal2').text(total2.toString());
-
-  showPage(6);
-
-  // Parse family ID.
-  var tempData = '';
   try {
-    tempData = JSON.parse(data).result;
-  } catch (e) {
-    console.log('Failed to parse server data:', e);
-  }
-  // TODO(arthurhsu): A bit fragile, need some TLC.
-  if (tempData.indexOf('already paid') != -1) {
-    $('#feeSchedule').hide();
-    $('#feeDesc').hide();
-    $('#paid').show();
-    $('#next6').hide();
-  } else if (tempData.indexOf('family number') != -1) {
-    familyId = tempData.substring(tempData.length - 4, tempData.length);
+    // Calculate amount before proceeding to final page.
+    var res = JSON.parse(data);
+    if (res.result.substring(0, 7) != 'SUCCESS') {
+      if (res.result.indexOf('already paid') != -1) {
+        $('#feeSchedule').hide();
+        $('#feeDesc').hide();
+        $('#paid').show();
+        $('#next6').hide();
+      } else {
+        onServerFailure(data.result);
+      }
+      return;
+    }
+
+    familyId = res.family_number;
+    if (!familyId) throw new Error();
+    regData = res.payload;
+    $('#snum_stu').text(numStudents.toString());
+    var svcDeposit = (numStudents - numAdultStudents) > 0 ? 200 : 0;
+    $('#ssvc_deposit').text(svcDeposit.toString());
+    var total = 800 * numStudents + svcDeposit + 100;
+    var total2 = 700 * numStudents + svcDeposit + 100;
+    $('#stotal').text(total.toString());
+    $('#stotal2').text(total2.toString());
+
     var now = new Date();
     chargeAmount = now.getTime() >= CUTOFF_TIME ? total : total2;
-  } else {
+    if (regData.ec) {
+      var items = regData.ec.length || 0;
+      chargeAmount += items * 150; 
+    }
+    showPage(6);
+  } catch(e) {
     onServerFailure('failed to parse server results: ' + data);
   }
 }
@@ -686,7 +692,7 @@ function onServerFailure(e) {
   $('#progress').dialog('close');
   $('#error').dialog('open');
   enable('#next5');
-  console.log(e);
+  console.error(e);
 }
 
 function genFinalData() {

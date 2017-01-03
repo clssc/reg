@@ -11,9 +11,9 @@
 @@end{subtitle}
 
 @@start{payAmountTitle}
-@@line{en} You need to pay&nbsp;
-@@line{tc} 您需付&nbsp;
-@@line{sc} 您需付&nbsp;
+@@line{en} You need to pay&nbspUSD$;
+@@line{tc} 您需付&nbspUSD$;
+@@line{sc} 您需付&nbspUSD$;
 @@end{payAmountTitle}
 
 @@start{steps}
