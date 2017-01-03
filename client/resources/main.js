@@ -1,17 +1,18 @@
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxUK556VS61tYHuMGEF1vYYw00W1AfF_zKfc9uRp5Oie59N6j4/exec';
-var CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbywBFWI9FpeyGOALYz-gLz5HLnlp1hhQlvIWkZ88GKES-Y0a4r5/exec';
+var EC_URL = 'https://script.google.com/macros/s/AKfycbxI3BucvHpvCJ1kpd7sWlpRyNap4opJjJGDBRyvHtqnTZecTL2J/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbw3qVYc9Lgz3g59tQHkaWr_6DGq_iCPyTQIGFlP-jmwklH4oocJ/exec';
+var CHARGE_URL = 'https://www.westsidechineseschool.com/reg/charge.php';
 
-// September 10, 2016, 00:00:00
+// September 11, 2017, 00:00:00
 // Use JavaScript console to get the number:
-// new Date(2016, 8, 10, 0, 0, 0).getTime()
-var SCHOOL_START = 1473490800000;
-// August 01, 2016, 00:00:00
-// new Date(2016, 7, 1, 0, 0, 0).getTime()
-var CUTOFF_TIME = 1470034800000;
+// new Date(2017, 8, 11, 0, 0, 0).getTime()
+var SCHOOL_START = 1505113200000;
+// August 01, 2017, 00:00:00
+// new Date(2017, 7, 1, 0, 0, 0).getTime()
+var CUTOFF_TIME = 1501570800000;
 
 // Charge key to use: publishable key from Stripe.com.
-//var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
-var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
+var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var STATE = [
   'AL', 'AK',  'AR', 'AS', 'AZ',
@@ -43,9 +44,19 @@ var cutoffTimestamp = SCHOOL_START - (5 * 365 + 1) * 86400000;
 var adultTimestamp = SCHOOL_START - (18 * 365 + 4) * 86400000;
 var submission = '';  // Data to submit to server.
 var numAdultStudents = 0;
-var familyId = '0000';
+var familyId = 0;
 var chargeAmount = 0;
 var checkoutHandler;
+var ecClasses = null;
+
+function disable(id) {
+  var d = 'disabled';
+  $(id).attr(d, d);
+}
+
+function enable(id) {
+  $(id).removeAttr('disabled');
+}
 
 // When the page loads.
 $(function() {
@@ -63,7 +74,8 @@ $(function() {
       changeYear: true,
       dateFormat: 'mm-dd-yy',
       maxDate: new Date(),
-      yearRange: '-80:+0'
+      yearRange: '-80:+0',
+      onClose: updateECDropdown
     });
   }
 
@@ -83,6 +95,17 @@ $(function() {
   $('#consent').change(function() { toggleLegalStep(); });
 
   setPaymentHooks();
+
+  // Fire EC class request, let it race.
+  $.ajax({
+    type: 'GET',
+    url: EC_URL,
+  }).done(function(data) {
+    ecClasses = {};
+    data.forEach(function(cls) {
+      ecClasses[cls.code] = cls;
+    });
+  });
 
   // Really starts
   for (var i = 0; i < 10; ++i) {
@@ -127,11 +150,9 @@ function setNavigationHooks() {
   $('#next2').click(function() {
     if (validateFamilyData()) { showStudents(); showPage(3); }
   });
-  // $('#next2b').click(function() { showStudents(); showPage(3); });
   $('#next3').click(function() {
     if (validateStudentData()) { genSummary(); showPage(4); } 
   });
-  // $('#next3b').click(function() { genSummary(); showPage(4); });
   $('#next4').click(function() { showPage(5); });
   $('#next5').click(function() { genFinalData(); });
   $('#next6').click(function() {
@@ -145,7 +166,7 @@ function setNavigationHooks() {
 function setPaymentHooks() {
   // Payment hook.
   $('#payButton').click(function(e) {
-    $('#payButton').attr('disabled', 'disabled');
+    disable('#payButton');
     runPayment(e);
   });
 
@@ -188,6 +209,50 @@ function localizeButtons() {
   }
 }
 
+function ensureECItems(index) {
+  var id = '#s' + index + 'ec';
+  if ($(id + ' option').length == 1 && ecClasses) {
+    Object.keys(ecClasses).forEach(function(key) {
+      var cls = ecClasses[key];
+      // Exclude Tai-chi class, it has different tuition schedule.
+      if (cls.code == 'tai') return;
+      $(id).append($('<option disabled></option>').attr('value', cls.code).text(cls.desc));
+    });
+  }
+}
+
+function disableAllEC(index) {
+  var id = '#s' + index + 'ec option';
+  $(id).each(function() {
+    if ($(this).val() == 'nada') return;
+    $(this).attr('disabled', 'disabled');
+  });
+}
+
+function updateECDropdown(dateText, inst) {
+  var timestamp = 0;
+  try {
+    timestamp = jQuery.datepicker.parseDate('mm-dd-yy', dateText).getTime();
+  } catch (e) {
+    disableAllEC(index);
+  }
+
+  var age = (SCHOOL_START - timestamp) / 31536000000;
+  var index = inst.id.substring(1, 2);
+  var id = '#s' + index + 'ec option';
+  $(id).each(function() {
+    var code = $(this).val();
+    if (code == 'nada') return;
+    if (ecClasses[code]) {
+      if (ecClasses[code].min_age <= age) {
+        $(this).removeAttr('disabled');
+      } else {
+        $(this).attr('disabled', 'disabled');
+      }
+    }
+  });
+}
+
 function showStudents() {
   for (var i = 1; i <= 4; ++i) {
     var id = '#stu' + i;
@@ -195,6 +260,7 @@ function showStudents() {
     if (i <= numStudents) {
       $(id).show();
       $(id2).show();
+      ensureECItems(i);
     } else {
       $(id).hide();
       $(id2).hide();
@@ -225,9 +291,9 @@ function showParents() {
 
 function toggleLegalStep() {
   if ($('#consent').is(':checked')) {
-    $('#next5').removeAttr("disabled");
+    enable('#next5');
   } else {
-    $('#next5').attr('disabled', 'disabled');
+    disable('#next5');
   }
 }
 
@@ -275,23 +341,24 @@ function validateFamilyData() {
   var result = true;
 
   for (var i = 1; i <= numParents; ++i) {
+    var prefix = '#p' + i;
     // Check if name is empty.
-    if (!$('#p' + i + 'eng_name').val().trim().length) {
+    if (!$(prefix + 'eng_name').val().trim().length) {
       result &= false;
       $('#pteng_name').addClass('error');
     }
 
     // Check cell phone validity.
-    var cell = validatePhone($('#p' + i + 'cell_ph').val().trim());
+    var cell = validatePhone($(prefix + 'cell_ph').val().trim());
     if (cell.length != 12) {
       result &= false;
       $('#ptcell').addClass('error');
     } else {
-      $('#p' + i + 'cell_ph').val(cell);
+      $(prefix + 'cell_ph').val(cell);
     }
 
     // Check secondary phone
-    var rawWorkPhone = $('#p' + i + 'work_ph').val().trim();
+    var rawWorkPhone = $(prefix + 'work_ph').val().trim();
     var workPhone = validatePhone(rawWorkPhone);
     if (workPhone.length != 12 && workPhone.length != 0) {
       result &= false;
@@ -299,7 +366,7 @@ function validateFamilyData() {
     }
 
     // Check chinese name
-    var rawChineseName = $('#p' + i + 'chn_name').val().trim();
+    var rawChineseName = $(prefix + 'chn_name').val().trim();
     var chnName = validateChinese(rawChineseName);
     if (chnName != rawChineseName) {
       result &= false;
@@ -307,18 +374,18 @@ function validateFamilyData() {
     }
 
     // Check email validity.
-    var email = validateEmail($('#p' + i + 'email').val().trim());
+    var email = validateEmail($(prefix + 'email').val().trim());
     if (email.length < 4) {
       result &= false;
       $('#ptemail').addClass('error');
     } else {
-      $('#p' + i + 'email').val(email);
+      $(prefix + 'email').val(email);
     }
 
     // Check if chinese level is checked.
-    var nada = '#p' + i + 'clv0';
-    var lands = '#p' + i + 'clv1';
-    var edu = '#p' + i + 'clv2';
+    var nada = prefix + 'clv0';
+    var lands = prefix + 'clv1';
+    var edu = prefix + 'clv2';
     if (!$(nada).is(':checked') && !$(lands).is(':checked') &&
         !$(edu).is(':checked')) {
       result &= false;
@@ -386,27 +453,28 @@ function validateStudentData() {
   var result = true;
   numAdultStudents = 0;
   for (var i = 1; i <= numStudents; ++i) {
+    var prefix = '#s' + i;
     // Check if names are empty.
-    if (!$('#s' + i + 'ln').val().trim().length) {
+    if (!$(prefix + 'ln').val().trim().length) {
       result &= false;
-      $('#s' + i + 'tln').addClass('error');
+      $(prefix + 'tln').addClass('error');
     }
-    if (!$('#s' + i + 'fn').val().trim().length) {
+    if (!$(prefix + 'fn').val().trim().length) {
       result &= false;
-      $('#s' + i + 'tfn').addClass('error');
+      $(prefix + 'tfn').addClass('error');
     }
 
     // Check Chinese name is Chinese
     // Check chinese name
-    var rawChName = $('#s' + i + 'chn').val().trim();
+    var rawChName = $(prefix + 'chn').val().trim();
     var chName = validateChinese(rawChName);
     if (chName != rawChName) {
       result &= false;
-	  $('#s' + i + 'tcn').addClass('error');
+	  $(prefix + 'tcn').addClass('error');
     }
 
     // Check DOB is greater than 5 years.
-    var value = $('#s' + i + 'bd').val().toString();
+    var value = $(prefix + 'bd').val().toString();
     var dateResult = false;
     if (value.length) {
       var timestamp = 0;
@@ -425,23 +493,23 @@ function validateStudentData() {
     }
     if (!dateResult) {
       result &= false;
-      $('#s' + i + 'tbd').addClass('error');
+      $(prefix + 'tbd').addClass('error');
     }
 
     // Check if gender is checked.
-    var male = '#s' + i + 'gm';
-    var female = '#s' + i + 'gf';
+    var male = prefix + 'gm';
+    var female = prefix + 'gf';
     if (!$(male).is(':checked') && !$(female).is(':checked')) {
       result &= false;
-      $('#s' + i + 'tg').addClass('error');
+      $(prefix + 'tg').addClass('error');
     }
 
     // Check if speak Chinese at home is checked.
-    var scy = '#s' + i + 'sy';
-    var scn = '#s' + i + 'sn';
+    var scy = prefix + 'sy';
+    var scn = prefix + 'sn';
     if (!$(scy).is(':checked') && !$(scn).is(':checked')) {
       result &= false;
-      $('#s' + i + 'ts').addClass('error');
+      $(prefix + 'ts').addClass('error');
     }
   }
   return result;
@@ -484,25 +552,27 @@ function getChineseLevelString(level) {
 function genParentSummary() {
   var data = [];
   for (var i = 1; i <= numParents; ++i) {
+    var prefix = '#p' + i;
     var item = {
-      eng_name: $('#p' + i + 'eng_name').val().toString(),
-      chn_name: $('#p' + i + 'chn_name').val().toString(),
-      spec: $('#p' + i + 'spec').val().toString(),
-      work_ph: $('#p' + i + 'work_ph').val().toString(),
-      cell_ph: $('#p' + i + 'cell_ph').val().toString(),
-      email: $('#p' + i + 'email').val().toString(),
-      chnlv: $('#p' + i + 'clv0').is(':checked') ? 0 :
-             ($('#p' + i + 'clv1').is(':checked') ? 1 : 2)
+      eng_name: $(prefix + 'eng_name').val().toString(),
+      chn_name: $(prefix + 'chn_name').val().toString(),
+      spec: $(prefix + 'spec').val().toString(),
+      work_ph: $(prefix + 'work_ph').val().toString(),
+      cell_ph: $(prefix + 'cell_ph').val().toString(),
+      email: $(prefix + 'email').val().toString(),
+      chnlv: $(prefix + 'clv0').is(':checked') ? 0 :
+             ($(prefix + 'clv1').is(':checked') ? 1 : 2)
     };
     data.push(item);
 
-    $('#gp' + i + 'eng_name').text(item.eng_name);
-    $('#gp' + i + 'chn_name').text(item.chn_name);
-    $('#gp' + i + 'spec').text(item.spec);
-    $('#gp' + i + 'work_ph').text(item.work_ph);
-    $('#gp' + i + 'cell_ph').text(item.cell_ph);
-    $('#gp' + i + 'email').text(item.email);
-    $('#gp' + i + 'chnlv').text(getChineseLevelString(item.chnlv));
+    prefix = '#gp' + i;
+    $(prefix + 'eng_name').text(item.eng_name);
+    $(prefix + 'chn_name').text(item.chn_name);
+    $(prefix + 'spec').text(item.spec);
+    $(prefix + 'work_ph').text(item.work_ph);
+    $(prefix + 'cell_ph').text(item.cell_ph);
+    $(prefix + 'email').text(item.email);
+    $(prefix + 'chnlv').text(getChineseLevelString(item.chnlv));
   }
 
   return data;
@@ -528,33 +598,40 @@ function getLearnedString(learned) {
   }
 }
 
+function getECString(code) {
+  if (code == 'nada') return 'No EC Class';
+  return ecClasses[code].desc;
+}
+
 function genStudentSummary() {
   var data = [];
   for (var i = 1; i <= numStudents; ++i) {
-    var male = '#s' + i + 'gm';
-    var scy = '#s' + i + 'sy';
+    var prefix = '#s' + i;
     var item = {
-      last_name: $('#s' + i + 'ln').val().toString(),
-      first_name: $('#s' + i + 'fn').val().toString(),
-      chn_name: $('#s' + i + 'chn').val().toString(),
-      dob: $('#s' + i + 'bd').val().toString(),
-      gender: $(male).is(':checked') ? 'M' : 'F',
-      sch: $(scy).is(':checked') ? 'Y' : 'N',
-      pref: $('#s' + i + 'pref').val(),
-      tshirt: $('#s' + i + 'tshirt').val().toString(),
-      learned: $('#s' + i + 'learned').val()
+      last_name: $(prefix + 'ln').val().toString(),
+      first_name: $(prefix + 'fn').val().toString(),
+      chn_name: $(prefix + 'chn').val().toString(),
+      dob: $(prefix + 'bd').val().toString(),
+      gender: $(prefix + 'gm').is(':checked') ? 'M' : 'F',
+      sch: $(prefix + 'sy').is(':checked') ? 'Y' : 'N',
+      pref: $(prefix + 'pref').val(),
+      tshirt: $(prefix + 'tshirt').val().toString(),
+      learned: $(prefix + 'learned').val(),
+      ec: $(prefix + 'ec').val()
     };
     data.push(item);
 
-    $('#gs' + i + 'ln').text(item.last_name);
-    $('#gs' + i + 'fn').text(item.first_name);
-    $('#gs' + i + 'chn').text(item.chn_name);
-    $('#gs' + i + 'bd').text(item.dob);
-    $('#gs' + i + 'gender').text(localizeGender(item.gender));
-    $('#gs' + i + 's').text(item.sch);
-    $('#gs' + i + 'pref').text(getPrefString(item.pref));
-    $('#gs' + i + 'tshirt').text(item.tshirt);
-    $('#gs' + i + 'learned').text(getLearnedString(item.learned));
+    prefix = '#gs' + i;
+    $(prefix + 'ln').text(item.last_name);
+    $(prefix + 'fn').text(item.first_name);
+    $(prefix + 'chn').text(item.chn_name);
+    $(prefix + 'bd').text(item.dob);
+    $(prefix + 'gender').text(localizeGender(item.gender));
+    $(prefix + 's').text(item.sch);
+    $(prefix + 'pref').text(getPrefString(item.pref));
+    $(prefix + 'tshirt').text(item.tshirt);
+    $(prefix + 'learned').text(getLearnedString(item.learned));
+    $(prefix + 'ec').text(getECString(item.ec));
   }
 
   return data;
@@ -572,35 +649,40 @@ function genSummary() {
 function onServerReturn(data) {
   $('#progress').dialog('close');
 
-  // Calculate amount before proceeding to final page.
-  $('#snum_stu').text(numStudents.toString());
-  var svcDeposit = (numStudents - numAdultStudents) > 0 ? 200 : 0;
-  $('#ssvc_deposit').text(svcDeposit.toString());
-  var total = 800 * numStudents + svcDeposit + 100;
-  var total2 = 700 * numStudents + svcDeposit + 100;
-  $('#stotal').text(total.toString());
-  $('#stotal2').text(total2.toString());
-
-  showPage(6);
-
-  // Parse family ID.
-  var tempData = '';
   try {
-    tempData = JSON.parse(data).result;
-  } catch (e) {
-    console.log('Failed to parse server data:', e);
-  }
-  // TODO(arthurhsu): A bit fragile, need some TLC.
-  if (tempData.indexOf('already paid') != -1) {
-    $('#feeSchedule').hide();
-    $('#feeDesc').hide();
-    $('#paid').show();
-    $('#next6').hide();
-  } else if (tempData.indexOf('family number') != -1) {
-    familyId = tempData.substring(tempData.length - 4, tempData.length);
+    // Calculate amount before proceeding to final page.
+    var res = JSON.parse(data);
+    if (res.result.substring(0, 7) != 'SUCCESS') {
+      if (res.result.indexOf('already paid') != -1) {
+        $('#feeSchedule').hide();
+        $('#feeDesc').hide();
+        $('#paid').show();
+        $('#next6').hide();
+      } else {
+        onServerFailure(data.result);
+      }
+      return;
+    }
+
+    familyId = res.family_number;
+    if (!familyId) throw new Error();
+    var regData = res.payload;
+    $('#snum_stu').text(numStudents.toString());
+    var svcDeposit = (numStudents - numAdultStudents) > 0 ? 200 : 0;
+    $('#ssvc_deposit').text(svcDeposit.toString());
+    var total = 800 * numStudents + svcDeposit + 100;
+    var total2 = 700 * numStudents + svcDeposit + 100;
+    $('#stotal').text(total.toString());
+    $('#stotal2').text(total2.toString());
+
     var now = new Date();
     chargeAmount = now.getTime() >= CUTOFF_TIME ? total : total2;
-  } else {
+    if (regData.ec) {
+      var items = regData.ec.length || 0;
+      chargeAmount += items * 150; 
+    }
+    showPage(6);
+  } catch(e) {
     onServerFailure('failed to parse server results: ' + data);
   }
 }
@@ -608,12 +690,12 @@ function onServerReturn(data) {
 function onServerFailure(e) {
   $('#progress').dialog('close');
   $('#error').dialog('open');
-  $('#next5').removeAttr("disabled");
-  console.log(e);
+  enable('#next5');
+  console.error(e);
 }
 
 function genFinalData() {
-  $('#next5').attr("disabled", "disabled");
+  disable('#next5');
   $('#progress').dialog('open');
   $.ajax({
     type: 'POST',
@@ -625,22 +707,6 @@ function genFinalData() {
   }).fail(function(e) {
     onServerFailure(e);
   });
-}
-
-function reportPayment(chargeData) {
-  var sameDone = function() {
-     $('#charging').dialog('close');
-     showPage(8);
-     $('#paySuccess').show();
-     $('#payFailed').hide();
-  };
-
-  $.ajax({
-    type: 'POST',
-    url: CONFIRM_URL,
-    data: chargeData,
-    dataType: 'text'
-  }).done(sameDone).fail(sameDone);
 }
 
 function runPayment(e) {
@@ -657,13 +723,14 @@ function runPayment(e) {
         $('#charging').dialog('open');
         $.ajax({
           type: 'POST',
-          url: 'https://www.westsidechineseschool.com/reg/charge.php',
+          url: CHARGE_URL,
           data: {
             'stripeToken': token.id,
             'stripeTokenType': 'card',
             'stripeEmail': token.email,
             'familyId': familyId,
-            'dollarAmount': chargeAmount
+            'dollarAmount': chargeAmount,
+            'regData': submission
           },
           dataType: 'text'
         }).done(function(data) {
@@ -675,7 +742,10 @@ function runPayment(e) {
             $('#paySuccess').hide();
             $('#payFailed').show();
           } else {
-            reportPayment(data);
+            $('#charging').dialog('close');
+            showPage(8);
+            $('#paySuccess').show();
+            $('#payFailed').hide();
           }
         }).fail(function(e) {
           console.log(e);

@@ -18,13 +18,13 @@ tuition fees</a> and <a href="http://westsidechineseschool.weebly.com/refund-pol
 @@endblock
 
 @@block{tc}
-系統已登錄您的申請表格, 您必須完成繳費的手續才算完成註冊, 在您繳費之前,
+您必須完成繳費的手續才算完成註冊, 在您繳費之前,
 請詳閱我們的<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">學費與註冊規定</a>及
 <a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">退費規定</a>。
 @@endblock
 
 @@block{sc}
-系统已登录您的申请表格, 您必须完成缴费的手续才算完成注册,在您缴费之前,
+您必须完成缴费的手续才算完成注册,在您缴费之前,
 请详阅我们的<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">学费与注册规范</a>及
 <a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">退费规范</a>。
 @@endblock
@@ -66,7 +66,7 @@ Thank you for applying Westside Chinese School and see you in September!
 @@end{noretry}
 
 @@start{paid}
-@@line{en} You have already paid. If you wish to alter your registration, please email info@westsidechineseschool.com directly.
-@@line{tc} 您已完成註冊並付款, 若您需要更改註冊內容, 請 E-Mail info@westsidechineseschool.com。
-@@line{sc} 您已完成注册并付款, 若您需要更改注册内容, 请 E-Mail info@westsidechineseschool.com。
+@@line{en} You have already paid or you had registered with us before. Please email info@westsidechineseschool.com directly.
+@@line{tc} 您已完成註冊或您曾於本校註冊, 請 E-Mail info@westsidechineseschool.com。
+@@line{sc} 您已完成注册或您曾於本校注册, 请 E-Mail info@westsidechineseschool.com。
 @@end{paid}

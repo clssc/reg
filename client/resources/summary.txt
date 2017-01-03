@@ -172,6 +172,12 @@
 @@line{sc} 是否曾学过中文
 @@end{learnedchn}
 
+@@start{ecchoice}
+@@line{en} EC Choice
+@@line{tc} 選修課外活動
+@@line{sc} 选修课外活动
+@@end{learnedchn}
+
 @@start{stu2info}
 @@line{en} Student 2 Information
 @@line{tc} 學生2 資料
