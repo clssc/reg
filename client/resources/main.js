@@ -1,18 +1,18 @@
 var EC_URL = 'https://script.google.com/macros/s/AKfycbxI3BucvHpvCJ1kpd7sWlpRyNap4opJjJGDBRyvHtqnTZecTL2J/exec';
 var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbw3qVYc9Lgz3g59tQHkaWr_6DGq_iCPyTQIGFlP-jmwklH4oocJ/exec';
-var CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbywBFWI9FpeyGOALYz-gLz5HLnlp1hhQlvIWkZ88GKES-Y0a4r5/exec';
+var CHARGE_URL = 'https://www.westsidechineseschool.com/reg/charge.php';
 
-// September 10, 2016, 00:00:00
+// September 11, 2017, 00:00:00
 // Use JavaScript console to get the number:
-// new Date(2016, 8, 10, 0, 0, 0).getTime()
-var SCHOOL_START = 1473490800000;
-// August 01, 2016, 00:00:00
-// new Date(2016, 7, 1, 0, 0, 0).getTime()
-var CUTOFF_TIME = 1470034800000;
+// new Date(2017, 8, 11, 0, 0, 0).getTime()
+var SCHOOL_START = 1505113200000;
+// August 01, 2017, 00:00:00
+// new Date(2017, 7, 1, 0, 0, 0).getTime()
+var CUTOFF_TIME = 1501570800000;
 
 // Charge key to use: publishable key from Stripe.com.
-//var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
-var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
+var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var STATE = [
   'AL', 'AK',  'AR', 'AS', 'AZ',
@@ -45,7 +45,6 @@ var adultTimestamp = SCHOOL_START - (18 * 365 + 4) * 86400000;
 var submission = '';  // Data to submit to server.
 var numAdultStudents = 0;
 var familyId = 0;
-var regData = null;
 var chargeAmount = 0;
 var checkoutHandler;
 var ecClasses = null;
@@ -667,7 +666,7 @@ function onServerReturn(data) {
 
     familyId = res.family_number;
     if (!familyId) throw new Error();
-    regData = res.payload;
+    var regData = res.payload;
     $('#snum_stu').text(numStudents.toString());
     var svcDeposit = (numStudents - numAdultStudents) > 0 ? 200 : 0;
     $('#ssvc_deposit').text(svcDeposit.toString());
@@ -710,22 +709,6 @@ function genFinalData() {
   });
 }
 
-function reportPayment(chargeData) {
-  var sameDone = function() {
-     $('#charging').dialog('close');
-     showPage(8);
-     $('#paySuccess').show();
-     $('#payFailed').hide();
-  };
-
-  $.ajax({
-    type: 'POST',
-    url: CONFIRM_URL,
-    data: chargeData,
-    dataType: 'text'
-  }).done(sameDone).fail(sameDone);
-}
-
 function runPayment(e) {
   if (!checkoutHandler) {
     checkoutHandler = StripeCheckout.configure({
@@ -740,13 +723,14 @@ function runPayment(e) {
         $('#charging').dialog('open');
         $.ajax({
           type: 'POST',
-          url: 'https://www.westsidechineseschool.com/reg/charge.php',
+          url: CHARGE_URL,
           data: {
             'stripeToken': token.id,
             'stripeTokenType': 'card',
             'stripeEmail': token.email,
             'familyId': familyId,
-            'dollarAmount': chargeAmount
+            'dollarAmount': chargeAmount,
+            'regData': submission
           },
           dataType: 'text'
         }).done(function(data) {
@@ -758,7 +742,10 @@ function runPayment(e) {
             $('#paySuccess').hide();
             $('#payFailed').show();
           } else {
-            reportPayment(data);
+            $('#charging').dialog('close');
+            showPage(8);
+            $('#paySuccess').show();
+            $('#payFailed').hide();
           }
         }).fail(function(e) {
           console.log(e);
