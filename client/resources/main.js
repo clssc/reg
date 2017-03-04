@@ -713,7 +713,7 @@ function runPayment(e) {
   if (!checkoutHandler) {
     checkoutHandler = StripeCheckout.configure({
       key: CHARGE_KEY,
-      image: 'logo.png',
+      // image: 'logo.png',
       zipCode: true,
       token: function(token) {
         // Use the token to create the charge with a server-side script.
