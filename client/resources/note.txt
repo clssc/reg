@@ -41,9 +41,8 @@ following registration notes:<br />
   rules (including subsequent updates) for these activities which are published
   on the school website shall govern.</li>
   <li>Registration fee is $100 and non-refundable. Bounced check fee is
-  $30/each. Detailed rules regarding <a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">
-tuition fees</a> and <a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">refund policy</a> can be found on
-the school web site.</li>
+  $30/each. Detailed rules regarding <a href="http://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html" target="_blank">
+  tuition fees and refund policy</a> can be found on the school web site.</li>
 </ol>
 @@endblock
 
@@ -63,8 +62,8 @@ the school web site.</li>
   <li>課外活動時間為11:45A.M.-12:45P.M.。課外活動的費用不包括在學費之內,
   有關課外活動相關規定以學校網站公佈及嗣後更新之規定為準。</li>
   <li>註冊費 $100 (恕不退費), 支票跳票處理費每張 $30,
-<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">學費與註冊規定</a>及
-<a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">退費規定</a>均以學校網站公佈及嗣後更新之規定為準。</li>
+<a href="http://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html" target="_blank">學費、註冊與退費規定</a>
+均以學校網站公佈及嗣後更新之規定為準。</li>
 </ol>
 @@endblock
 
@@ -84,8 +83,8 @@ the school web site.</li>
   <li>课外活动时间为11:45A.M.-12:45P.M.。课外活动的费用不包括在学费之内,
   有关课外活动相关规定以学校网站公布及嗣後更新之规定为准。</li>
   <li>注册费 $100 (恕不退费), 支票跳票处理费每张 $30。
-<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">学费与注册规范</a>及
-<a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">退费规范</a>均以学校网站公佈及嗣後更新之规范为準。</li>
+<a href="http://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html" target="_blank">学费、注册与退费规范</a>
+均以学校网站公佈及嗣後更新之规范为準。</li>
 </ol>
 @@endblock
 @@end{desc}

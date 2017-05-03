@@ -11,8 +11,8 @@ var SCHOOL_START = 1505113200000;
 var CUTOFF_TIME = 1501570800000;
 
 // Charge key to use: publishable key from Stripe.com.
-var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
-//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
+//var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var STATE = [
   'AL', 'AK',  'AR', 'AS', 'AZ',
