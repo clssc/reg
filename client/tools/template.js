@@ -20,8 +20,6 @@ var States = {
   ENDREPEAT: 3,
   SKIP: 4,
   INCLUDE: 5,
-  CSS: 6,
-  JS: 7,
   ENDED: 8
 };
 
@@ -54,12 +52,6 @@ function getState(state, rawLine) {
   } else if (line.indexOf('<!-- @@skip') != -1) {
     result.state = States.SKIP;
     result.label = util.extractLabel(line);
-  } else if (line == '<!-- @@css -->') {
-    result.state = States.CSS;
-    result.line = null;
-  } else if (line == '<!-- @@js -->') {
-    result.state = States.JS;
-    result.line = null;
   } else if (state >= States.STARTED &&
       state < States.ENDED && state != States.REPEAT) {
     result.state = States.STARTED;
@@ -144,11 +136,9 @@ function replaceMessage(lang, output, message) {
 /**
  * @param {string} file Input file path
  * @param {string} lang
- * @param {!Array.<string>=} opt_css CSS contents to include
- * @param {!Array.<string>=} opt_js JS contents to include
  * @return {string} Parsed HTML
  */
-function parseHtmlForOneLang(file, lang, opt_css, opt_js) {
+function parseHtmlForOneLang(file, lang) {
   var lines = fs.readFileSync(file, {encoding: 'utf8'}).split('\n');
   var started = false;
   var output = [];
@@ -191,21 +181,6 @@ function parseHtmlForOneLang(file, lang, opt_css, opt_js) {
         output = output.concat(parseHtmlForOneLang(newFile, lang));
         result.state = myState;  // Restore state from recursion
         break;
-
-      case States.CSS:
-        if (opt_css == undefined) {
-          throw new Error('@css specified in ' + file + ' but not provided');
-        }
-        output = output.concat(opt_css);
-        break;
-
-      case States.JS:
-        if (opt_js == undefined) {
-          throw new Error('@js specified in ' + file + ' but not provided');
-        }
-        output.push('var lang = \'' + lang + '\';');
-        output = output.concat(opt_js);
-        break;
     }
     state = result.state;
   }
@@ -229,15 +204,13 @@ function parseHtmlForOneLang(file, lang, opt_css, opt_js) {
 
 /**
  * @param {string} file Input file path
- * @param {!Array.<string>=} opt_css CSS contents to include
- * @param {!Array.<string>=} opt_js JS contents to include
  * @return {!Array.<string>} Parsed HTML
  */
-function parseHtml(file, opt_css, opt_js) {
+function parseHtml(file) {
   var html = [];
   for (var j = 0; j < LANG.length; ++j) {
     var lang = LANG[j];
-    html.push(parseHtmlForOneLang(file, lang, opt_css, opt_js));
+    html.push(parseHtmlForOneLang(file, lang));
   }
   return html;
 }

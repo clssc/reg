@@ -32,7 +32,8 @@ function minifyAndCp(source, target) {
       collapseWhitespace: true
     });
   } else if (ext == '.js') {
-    minified = uglify(sourceFile).code;
+    var contents = fs.readFileSync(sourceFile, {encoding:'utf8'});
+    minified = uglify(contents).code;
   } else if (ext == '.css') {
     minified = new CleanCSS().minify(contents).styles;
   }
@@ -52,7 +53,7 @@ gulp.task('build', ['clean'], function(callback) {
     console.log(stdout);
     console.log(stderr);
     DIST_FILES.forEach(function(file) {
-      minifyAndCp('resources/' + file, 'build/' + file);
+      minifyAndCp(path.join('resources', file), path.join('build', file));
     });
     callback(err);
   });

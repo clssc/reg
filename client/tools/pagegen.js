@@ -24,8 +24,6 @@ var templateParser = require('./template.js');
 
 var knownOpts = {
   'templates': [String, null],
-  'css': [path, null],
-  'js': [path, null],
   'outputdir': [path, null],
   'nominify': Boolean,
   'help': [null]
@@ -36,8 +34,6 @@ function argsCheck() {
   if (args.hasOwnProperty('help')) {
     console.log('Usage: node pagegen.js');
     console.log('  --templates=<template> The templates to process, comma separated.');
-    console.log('  --css=<CSS> Optional, the CSS file to include');
-    console.log('  --js=<JS> Optional, the JS file to include');
     console.log('  --outputdir=<output path> Optional, default to build/');
     console.log('  --nominify Optional, will not minify HTML if specified');
     console.log('  --help Display usage');
@@ -54,16 +50,6 @@ function main() {
       '../resources/returning.html,' +
       '../resources/manual.html';
   var templates = templatePath.split(',');
-  var css;
-  if (args.css) {
-    var cssPath = path.resolve(args.css);
-    css = fs.readFileSync(cssPath, {encoding: 'utf8'}).split('\n');
-  }
-  var js;
-  if (args.js) {
-    var jsPath = path.resolve(args.js);
-    js = fs.readFileSync(jsPath, {encoding: 'utf8'}).split('\n');
-  }
 
   var outputDir = path.resolve(path.join(__dirname, '../build'));
   if (args.outputdir) {
@@ -77,7 +63,7 @@ function main() {
   templates.forEach(function(filePath) {
     var templatePath = path.resolve(path.join(__dirname, filePath));
     var parsedContents =
-        templateParser.parseHtml(templatePath, css, js);
+        templateParser.parseHtml(templatePath);
     var LANG = templateParser.LANG;
 
     var basename = path.basename(templatePath);
