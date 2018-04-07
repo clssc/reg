@@ -2,13 +2,21 @@ var EC_URL = 'https://script.google.com/macros/s/AKfycbxI3BucvHpvCJ1kpd7sWlpRyNa
 var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbw3qVYc9Lgz3g59tQHkaWr_6DGq_iCPyTQIGFlP-jmwklH4oocJ/exec';
 var CHARGE_URL = 'https://www.westsidechineseschool.com/reg/charge.php';
 
-// September 11, 2017, 00:00:00
+// Last date of online registration (school start date)
+// September 8, 2018, 00:00:00
 // Use JavaScript console to get the number:
-// new Date(2017, 8, 11, 0, 0, 0).getTime()
-var SCHOOL_START = 1505113200000;
-// August 01, 2017, 00:00:00
-// new Date(2017, 7, 1, 0, 0, 0).getTime()
-var CUTOFF_TIME = 1501570800000;
+// new Date(2018, 8, 8, 0, 0, 0).getTime()
+var SCHOOL_START = 1536390000000;
+// Early bird cut-off date
+// August 01, 2018, 00:00:00
+// new Date(2018, 7, 1, 0, 0, 0).getTime()
+var CUTOFF_TIME = 1533106800000;
+
+var EARLY_BIRD_TUITION = 800;
+var NORMAL_TUITION = 900;
+var EC_TUITION = 150;
+var SERVICE_DEPOSIT = 200;
+var NEW_FAMILY_REG_FEE = 100;
 
 // Charge key to use: publishable key from Stripe.com.
 //var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
@@ -668,10 +676,11 @@ function onServerReturn(data) {
     if (!familyId) throw new Error();
     var regData = res.payload;
     $('#snum_stu').text(numStudents.toString());
-    var svcDeposit = (numStudents - numAdultStudents) > 0 ? 200 : 0;
+    var svcDeposit = (numStudents - numAdultStudents) > 0 ? SERVICE_DEPOSIT : 0;
     $('#ssvc_deposit').text(svcDeposit.toString());
-    var total = 800 * numStudents + svcDeposit + 100;
-    var total2 = 700 * numStudents + svcDeposit + 100;
+    var total = NORMAL_TUITION * numStudents + svcDeposit + NEW_FAMILY_REG_FEE;
+    var total2 = EARLY_BIRD_TUITION * numStudents + svcDeposit +
+        NEW_FAMILY_REG_FEE;
     $('#stotal').text(total.toString());
     $('#stotal2').text(total2.toString());
 
@@ -679,7 +688,7 @@ function onServerReturn(data) {
     chargeAmount = now.getTime() >= CUTOFF_TIME ? total : total2;
     if (regData.ec) {
       var items = regData.ec.length || 0;
-      chargeAmount += items * 150; 
+      chargeAmount += items * EC_TUITION; 
     }
     showPage(6);
   } catch(e) {
