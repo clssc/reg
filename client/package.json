@@ -2,7 +2,10 @@
   "name": "clssc",
   "version": "2.0.0",
   "description": "Westside Chinese School Registration Site",
-  "keywords": [ "westside chinese school", "registration" ],
+  "keywords": [
+    "westside chinese school",
+    "registration"
+  ],
   "homepage": "https://github.com/clssc/reg",
   "bugs": {
     "url": "https://github.com/clssc/reg/issues"
