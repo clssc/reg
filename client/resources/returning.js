@@ -1,4 +1,4 @@
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbymtIAO696M1snMVL_p-sbKK_hOmMkMtPhTHehzOnbqRWe-GWua/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxlPfAa7VCF_Da91kqlc5I1A_df_10nXyWrD2IDA_WLGPbmWzNA/exec';
 // Charge key to use: publishable key from Stripe.com.
 var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
 //var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
