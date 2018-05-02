@@ -13,19 +13,19 @@
 @@start{desc}
 @@block{en}
 The registration is NOT completed until the payment for tuition is fulfilled.
-Please review our <a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">
+Please review our <a href="https://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html" target="_blank">
 tuition fees</a> and <a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">refund policy</a> before you pay.
 @@endblock
 
 @@block{tc}
 您必須完成繳費的手續才算完成註冊, 在您繳費之前,
-請詳閱我們的<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">學費與註冊規定</a>及
+請詳閱我們的<a href="https://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html" target="_blank">學費與註冊規定</a>及
 <a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">退費規定</a>。
 @@endblock
 
 @@block{sc}
 您必须完成缴费的手续才算完成注册,在您缴费之前,
-请详阅我们的<a href="http://westsidechineseschool.weebly.com/tuition-fees--enrollment-2341636027332873538720874.html" target="_blank">学费与注册规范</a>及
+请详阅我们的<a href="https://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html" target="_blank">学费与注册规范</a>及
 <a href="http://westsidechineseschool.weebly.com/refund-policy-36864274543677427861.html" target="_blank">退费规范</a>。
 @@endblock
 @@end{desc}
