@@ -6,7 +6,7 @@ var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
 var TOKEN = 'familyNumber';
 var MAX_ID = 1611;
 var MIN_ID = 293;
-var EC_TUITION = 150;
+var EC_TUITION = 175;
 var chargeAmount = 0;
 var checkoutHandler;
 var familyId = 0;
@@ -184,7 +184,7 @@ function ecConfirm() {
   disable('#ecConfirm');
   $('#ecConfirm').hide();
   chargeAmount += ecRegister.length * EC_TUITION;
-  $('#paymentAmount').text('USD$' + chargeAmount.toString());
+  $('#paymentAmount').text(chargeAmount.toString());
   legalConsent();
 }
 
