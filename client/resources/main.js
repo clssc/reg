@@ -681,15 +681,22 @@ function onServerReturn(data) {
     var total = NORMAL_TUITION * numStudents + svcDeposit + NEW_FAMILY_REG_FEE;
     var total2 = EARLY_BIRD_TUITION * numStudents + svcDeposit +
         NEW_FAMILY_REG_FEE;
-    $('#stotal').text(total.toString());
-    $('#stotal2').text(total2.toString());
-
+   
     var now = new Date();
     chargeAmount = now.getTime() >= CUTOFF_TIME ? total : total2;
     if (regData.ec) {
       var items = regData.ec.length || 0;
-      chargeAmount += items * EC_TUITION; 
+      var ec_total = items * EC_TUITION;
+      $('#ec_total').text(ec_total.toString());
+      chargeAmount += ec_total;
+      total += ec_total;
+      total2 += ec_total;
+    } else {
+      $('#ec_total').text('0');
     }
+
+    $('#stotal').text(total.toString());
+    $('#stotal2').text(total2.toString());
     showPage(6);
   } catch(e) {
     onServerFailure('failed to parse server results: ' + data);
