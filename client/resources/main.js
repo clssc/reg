@@ -1,4 +1,4 @@
-var EC_URL = 'https://script.google.com/macros/s/AKfycbxI3BucvHpvCJ1kpd7sWlpRyNap4opJjJGDBRyvHtqnTZecTL2J/exec';
+var EC_URL = 'https://script.google.com/macros/s/AKfycbx5JTYrWE3AbSxuN6BBMsoWIsFbbrzE5A9nJCqa0__RxcI_DNw/exec';
 var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbySNHPFgkN8nTyuLd7G4HKQN8oGf9vjJKIpj6RobXmRCqDDWMI/exec';
 var CHARGE_URL = 'https://www.westsidechineseschool.com/reg/charge.php';
 
@@ -19,8 +19,8 @@ var SERVICE_DEPOSIT = 200;
 var NEW_FAMILY_REG_FEE = 100;
 
 // Charge key to use: publishable key from Stripe.com.
-var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
-//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
+//var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var STATE = [
   'AL', 'AK',  'AR', 'AS', 'AZ',
