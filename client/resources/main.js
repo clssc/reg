@@ -1,22 +1,23 @@
-var EC_URL = 'https://script.google.com/macros/s/AKfycbx5JTYrWE3AbSxuN6BBMsoWIsFbbrzE5A9nJCqa0__RxcI_DNw/exec';
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbySNHPFgkN8nTyuLd7G4HKQN8oGf9vjJKIpj6RobXmRCqDDWMI/exec';
+var EC_URL = 'https://script.google.com/macros/s/AKfycbyO2-LGublXR1dUhfqW6s_tY8kxd51lkuMb0CW62eDMvjbEXiOU/exec';
+var GOOGLE_URL = 'https://script.google.com/a/westsidechineseschool.org/macros/s/AKfycbyXBVGb1aeUVyNVhggyzfz_nqqZ1U-TcldyJ1gxFg/exec';
 var CHARGE_URL = 'https://www.westsidechineseschool.com/reg/charge.php';
 
 // Last date of online registration (school start date)
-// September 8, 2018, 00:00:00
+// September 7, 2019, 00:00:00
 // Use JavaScript console to get the number:
-// new Date(2018, 8, 8, 0, 0, 0).getTime()
-var SCHOOL_START = 1536390000000;
+// new Date(2019, 8, 7, 0, 0, 0).getTime()
+var SCHOOL_START = 1567839600000;
 // Early bird cut-off date
-// August 01, 2018, 00:00:00
-// new Date(2018, 7, 1, 0, 0, 0).getTime()
-var CUTOFF_TIME = 1533106800000;
+// July 01, 2019, 00:00:00
+// new Date(2019, 6, 1, 0, 0, 0).getTime()
+var CUTOFF_TIME = 1561964400000;
 
 var EARLY_BIRD_TUITION = 800;
 var NORMAL_TUITION = 900;
 var EC_TUITION = 175;
 var SERVICE_DEPOSIT = 200;
 var NEW_FAMILY_REG_FEE = 100;
+var ecRegister = [];
 
 // Charge key to use: publishable key from Stripe.com.
 //var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
@@ -110,7 +111,8 @@ $(function() {
     url: EC_URL,
   }).done(function(data) {
     ecClasses = {};
-    data.forEach(function(cls) {
+    //console.log('ec: ' +  JSON.stringify(data));
+    JSON.parse(data).forEach(function(cls) {
       ecClasses[cls.code] = cls;
     });
   });
@@ -685,6 +687,8 @@ function onServerReturn(data) {
     var now = new Date();
     chargeAmount = now.getTime() >= CUTOFF_TIME ? total : total2;
     if (regData.ec) {
+      ecRegister = regData.ec;
+      //console.log('ec: ' +  JSON.stringify(ecRegister));
       var items = regData.ec.length || 0;
       var ec_total = items * EC_TUITION;
       $('#ec_total').text(ec_total.toString());
@@ -727,6 +731,7 @@ function genFinalData() {
 
 function runPayment(e) {
   if (!checkoutHandler) {
+    console.log('ec: ' +  ecRegister);
     checkoutHandler = StripeCheckout.configure({
       key: CHARGE_KEY,
       // image: 'logo.png',
@@ -734,7 +739,7 @@ function runPayment(e) {
       token: function(token) {
         // Use the token to create the charge with a server-side script.
         // You can access the token ID with `token.id`
-        console.log('returned token', token);
+        //console.log('returned token', token);
         $('#next6').hide();
         $('#charging').dialog('open');
         $.ajax({
@@ -746,7 +751,8 @@ function runPayment(e) {
             'stripeEmail': token.email,
             'familyId': familyId,
             'dollarAmount': chargeAmount,
-            'regData': submission
+            'regData': submission,
+            'ec': JSON.stringify(ecRegister)
           },
           dataType: 'text'
         }).done(function(data) {

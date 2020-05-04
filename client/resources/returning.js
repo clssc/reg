@@ -1,10 +1,10 @@
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxlPfAa7VCF_Da91kqlc5I1A_df_10nXyWrD2IDA_WLGPbmWzNA/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwY5O6qOclOpXLPWoV2QOOE5ZmqD2UBB3v-h8C8ZfRlaO8qeC2R/exec';
 // Charge key to use: publishable key from Stripe.com.
 //var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
 var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var TOKEN = 'familyNumber';
-var MAX_ID = 1611;
+var MAX_ID = 1658;
 var MIN_ID = 293;
 var EC_TUITION = 175;
 var chargeAmount = 0;
@@ -130,7 +130,7 @@ function queryAmount(familyNumber) {
 
 function onServerFailure(e) {
   $('#error').dialog('open');
-}
+} 
 
 function onServerReturn(data) {
   var pack = null;
@@ -138,6 +138,7 @@ function onServerReturn(data) {
   try {
     pack = JSON.parse(data);
     chargeAmount = pack.tuition;
+    console.log("chargeAmount: ", chargeAmount);
   } catch (e) {
     // Ignore parse error, force the chargeAmount to be zero.
     chargeAmount = 0;
@@ -215,7 +216,7 @@ function payTuition(e) {
       token: function(token) {
         // Use the token to create the charge with a server-side script.
         // You can access the token ID with `token.id`
-        console.log('returned token', token);
+        // console.log('returned token', token);
         $('#payButton').hide();
         $('#charging').dialog('open');
         $.ajax({

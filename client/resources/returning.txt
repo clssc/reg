@@ -12,7 +12,7 @@
 
 @@start{desc}
 @@block{en}
-<strong>Please read the complete registration rules on
+<strong>Please read the complete registration rules on the 
 <a href="https://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html" target="_blank">school's web site</a>
 before you register</strong>.<br/><br/>
 <strong>Only VISA and Master cards are accepted.</strong><br/><br/>
@@ -43,7 +43,7 @@ the registration form e-mailed to you:
 @@block{en}
 You can enroll your children into extra curriculum classes. The total tuition
 will be automatically calculated at the end. Detailed information for EC classes
-can be found on <a href="http://westsidechineseschool.weebly.com/extra-curricular-355062280627963212053550631243.html" target="_blank">school web site</a>.
+can be found on the <a href="http://westsidechineseschool.weebly.com/extra-curricular-355062280627963212053550631243.html" target="_blank">school web site</a>.
 @@endblock
 
 @@block{tc}

@@ -15,7 +15,7 @@
       'description' => $familyId . ' ' . $email
   ));
 
-  $url = 'https://script.google.com/macros/s/AKfycbxaPUPAuBcyWgu68MokJ4oz7cUlY2G04bQ3eWV5q_zsOJ6kQT4/exec';
+  $url = 'https://script.google.com/macros/s/AKfycbzJTlKsqs0FdfXqDZg1uF75TvDFWWKh64PB9f-Cd2gdaqWpVWV8/exec';
   $postdata = array('data' => json_encode(array(
     'id' => $charge['id'],
     'description' => $charge['description'],
@@ -44,5 +44,12 @@
   curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
   $result = curl_exec($ch);
 
-  echo '<span>OK</span><span>' . $familyId . '</span><span>' . strval($dollarAmount) . '</span><span>' . $result . '</span>'
+  echo '<span>OK</span><span>' . $familyId . '</span><span>' . strval($dollarAmount) . '</span>';
+ 
+  /*
+  echo '<span>' . $result . '</span>';
+  echo '<span>' . $regData . '</span>';
+  echo '<span>' . $ec . '</span>';
+  echo '<span>' . $postdata['data'] . '</span>';
+  */
 ?>
