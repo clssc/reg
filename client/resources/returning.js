@@ -1,12 +1,12 @@
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwY5O6qOclOpXLPWoV2QOOE5ZmqD2UBB3v-h8C8ZfRlaO8qeC2R/exec';
+var GOOGLE_URL = 'https://script.google.com/a/westsidechineseschool.org/macros/s/AKfycbzVRIr18_4XFd3r0Q83J9WXi2FwdSfY9mD0ZmM409Jd0gmCC3U/exec';
 // Charge key to use: publishable key from Stripe.com.
 //var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
 var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var TOKEN = 'familyNumber';
-var MAX_ID = 1658;
+var MAX_ID = 1719;
 var MIN_ID = 293;
-var EC_TUITION = 175;
+var EC_TUITION = 150;
 var chargeAmount = 0;
 var checkoutHandler;
 var familyId = 0;

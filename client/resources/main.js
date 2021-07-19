@@ -1,20 +1,21 @@
-var EC_URL = 'https://script.google.com/macros/s/AKfycbyO2-LGublXR1dUhfqW6s_tY8kxd51lkuMb0CW62eDMvjbEXiOU/exec';
-var GOOGLE_URL = 'https://script.google.com/a/westsidechineseschool.org/macros/s/AKfycbyXBVGb1aeUVyNVhggyzfz_nqqZ1U-TcldyJ1gxFg/exec';
+var EC_URL = 'https://script.google.com/a/westsidechineseschool.org/macros/s/AKfycbytHrwzUQQHXKYMc8CjkqDGLO044FAv1FOpPp7O1nDBghFR4ps/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwBig6fOvud6jLgDcuYb7ZX7S0ZUnK1P7ojT0f-Qoovc42tb0Y/exec';
 var CHARGE_URL = 'https://www.westsidechineseschool.com/reg/charge.php';
 
 // Last date of online registration (school start date)
-// September 7, 2019, 00:00:00
+// September 12, 2020, 00:00:00
 // Use JavaScript console to get the number:
-// new Date(2019, 8, 7, 0, 0, 0).getTime()
-var SCHOOL_START = 1567839600000;
+// new Date(2020, 8, 12, 0, 0, 0).getTime()
+var SCHOOL_START = 1599894000000;
 // Early bird cut-off date
-// July 01, 2019, 00:00:00
-// new Date(2019, 6, 1, 0, 0, 0).getTime()
-var CUTOFF_TIME = 1561964400000;
+// September 13, 2020, 00:00:00
+// new Date(2020, 8, 13, 0, 0, 0).getTime()
+var CUTOFF_TIME = 1599980400000;
 
+var ONLINE_DISCOUNT_2020 = 50;
 var EARLY_BIRD_TUITION = 800;
 var NORMAL_TUITION = 900;
-var EC_TUITION = 175;
+var EC_TUITION = 150;
 var SERVICE_DEPOSIT = 200;
 var NEW_FAMILY_REG_FEE = 100;
 var ecRegister = [];
@@ -680,11 +681,18 @@ function onServerReturn(data) {
     $('#snum_stu').text(numStudents.toString());
     var svcDeposit = (numStudents - numAdultStudents) > 0 ? SERVICE_DEPOSIT : 0;
     $('#ssvc_deposit').text(svcDeposit.toString());
-    var total = NORMAL_TUITION * numStudents + svcDeposit + NEW_FAMILY_REG_FEE;
-    var total2 = EARLY_BIRD_TUITION * numStudents + svcDeposit +
+
+
+    var now = new Date();
+
+    //For 2020 - 2021 online class adjustment
+    var year = now.getFullYear();
+    var discount = year == 2020 ? ONLINE_DISCOUNT_2020 : 0;
+  
+    var total = (NORMAL_TUITION - discount) * numStudents + svcDeposit + NEW_FAMILY_REG_FEE;
+    var total2 = (EARLY_BIRD_TUITION - discount)  * numStudents + svcDeposit +
         NEW_FAMILY_REG_FEE;
    
-    var now = new Date();
     chargeAmount = now.getTime() >= CUTOFF_TIME ? total : total2;
     if (regData.ec) {
       ecRegister = regData.ec;
@@ -703,6 +711,7 @@ function onServerReturn(data) {
     $('#stotal2').text(total2.toString());
     showPage(6);
   } catch(e) {
+    console.log("Error: " + e);
     onServerFailure('failed to parse server results: ' + data);
   }
 }

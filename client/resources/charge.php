@@ -15,7 +15,7 @@
       'description' => $familyId . ' ' . $email
   ));
 
-  $url = 'https://script.google.com/macros/s/AKfycbzJTlKsqs0FdfXqDZg1uF75TvDFWWKh64PB9f-Cd2gdaqWpVWV8/exec';
+  $url = 'https://script.google.com/a/westsidechineseschool.org/macros/s/AKfycbyTGd3Pj47dJrNFn04fnCy0qOH2kooxpjrPcQSCib91-Mf1byE/exec';
   $postdata = array('data' => json_encode(array(
     'id' => $charge['id'],
     'description' => $charge['description'],

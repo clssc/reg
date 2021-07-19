@@ -21,6 +21,7 @@
     "gulp": "*",
     "gulp-connect": "*",
     "html-minifier": "*",
+    "natives": "^1.1.6",
     "nopt": "*",
     "uglify-js": "*"
   }

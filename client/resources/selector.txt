@@ -7,7 +7,7 @@
 @@start{desc}
 @@block{en}
 Returning families (i.e. you or your children attended Westside
-Chinese School in 2018-2019 school year for the whole school year), please
+Chinese School in 2019-2020 school year for the whole school year), please
 click the link below:
 <a href="returning-en.html">Returning Families</a>
 <br />
@@ -17,11 +17,11 @@ Chinese School), please click the link below:
 <a href="main-en.html">New Families</a>
 <br />
 <br />
-For all other special cases, <a href="manual-en.html">please click here</a>.
+For all other special cases, <a href="https://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html">please click here</a>.
 @@endblock
 
 @@block{tc}
-舊生 (意即您或您的子女在2018-2019學年已於中文學校就讀全學年者) 請按下面的連結:
+舊生 (意即您或您的子女在2019-2020學年已於中文學校就讀全學年者) 請按下面的連結:
 <a href="returning-tc.html">舊生註冊</a>
 <br />
 <br />
@@ -29,11 +29,11 @@ For all other special cases, <a href="manual-en.html">please click here</a>.
 <a href="main-tc.html">新生註冊</a>
 <br />
 <br />
-其他的特殊情形, <a href="manual-tc.html">請按此連結</a>。
+其他的特殊情形, <a href="https://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html">請按此連結</a>。
 @@endblock
 
 @@block{sc}
-旧生 (意即您或您的子女在2018-2019学年已于中文学校就读全学年者) 请按下面的连结:
+旧生 (意即您或您的子女在2019-2020学年已于中文学校就读全学年者) 请按下面的连结:
 <a href="returning-sc.html">旧生注册</a>
 <br />
 <br />
@@ -41,6 +41,6 @@ For all other special cases, <a href="manual-en.html">please click here</a>.
 <a href="main-sc.html">新生注册</a>
 <br />
 <br />
-其他的特殊情形, <a href="manual-sc.html">请按此连结</a>。
+其他的特殊情形, <a href="https://westsidechineseschool.weebly.com/tuition-fees-enrollment--refund-2341636027-3538720874332873686436027.html">请按此连结</a>。
 @@endblock
 @@end{desc}
