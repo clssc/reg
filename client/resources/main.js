@@ -1,18 +1,18 @@
-var EC_URL = 'https://script.google.com/a/westsidechineseschool.org/macros/s/AKfycbytHrwzUQQHXKYMc8CjkqDGLO044FAv1FOpPp7O1nDBghFR4ps/exec';
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwBig6fOvud6jLgDcuYb7ZX7S0ZUnK1P7ojT0f-Qoovc42tb0Y/exec';
+var EC_URL = 'https://script.google.com/macros/s/AKfycbw4YVOWxuLQ59P-PmhGgq-HCmUkVG2OnZ78QnhgtL_DWgpDxKcJWAyjTXLgIZU5y11LYQ/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbw7gkHHggOT3UQCYUIhUDr-g0NhnsAgowx_I6IxLkpO9p2KSKNk8nT3cUdsj2-0i5oT/exec';
 var CHARGE_URL = 'https://www.westsidechineseschool.com/reg/charge.php';
 
 // Last date of online registration (school start date)
-// September 12, 2020, 00:00:00
+// September 11, 2021, 00:00:00
 // Use JavaScript console to get the number:
-// new Date(2020, 8, 12, 0, 0, 0).getTime()
-var SCHOOL_START = 1599894000000;
+// new Date(2021, 8, 11, 0, 0, 0).getTime()
+var SCHOOL_START = 1631343600000;
 // Early bird cut-off date
-// September 13, 2020, 00:00:00
-// new Date(2020, 8, 13, 0, 0, 0).getTime()
-var CUTOFF_TIME = 1599980400000;
+// September 1, 2021, 00:00:00
+// new Date(2021, 8, 1, 0, 0, 0).getTime()
+var CUTOFF_TIME = 1630479600000;
 
-var ONLINE_DISCOUNT_2020 = 50;
+var ONLINE_DISCOUNT_2020 = 0;
 var EARLY_BIRD_TUITION = 800;
 var NORMAL_TUITION = 900;
 var EC_TUITION = 150;
@@ -21,8 +21,8 @@ var NEW_FAMILY_REG_FEE = 100;
 var ecRegister = [];
 
 // Charge key to use: publishable key from Stripe.com.
-//var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
-var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
+var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var STATE = [
   'AL', 'AK',  'AR', 'AS', 'AZ',
