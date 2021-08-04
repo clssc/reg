@@ -1,7 +1,7 @@
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbw4NSWmzxlWmyjFET9nnUcYcsjrR4FjYA7_8dBLCSotwWz0OJ6Zwpsfop39ARlscmJV/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbziXQdJ40mN1ZCik3vTSHXq2K7zbLLcQemcx57EJTJZWa81N4eLjDDbf1V3UuYldayB/exec';
 // Charge key to use: publishable key from Stripe.com.
-var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
-//var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
+//var CHARGE_KEY = 'pk_test_k0R3N6jkDi5W4l6tU7ki0P4R';
+var CHARGE_KEY = 'pk_live_nGVIQje5vy4A0MiOFCv40GB9';
 
 var TOKEN = 'familyNumber';
 var MAX_ID = 1730;
@@ -139,6 +139,7 @@ function onServerReturn(data) {
     pack = JSON.parse(data);
     chargeAmount = pack.tuition;
     console.log("chargeAmount: ", chargeAmount);
+    //console.log("pack: ", pack.toString);
   } catch (e) {
     // Ignore parse error, force the chargeAmount to be zero.
     chargeAmount = 0;

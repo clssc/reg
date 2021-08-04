@@ -1,5 +1,5 @@
 var EC_URL = 'https://script.google.com/macros/s/AKfycbw4YVOWxuLQ59P-PmhGgq-HCmUkVG2OnZ78QnhgtL_DWgpDxKcJWAyjTXLgIZU5y11LYQ/exec';
-var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbw7gkHHggOT3UQCYUIhUDr-g0NhnsAgowx_I6IxLkpO9p2KSKNk8nT3cUdsj2-0i5oT/exec';
+var GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbymdkhmXyRJzPeiWriDHjZDguEGItW-o3S-Q5vpIQKoRSH6DJX0lR7zInsl68tsiiH4/exec';
 var CHARGE_URL = 'https://www.westsidechineseschool.com/reg/charge.php';
 
 // Last date of online registration (school start date)

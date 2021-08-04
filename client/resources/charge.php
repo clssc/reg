@@ -15,7 +15,8 @@
       'description' => $familyId . ' ' . $email
   ));
 
-  $url = 'https://script.google.com/a/westsidechineseschool.org/macros/s/AKfycbyTGd3Pj47dJrNFn04fnCy0qOH2kooxpjrPcQSCib91-Mf1byE/exec';
+  $url = 'https://script.google.com/macros/s/AKfycbzvwGn1U-Hac7jTQUHILIewavMZlEyn948zkDWc3kZZ50z0UyN8msd4plrrNo2yzSA40Q/exec';
+
   $postdata = array('data' => json_encode(array(
     'id' => $charge['id'],
     'description' => $charge['description'],
@@ -46,10 +47,10 @@
 
   echo '<span>OK</span><span>' . $familyId . '</span><span>' . strval($dollarAmount) . '</span>';
  
-  /*
+ /*
   echo '<span>' . $result . '</span>';
   echo '<span>' . $regData . '</span>';
   echo '<span>' . $ec . '</span>';
   echo '<span>' . $postdata['data'] . '</span>';
-  */
+ */ 
 ?>

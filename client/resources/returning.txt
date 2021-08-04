@@ -43,18 +43,18 @@ the registration form e-mailed to you:
 @@block{en}
 You can enroll your children into extra curriculum classes. The total tuition
 will be automatically calculated at the end. Detailed information for EC classes
-can be found on the <a href="http://westsidechineseschool.weebly.com/extra-curricular-355062280627963212053550631243.html" target="_blank">school web site</a>.
+can be found on the <a href="https://westsidechineseschool.weebly.com/extracurricular-355062280627963212053550631243.html" target="_blank">school web site</a>.
 @@endblock
 
 @@block{tc}
 您可為您的子女選修課外活動課程，其費用將會加計於學費之內。欲知課外活動課程的詳情，請參考
-<a href="http://westsidechineseschool.weebly.com/extra-curricular-355062280627963212053550631243.html" target="_blank">
+<a href="https://westsidechineseschool.weebly.com/extracurricular-355062280627963212053550631243.html" target="_blank">
 學校網站的相關說明</a>。
 @@endblock
 
 @@block{sc}
 您可为您的子女选修课外活动课程，其费用将会加计于学费之内。欲知课外活动课程的详情，请参考
-<a href="http://westsidechineseschool.weebly.com/extra-curricular-355062280627963212053550631243.html" target="_blank">
+<a href="https://westsidechineseschool.weebly.com/extracurricular-355062280627963212053550631243.html" target="_blank">
 学校网站的相关说明</a>。
 @@endblock
 @@end{ecdesc}
